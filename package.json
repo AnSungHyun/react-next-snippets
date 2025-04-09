@@ -49,6 +49,9 @@
     "@tanstack/eslint-plugin-query": "^5.66.3",
     "@types/js-cookie": "^3.0.6",
     "@types/nodemailer": "^6.4.17",
-    "@types/qs": "^6.9.18"
+    "@types/qs": "^6.9.18",
+    "@mui/material": "^6.4.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0"
   }
 }
