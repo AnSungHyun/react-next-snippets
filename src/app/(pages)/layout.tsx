@@ -3,7 +3,7 @@ import LayoutComponent from "@/app/_component/LayoutComponent";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div>
+    <div style={{ height:'100vh',  overflowY: 'hidden'  }}>
       <LayoutComponent>
         {children}
       </LayoutComponent>
