@@ -9,7 +9,10 @@ import {usePathname} from "next/navigation";
 const menuItems = [
   { path: '/snippets/1', label: 'React.FC 기본 컴포넌트' },
   { path: '/snippets/2', label: '일반 함수 기본 컴포넌트' },
-  { path: '/snippets/3', label: '기본 컴포넌트' },
+  { path: '/snippets/3', label: 'Server 컴포넌트에서 Client Import' },
+  { path: '/snippets/4', label: 'Client 컴포넌트에서 Server Import(불가)' },
+  { path: '/snippets/5', label: 'Client 컴포넌트에서 Server Import(가능)' },
+  { path: '/snippets/6', label: 'Client 컴포넌트에서 Server Action 사용' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

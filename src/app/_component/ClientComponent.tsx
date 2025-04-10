@@ -4,8 +4,10 @@ import React from "react";
 
 const ClientComponent: React.FC = () => {
   return (
-    <div>
-      Client Component
+    <div style={{ border: "1px solid red" }}>
+      <h1>
+      I'm Client Component
+      </h1>
     </div>
   );
 };

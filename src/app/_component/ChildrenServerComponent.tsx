@@ -8,6 +8,9 @@ interface ChildrenServerComponentProps {
 const ChildrenServerComponent: React.FC<ChildrenServerComponentProps> = ({ children }) => {
   return (
     <div>
+      <h1>
+        Children Prop Server Component
+      </h1>
       {children}
     </div>
   );
