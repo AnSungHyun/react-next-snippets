@@ -4,6 +4,7 @@ import React from 'react';
 import { Box, AppBar, Toolbar, Typography, List, ListItem, Button } from '@mui/material';
 import Link from 'next/link';
 import {usePathname} from "next/navigation";
+import RQProvider from "@/app/_provider/RQProvider";
 
 // 메뉴 항목 리스트를 컴포넌트 외부로 분리
 const menuItems = [
@@ -13,6 +14,7 @@ const menuItems = [
   { path: '/snippets/4', label: 'Client 컴포넌트에서 Server Import(불가)' },
   { path: '/snippets/5', label: 'Client 컴포넌트에서 Server Import(가능)' },
   { path: '/snippets/6', label: 'Client 컴포넌트에서 Server Action 사용' },
+  { path: '/snippets/7', label: 'Zustand 사용 예시' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -63,7 +65,9 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
             <Typography variant="h6">내용</Typography>
           </Toolbar>
         </AppBar>
-        <Box sx={{ marginTop: 2 }}>{children}</Box>
+        <RQProvider>
+          <Box sx={{ marginTop: 2 }}>{children}</Box>
+        </RQProvider>
       </Box>
     </Box>
   );
