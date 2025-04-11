@@ -30,7 +30,7 @@ const TestPage11: React.FC = () => {
           - Client 컴포넌트의 data fetch는 페이지가 렌더링된 이후 데이터를 요청 후 가져온다.
         </p>
         <ResultBlock>
-          {JSON.stringify(data)}
+          {JSON.stringify(data, null, 2)}
         </ResultBlock>
 
       </Container>

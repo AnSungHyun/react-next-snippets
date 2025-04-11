@@ -5,7 +5,7 @@ import ResultBlock from "@/app/_component/CodeResultBlock";
 
 const TestPage10: React.FC = async () => {
   const fetchData = await getServerProductsApi();
-  const data = JSON.stringify(fetchData);
+  const data = JSON.stringify(fetchData, null, 2);
   return (
     <div>
       <Container>
