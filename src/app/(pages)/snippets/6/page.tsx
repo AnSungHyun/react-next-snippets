@@ -4,6 +4,7 @@ import React, {useEffect} from "react";
 import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
 import {ServerActionComponent} from "@/app/_component/ServerAction";
+import ResultBlock from "@/app/_component/CodeResultBlock";
 interface Props {
   title? :string;
   contents?: string;
@@ -34,7 +35,7 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
             - 제일 하단의 실행 결과를 보면 BACKEND_API_URL 은 서버에서만 사용 가능한 환경 변수 값을 가져올 수 있었다.
           </p>
         </h2>
-        <CodeBlock language={"typescript"} value={
+        <CodeBlock filename={"page.tsx"} language={"typescript"} value={
           "\"use client\";\n" +
           "\n" +
           "import React, {useEffect} from \"react\";\n" +
@@ -78,12 +79,24 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
           "\n"+
           "export default TestPage6;"
         }/>
+        <CodeBlock filename={"ServerActionComponent.tsx"} language={"typescript"} value={
+          "\"use server\";\n" +
+          "\n" +
+          "export async function ServerActionComponent(selectedEnvVar: string): Promise<string> {\n" +
+          "  const envValue = process.env[selectedEnvVar];\n" +
+          "  if (!envValue) {\n" +
+          "    return `환경 변수 ${selectedEnvVar}가 설정되지 않았습니다.`;\n" +
+          "  }\n" +
+          "\n" +
+          "  return `선택된 환경 변수 값: ${envValue}`;\n" +
+          "}"
+        }/>
         {title}
         {props.contents}
         {children}
-        <h1>
-        BACKEND_API_URL : {url}
-        </h1>
+        <ResultBlock>
+          BACKEND_API_URL : {url}
+        </ResultBlock>
       </Container>
     </div>
   );

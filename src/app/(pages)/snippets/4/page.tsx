@@ -4,6 +4,7 @@ import React from "react";
 import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
 import ServerComponent from "@/app/_component/ServerComponent";
+import ResultBlock from "@/app/_component/CodeResultBlock";
 interface Props {
   title? :string;
   contents?: string;
@@ -81,8 +82,10 @@ const TestPage4: React.FC<Props> = ({title, children, ...props}) => {
         {title}
         {props.contents}
         {children}
+        <ResultBlock>
+          <ServerComponent/>
+        </ResultBlock>
       </Container>
-      <ServerComponent/>
     </div>
   );
 };

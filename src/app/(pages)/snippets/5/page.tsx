@@ -3,6 +3,7 @@ import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
 import ServerComponent from "@/app/_component/ServerComponent";
 import ClientChildrenComponent from "@/app/_component/ClientChildrenComponent";
+import ResultBlock from "@/app/_component/CodeResultBlock";
 interface Props {
   title? :string;
   contents?: string;
@@ -59,10 +60,12 @@ const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
         {title}
         {props.contents}
         {children}
+        <ResultBlock>
+          <ClientChildrenComponent>
+            <ServerComponent />
+          </ClientChildrenComponent>
+        </ResultBlock>
       </Container>
-      <ClientChildrenComponent>
-        <ServerComponent />
-      </ClientChildrenComponent>
     </div>
   );
 };
