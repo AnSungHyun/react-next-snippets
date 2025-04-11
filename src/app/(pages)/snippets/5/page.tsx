@@ -14,9 +14,6 @@ const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-        <h1>
-          Client 컴포넌트에서 Server Import (children 사용)
-        </h1>
         <h2>
           <p>
             - Client 컴포넌트에서 Server 컴포넌트를 Children 을 활용한다면 사용 가능하다
@@ -25,9 +22,14 @@ const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
             - 이렇게 하면 각각 Client 컴포넌트는 는 Client 렌더링, Server 컴포넌트는 Server 렌더링이 가능하다.
           </p>
           <p>
-            - 맨 아래 결과처럼 Client 컴포넌트 안에 Server 컴포넌트가 렌더링 된 것을 확인할 수 있다.
+            - 아래 결과처럼 Client 컴포넌트 안에 Server 컴포넌트가 렌더링 된 것을 확인할 수 있다.
           </p>
         </h2>
+        <ResultBlock>
+          <ClientChildrenComponent>
+            <ServerComponent />
+          </ClientChildrenComponent>
+        </ResultBlock>
         <CodeBlock language={"typescript"} value={
           "import React from \"react\";\n" +
           "import {Container} from \"@mui/material\";\n" +
@@ -60,11 +62,6 @@ const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
         {title}
         {props.contents}
         {children}
-        <ResultBlock>
-          <ClientChildrenComponent>
-            <ServerComponent />
-          </ClientChildrenComponent>
-        </ResultBlock>
       </Container>
     </div>
   );

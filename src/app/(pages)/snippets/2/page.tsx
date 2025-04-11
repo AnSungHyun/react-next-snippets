@@ -15,9 +15,6 @@ const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-      <h1>
-        일반 함수 컴포넌트 예시
-      </h1>
       <CodeBlock language={"typescript"} value={
         "interface MyComponentProps {\n" +
         "    title: string;\n" +

@@ -14,9 +14,6 @@ const TestPage3: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-        <h1>
-          Server 컴포넌트에서 Client Import
-        </h1>
         <h2>
           <p>
             - Server 컴포넌트는 Server에서 Client는 Browser에서 렌더링
@@ -25,6 +22,9 @@ const TestPage3: React.FC<Props> = ({title, children, ...props}) => {
             - 일반적인 패턴
           </p>
         </h2>
+        <ResultBlock>
+          <ClientComponent/>
+        </ResultBlock>
         <CodeBlock language={"typescript"} value={
           "\n" +
           "import React from \"react\";\n" +
@@ -55,9 +55,6 @@ const TestPage3: React.FC<Props> = ({title, children, ...props}) => {
         {title}
         {props.contents}
         {children}
-        <ResultBlock>
-          <ClientComponent/>
-        </ResultBlock>
       </Container>
     </div>
   );

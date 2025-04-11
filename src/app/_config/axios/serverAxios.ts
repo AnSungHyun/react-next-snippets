@@ -9,10 +9,10 @@ import qs from "qs";
 
 export const config = {
   base_url: {
-    local: "https://ncp-api.netshopping.co.kr",
-    dev: "https://ncp-api.netshopping.co.kr",
-    pro: "https://ncp-api.netshopping.co.kr",
-    test: "https://ncp-api.netshopping.co.kr",
+    local: "https://dummyjson.com",
+    dev: "https://dummyjson.com",
+    pro: "https://dummyjson.com",
+    test: "https://dummyjson.com",
   },
   result_code: "0000",
   request_timeout: 60000,

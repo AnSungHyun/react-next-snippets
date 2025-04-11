@@ -19,9 +19,9 @@ const TestPage7: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-      <h1>
-        Zustand 예시 코드
-      </h1>
+      <ResultBlock>
+        mode : {isNextPublicMode}
+      </ResultBlock>
       <CodeBlock filename={"page.tsx"} language={"typescript"} value={
         "\"use client\"\n" +
         "\n" +
@@ -71,9 +71,6 @@ const TestPage7: React.FC<Props> = ({title, children, ...props}) => {
         "\n" +
         "export default useCommonStore;"
       }/>
-      <ResultBlock>
-        mode : {isNextPublicMode}
-      </ResultBlock>
       </Container>
     </div>
   );

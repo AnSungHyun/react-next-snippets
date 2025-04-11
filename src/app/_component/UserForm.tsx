@@ -23,7 +23,7 @@ interface UserFormData {
 
 //const UserForm: React.FC<{ userData: UserFormProps }> = ({ userData }) => {
 const UserForm: React.FC<UserFormProps> = ({userData}) => {
-  const {register, getValues, setValue, getFieldState, setFocus, handleSubmit, formState: {errors}} = useForm({
+  const {register, getValues, setValue, watch, trigger, reset, getFieldState, setFocus, handleSubmit, formState: {errors}} = useForm({
     resolver: zodResolver(schema),
     mode: 'onSubmit'
   });
@@ -35,20 +35,37 @@ const UserForm: React.FC<UserFormProps> = ({userData}) => {
     console.log(getFieldState('name')); // 필드 상태 확인
   };
 
+  // 입력값 감시
+  const nameValue = watch('name');
+  const emailValue = watch('email');
+
   useEffect(() => {
-    setValue('name', userData?.name || ''); // 기본값 설정
-    setValue('email', userData?.email || '');// 기본값 설정
+    reset({
+      name: userData?.name || '',
+      email: userData?.email || '',
+    }); // 기본값 설정
   }, []);
 
+  const onReset = () => {
+    reset();
+  }
+
+  const handleTrigger = async () => {
+    const result = await trigger(); // 모든 필드 검증
+    if (result) {
+      console.log("검증 통과!");
+    } else {
+      console.log("검증 실패:", errors);
+    }
+  };
 
   return (
     <>
-      {userData?.name}{userData?.email}
-      {userData ? (
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           fullWidth
           // label="이름"
+          size={"small"}
           {...register('name')}
           error={!!errors.name}
           helperText={errors.name?.message}
@@ -57,6 +74,7 @@ const UserForm: React.FC<UserFormProps> = ({userData}) => {
         <TextField
           fullWidth
           // label="이메일"
+          size={"small"}
           {...register('email')}
           error={!!errors.email}
           helperText={errors.email?.message}
@@ -65,11 +83,13 @@ const UserForm: React.FC<UserFormProps> = ({userData}) => {
         <Button type="submit" variant="contained" color="primary">
           제출
         </Button>
+        <Button type="button"  variant="contained" color="primary" onClick={onReset}>
+          초기화
+        </Button>
+        <Button type="button"  variant="contained" color="primary" onClick={handleTrigger}>
+          유효성 검증
+        </Button>
       </form>
-      ):(
-      <div>Loading.....</div>
-      )
-      }
     </>
   );
 };

@@ -15,9 +15,6 @@ const TestPage4: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-        <h1>
-          Client 컴포넌트에서 Server Import
-        </h1>
         <h2>
           <p>
             - Client 컴포넌트에서 Server 컴포넌트를 Import 는 할 수는 있다.
@@ -32,6 +29,9 @@ const TestPage4: React.FC<Props> = ({title, children, ...props}) => {
             - 제일 하단에 API_URL 을 .env 파일에서 불러오지 못했다. Server 컴포넌트로 동작하지 못했다는 의미.
           </p>
         </h2>
+        <ResultBlock>
+          <ServerComponent/>
+        </ResultBlock>
         <CodeBlock language={"typescript"} value={
           "\"use client\"" +
           "\n" +
@@ -82,9 +82,6 @@ const TestPage4: React.FC<Props> = ({title, children, ...props}) => {
         {title}
         {props.contents}
         {children}
-        <ResultBlock>
-          <ServerComponent/>
-        </ResultBlock>
       </Container>
     </div>
   );

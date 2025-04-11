@@ -21,9 +21,6 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-        <h1>
-          Client 컴포넌트에서 Server Action 사용
-        </h1>
         <h2>
           <p>
             - Server 전용 로직이 필요한 경우 Server Action을 사용하면 Client 에서 동작을 구현할 수 있다.
@@ -32,9 +29,12 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
             - Server action 은 모두 async function 으로 정의되어야 한다.
           </p>
           <p>
-            - 제일 하단의 실행 결과를 보면 BACKEND_API_URL 은 서버에서만 사용 가능한 환경 변수 값을 가져올 수 있었다.
+            - 하단의 실행 결과를 보면 BACKEND_API_URL 은 서버에서만 사용 가능한 환경 변수 값을 가져올 수 있었다.
           </p>
         </h2>
+        <ResultBlock>
+          BACKEND_API_URL : {url}
+        </ResultBlock>
         <CodeBlock filename={"page.tsx"} language={"typescript"} value={
           "\"use client\";\n" +
           "\n" +
@@ -94,9 +94,7 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
         {title}
         {props.contents}
         {children}
-        <ResultBlock>
-          BACKEND_API_URL : {url}
-        </ResultBlock>
+
       </Container>
     </div>
   );

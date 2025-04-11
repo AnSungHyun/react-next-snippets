@@ -15,16 +15,18 @@ const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
   return (
     <div>
       <Container>
-      <h1>
-        React.FC 컴포넌트 예시
-      </h1>
       <CodeBlock language={"typescript"} value={
+        "\"use client\"\n" +
+        "\n" +
+        "import React, { useEffect } from \"react\";\n" +
+        "import {Container} from \"@mui/material\";\n" +
+        "import CodeBlock from \"@/app/_component/CodeBlock\";" +
+        "\n" +
         "interface Props {\n" +
         "  title? :string;\n" +
         "  contents?: string;\n" +
         "  children: React.ReactNode;\n" +
         "}\n"+
-
         "const TestPage1: React.FC<Props> = ({title, children, ...props}) => {\n" +
         "  useEffect(() => {\n" +
         "  }, []);\n" +
