@@ -21,6 +21,8 @@ const menuItems = [
   { path: '/snippets/9', label: 'zod + rhf 개별 검증' },
   { path: '/snippets/10', label: 'Server 컴포넌트 data fetch' },
   { path: '/snippets/11', label: 'Client 컴포넌트 data fetch' },
+  { path: '/snippets/12', label: 'Server 컴포넌트 Suspense' },
+  { path: '/snippets/13', label: 'Client 컴포넌트 Suspense' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

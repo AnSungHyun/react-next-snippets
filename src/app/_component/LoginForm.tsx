@@ -7,8 +7,9 @@ import React, { useEffect } from "react";
 
 // Zod 스키마 정의
 const schema = z.object({
-  username: z.string().min(1, '사용자 이름을 입력하세요.'),
-  password: z.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.'),
+  // username: z.string().min(1, '사용자 이름을 입력하세요.'),
+  username: z.string({required_error: '사용자 이름을 입력하세요.'}).nonempty('사용자 이름을 입력하세요.'),
+  password: z.string({required_error: '비밀번호를 입력하세요.'}).min(6, '비밀번호는 최소 6자 이상이어야 합니다.'),
 });
 
 // 필드 이름 타입 정의

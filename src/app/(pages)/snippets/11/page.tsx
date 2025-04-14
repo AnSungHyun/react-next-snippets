@@ -20,7 +20,7 @@ const TestPage11: React.FC = () => {
       }
     };
 
-    fetchData();
+    fetchData().then(r => {});
   }, []);
 
   return (
@@ -28,6 +28,9 @@ const TestPage11: React.FC = () => {
       <Container>
         <p>
           - Client 컴포넌트의 data fetch는 페이지가 렌더링된 이후 데이터를 요청 후 가져온다.
+        </p>
+        <p>
+          - Server 컴포넌트의 data fetch와 다르게 깜빡이며 데이터가 이후 렌더링 되는 모습이 보인다.
         </p>
         <ResultBlock>
           {JSON.stringify(data, null, 2)}
