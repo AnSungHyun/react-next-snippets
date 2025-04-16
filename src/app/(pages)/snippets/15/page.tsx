@@ -13,7 +13,7 @@ const TestPage15: React.FC = async () => {
     queryKey: ["products", "server"],
     queryFn: () => getServerProductsApi(),
     staleTime: 3000,
-    gcTime: 3000
+    gcTime: 500
   });
 
   return (

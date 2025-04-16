@@ -1,23 +1,29 @@
 'use client'
 
 import React from "react";
-import {ProductResponse} from "@/app/_api/ClientGetProduct";
+import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
 import {useQuery} from "@tanstack/react-query";
-import {getServerProductsApi} from "@/app/_api/ServerGetProduct";
+import Button from "@mui/material/Button";
 
 const UseQueryClientComponent: React.FC = () => {
-  // const {data: productResponse, isLoading} = queryClient.getQueryData<CateCrumb>(["category", "breadcrumb", categoryCode]);
 
-  const {data: productResponse} = useQuery<ProductResponse>({
+  const {data: productResponse, status, fetchStatus, } = useQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getServerProductsApi(),
+    queryFn: () => getClientProductsApi(),
     staleTime: 3000,
     gcTime: 3000,
   });
 
+  const handleButtonClick = () => {
+    console.log("status  : "+status);
+    console.log("fetchStatus  : "+fetchStatus);
+  };
+
   return (
     <div>
       <h2>I'm Prop Client Component</h2>
+      <Button variant="outlined" onClick={handleButtonClick}>useQuery 상태 확인</Button>
+      <br/>
       {JSON.stringify(productResponse, null, 2)}
     </div>
   );

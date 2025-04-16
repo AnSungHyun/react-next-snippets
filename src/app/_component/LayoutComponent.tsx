@@ -25,6 +25,7 @@ const menuItems = [
   { path: '/snippets/13', label: 'Client 컴포넌트 Suspense' },
   { path: '/snippets/14', label: 'Client 컴포넌트를 SSR 처럼 구현하기' },
   { path: '/snippets/15', label: '[TanStack] prefetchQuery, useQuery 사용하기' },
+  { path: '/snippets/16', label: '[TanStack] prefetchQuery, useQuery 사용하기' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
