@@ -23,6 +23,7 @@ const menuItems = [
   { path: '/snippets/11', label: 'Client 컴포넌트 data fetch' },
   { path: '/snippets/12', label: 'Server 컴포넌트 Suspense' },
   { path: '/snippets/13', label: 'Client 컴포넌트 Suspense' },
+  { path: '/snippets/14', label: 'Client 컴포넌트를 SSR 처럼 구현하기' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

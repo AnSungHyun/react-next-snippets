@@ -35,7 +35,6 @@ const TestPage11: React.FC = () => {
         <ResultBlock>
           {JSON.stringify(data, null, 2)}
         </ResultBlock>
-
       </Container>
     </div>
   );

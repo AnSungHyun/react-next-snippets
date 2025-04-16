@@ -41,12 +41,9 @@ const TestPage13: React.FC = () => {
           {/*<Suspense fallback={<Loading />}>*/}
           {/*  {JSON.stringify(data, null, 2)}*/}
           {/*</Suspense>*/}
-
           {data ? JSON.stringify(data, null, 2) : <Loading />}
-
           {/*<SuspenseClientComponent />*/}
         </ResultBlock>
-
       </Container>
     </div>
   );
