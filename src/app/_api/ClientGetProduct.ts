@@ -54,5 +54,5 @@ export interface ProductResponse {
 }
 
 export const getClientProductsApi = (): Promise<ProductResponse> => {
-  return clientAxios.get({url: '/test/products',})
+  return clientAxios.get({url: '/test/products?limit=2',})
 }

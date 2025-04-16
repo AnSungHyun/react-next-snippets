@@ -62,7 +62,7 @@ export const getServerProductsApi = (): Promise<ProductResponse> => {
   const options = {
 
   }
-  return serverAxios.get({url: '/products',})
+  return serverAxios.get({url: '/products?limit=2',})
   // return cwareServerAxios.get({
   //   url: '/api/products',
   //   // 필요한 추가 옵션이 있다면 여기에 포함
