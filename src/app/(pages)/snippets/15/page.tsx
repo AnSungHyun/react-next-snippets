@@ -35,10 +35,10 @@ const TestPage15: React.FC = async () => {
           ( 이해되지 않는 부분 )
         </p>
         <p>
-          - 최초 1회는 prefetch 된 데이터만 을 사용하고, 이후에는 클라이언트에서 요청한 데이터를 사용함. 왜 최초 렌더링과 이후 렌더링에 동작 차이가 보이는 걸까
+          - 최초 1회는 prefetch 된 데이터만 을 사용하고, Client에서 는 API 요청 자체를 하지 않음.
         </p>
         <p>
-          - 원인 1, "서버컴포넌트" 는 페이지를 이동해도 언마운트 되지 않아서 prefetch 가 다시 수행되지 않음.
+          - 데이터가 inactive 상태가 되면, prefetch에서도 요청하고 Client에서도 useQuery를 사용하여 API 요청을 하게됨.
         </p>
         <ResultBlock>
           <Suspense fallback={<Loading/>}>
