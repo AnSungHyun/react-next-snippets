@@ -3,7 +3,6 @@
 import React from "react";
 import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
 import {useQuery} from "@tanstack/react-query";
-import Button from "@mui/material/Button";
 
 const UseQueryClientComponent: React.FC = () => {
 
@@ -11,18 +10,13 @@ const UseQueryClientComponent: React.FC = () => {
     queryKey: ["products", "server"],
     queryFn: () => getClientProductsApi(),
     staleTime: 6000,
+    // gcTime: 1000,
     // gcTime: 6000,
   });
 
-  const handleButtonClick = () => {
-    console.log("status  : "+status);
-    console.log("fetchStatus  : "+fetchStatus);
-  };
-
   return (
     <div>
-      <h2>I'm Prop Client Component</h2>
-      <Button  variant="outlined" onClick={handleButtonClick} sx={{ textTransform: 'none' }}>useQuery 상태 확인</Button>
+      <h2>I'm UseQuery Client Component</h2>
       <br/>
       {JSON.stringify(productResponse, null, 2)}
     </div>

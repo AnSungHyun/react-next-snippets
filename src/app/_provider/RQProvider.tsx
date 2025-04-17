@@ -18,7 +18,7 @@ function RQProvider({children}: Props) {
           refetchOnReconnect: false, // 네트워크 재연결 시 다시 요청 여부
           retry: false, // 재시도 여부
           // staleTime: 10 * 1000,
-          // gcTime: 10000
+          // gcTime: 10000 // gcTime 은 데이터가 inactive 상태가 되면, 그이후 5분(default) 후 에 삭제됨
         },
       },
     })
