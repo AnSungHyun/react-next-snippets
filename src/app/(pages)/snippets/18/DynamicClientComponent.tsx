@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, {useEffect} from "react";
 import Button from "@mui/material/Button";
 import UseQueryClientComponent from "@/app/(pages)/snippets/18/UseQueryClientComponent";
 
@@ -11,6 +11,11 @@ const DynamicClientComponent: React.FC = () => {
   const handleButtonTwoClick = () => {
     setButtonTwo(!buttonTwo);
   }
+
+  // 동적 렌더링을 바로 렌더링 하고 싶은 경우 하단 코드 주석 해제
+  // useEffect(() => {
+  //   setButtonTwo(!buttonTwo);
+  // }, []);
 
   return (
     <div>
