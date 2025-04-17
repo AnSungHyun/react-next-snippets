@@ -35,9 +35,6 @@ const TestPage18: React.FC = async () => {
           <Suspense fallback={<Loading/>}>
             <HydrationBoundary state={dehydrate(queryClient)}>
               <DynamicClientComponent />
-              {/*<DynamicClientComponent>*/}
-              {/*  <div><PrefetchServerComponent /></div>*/}
-              {/*</DynamicClientComponent>*/}
             </HydrationBoundary>
           </Suspense>
         </ResultBlock>

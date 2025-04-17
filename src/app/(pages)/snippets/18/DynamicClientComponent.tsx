@@ -4,10 +4,6 @@ import React from "react";
 import Button from "@mui/material/Button";
 import UseQueryClientComponent from "@/app/(pages)/snippets/18/UseQueryClientComponent";
 
-interface Props {
-  children: React.ReactNode;
-}
-
 const DynamicClientComponent: React.FC = () => {
   const [buttonTwo, setButtonTwo] = React.useState(false);
 
