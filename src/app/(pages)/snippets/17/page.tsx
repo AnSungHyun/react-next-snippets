@@ -12,12 +12,12 @@ const TestPage17: React.FC = async () => {
   const queryClient = new QueryClient();
 
   // 이 영역을 주석 해제 하여 다시 확인
-  // await queryClient.prefetchQuery<ProductResponse>({
-  //   queryKey: ["products", "server"],
-  //   queryFn: () => getServerProductsApi(),
-  //   staleTime: 3000,
-  //   gcTime: 0
-  // });
+  await queryClient.prefetchQuery<ProductResponse>({
+    queryKey: ["products", "server"],
+    queryFn: () => getServerProductsApi(),
+    staleTime: 3000,
+    gcTime: 0
+  });
 
   return (
     <div>
