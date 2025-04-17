@@ -18,6 +18,7 @@ function RQProvider({children}: Props) {
           refetchOnReconnect: false, // 네트워크 재연결 시 다시 요청 여부
           retry: false, // 재시도 여부
           // staleTime: 10 * 1000,
+          // gcTime: 10000
         },
       },
     })
