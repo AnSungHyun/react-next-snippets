@@ -15,7 +15,8 @@ export function middleware(req) {
   // 세션이 필요한 경로
   const protectedPaths = ['/mypage', '/order'];
   // 세션이 없어야 하는 경로
-  const publicPaths = ['/login', '/signup'];
+  // const publicPaths = ['/login', '/signup'];
+  const publicPaths = [];
 
   // 세션이 필요한 경로에 접근할 경우
   if (protectedPaths.some(path => pathname.startsWith(path))) {
