@@ -12,6 +12,7 @@ const TestPage11: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await getClientProductsApi();
+        // const response = await getProductsApi();
         setData(response);
       } catch (e) {
         // setError("Failed to fetch products");

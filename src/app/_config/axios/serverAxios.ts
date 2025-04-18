@@ -121,7 +121,7 @@ service.interceptors.response.use(
 
     // 로그인 요청이 아닌 상황에 401 에러 발생 시
     // 토큰이 만료된 것으로 간주하고 로그인 페이지로 리다이렉트
-    if (error.response?.status === 401 && !error.request.url.includes("/login")) {
+    if (error.response?.status === 401 && !error.config?.url?.includes("/login")) {
       console.error('User info not found');
       redirect('/login', RedirectType.push);
     }
@@ -152,7 +152,7 @@ service.interceptors.response.use(
     //   }
     // }
 
-    console.error("cwareServerAxios : " + error);
+    console.error("serverAxios : " + error);
     return Promise.reject(error);
   },
 );

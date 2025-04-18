@@ -5,7 +5,6 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import qs from "qs";
-import {useRouter} from "next/navigation";
 
 export const config = {
   base_url: {
@@ -19,7 +18,7 @@ export const config = {
   default_headers: "application/json",
 } as const;
 
-// export type Config = typeof config;
+const isServer = typeof window === 'undefined'; // 서버인지 클라이언트인지 확인
 
 export const PATH_URL =
   config.base_url[process.env.NEXT_PUBLIC_MODE as keyof typeof config.base_url];
@@ -55,9 +54,14 @@ export default {
   },
 };
 
+
+const baseURL = isServer
+  ? config.base_url[process.env.NEXT_PUBLIC_MODE as keyof typeof config.base_url]
+  : ""; // 클라이언트에서는 baseURL을 빈 문자열로 설정
+
 // Axios Instance Create
 const service: AxiosInstance = axios.create({
-  baseURL: "",
+  baseURL,
   timeout: config.request_timeout,
 });
 
@@ -118,13 +122,13 @@ service.interceptors.response.use(
     // }
   },
   (error: AxiosError) => {
-    const router = useRouter();
-    if (error.response?.status === 401 && !error.config?.url?.includes("/login")) {
-      router.push("/login");
-      // setTimeout(() => {
-      //   window.location.href = '/login';
-      // }, 1000);
-    }
+    // const router = useRouter();
+    // if (error.response?.status === 401 && !error.config?.url?.includes("/login")) {
+    //   router.push("/login");
+    //   setTimeout(() => {
+    //     window.location.href = '/login';
+    //   }, 1000);
+    // }
 
     // token 만료, 재발행 후 재요청할 때 사용
     // const originalRequest = error.config;
@@ -148,7 +152,7 @@ service.interceptors.response.use(
     //   }
     // }
 
-    console.error("clientAxios : " + error);
+    console.error("commonAxios : " + error);
     return Promise.reject(error);
   },
 );

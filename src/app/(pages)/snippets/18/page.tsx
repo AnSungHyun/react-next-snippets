@@ -5,13 +5,14 @@ import Loading from "@/app/_component/Loading/Loading";
 import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from "@tanstack/react-query";
 import {getServerProductsApi, ProductResponse} from "@/app/_api/ServerGetProduct";
 import DynamicClientComponent from "@/app/(pages)/snippets/18/DynamicClientComponent";
+import {getProductsApi} from "@/app/_api/GetProduct";
 
 const TestPage18: React.FC = async () => {
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getServerProductsApi(),
+    queryFn: () => getProductsApi(),
     staleTime: 10000,
     gcTime: 0
   });
