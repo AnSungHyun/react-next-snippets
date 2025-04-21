@@ -28,7 +28,8 @@ const menuItems = [
   { path: '/snippets/16', label: '[TanStack] prefetchQuery 중복 호출 staleTime 확인' },
   { path: '/snippets/17', label: '[TanStack] HydrateBoundary 중첩 테스트' },
   { path: '/snippets/18', label: '[TanStack] prefetchQuery, useQuery 정상 동작 구현' },
-  { path: '/snippets/19', label: '[Error Boundary] 구현' },
+  { path: '/snippets/19', label: '[Error Boundary] Client Comp 에러 구현' },
+  { path: '/snippets/20', label: '[Error Boundary] Server Comp 에러 구현' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

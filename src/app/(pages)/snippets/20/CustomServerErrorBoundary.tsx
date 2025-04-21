@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
 import {ErrorBoundary, FallbackProps} from "react-error-boundary";
-import {usePathname, useRouter} from "next/navigation";
-import React, {ReactNode, useEffect} from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {useClientLogger} from "@/hooks/useClientLogger";
 
 interface CustomErrorBoundaryProps {
   children: React.ReactNode; // 자식 컴포넌트를 받기 위한 prop
@@ -16,7 +17,7 @@ function ErrorFallback({ error, resetErrorBoundary }:FallbackProps) {
     setTimeout(() => {
       router.push("/error");
     }, 2000);
-    
+    useClientLogger("error",error.message)
   }, []);
 
   return (
