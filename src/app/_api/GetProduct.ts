@@ -56,3 +56,7 @@ export interface ProductResponse {
 export const getProductsApi = (): Promise<ProductResponse> => {
   return commonAxios.get({url: '/products?limit=3&delay=1000',})
 }
+
+export const getErrorProductsApi = (): Promise<ProductResponse> => {
+  return commonAxios.get({url: '/error/products?limit=3&delay=1000',})
+}

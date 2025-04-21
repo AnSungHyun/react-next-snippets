@@ -1,4 +1,4 @@
-"use client"
+'use client'
 // Create Prop Client React Component with Nextjs
 import React from "react";
 

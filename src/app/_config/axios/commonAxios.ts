@@ -68,7 +68,7 @@ const service: AxiosInstance = axios.create({
 // Request Interceptor
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    console.info("clientAxios url : " + config.url);
+    console.info("commonAxios url : " + config.url);
     if (
       config.method === "post" &&
       config.headers?.["Content-Type"] === "application/x-www-form-urlencoded"

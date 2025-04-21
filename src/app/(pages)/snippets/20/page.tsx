@@ -21,7 +21,7 @@ const TestPage20: React.FC = async () => {
     <div>
       <Container>
         <p>
-          - Server 컴포넌트 Error Boundary 구현
+          - Server 컴포넌트 강제로 new Error() 발생 시 ErrorBoundary로 처리
         </p>
         <ResultBlock>
           <CustomServerErrorBoundary>

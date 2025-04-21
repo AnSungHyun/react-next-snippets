@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
 import Loading from "@/app/_component/Loading/Loading";
-import React, {useEffect} from "react";
+import React from "react";
 import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
 
 // 비동기적으로 데이터를 가져오는 컴포넌트

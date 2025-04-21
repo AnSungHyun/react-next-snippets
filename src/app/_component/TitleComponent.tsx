@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { Container } from "@mui/material";
 import useTitleStore from "@/app/_store/useTitleStore";

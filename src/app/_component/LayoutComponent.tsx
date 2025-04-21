@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import React, {useEffect, useRef} from 'react';
 import { Box, AppBar, Toolbar, Typography, List, ListItem, Button } from '@mui/material';
@@ -30,6 +30,9 @@ const menuItems = [
   { path: '/snippets/18', label: '[TanStack] prefetchQuery, useQuery 정상 동작 구현' },
   { path: '/snippets/19', label: '[Error Boundary] Client Comp 에러 구현' },
   { path: '/snippets/20', label: '[Error Boundary] Server Comp 에러 구현' },
+  { path: '/snippets/21', label: '[Error Boundary] Client Comp fetch 에러 구현' },
+  { path: '/snippets/22', label: '[Error Boundary] Server Comp fetch 에러 구현' },
+  { path: '/snippets/23', label: '[useAxios] axios 공통 모듈 구현' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
