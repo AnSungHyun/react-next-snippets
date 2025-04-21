@@ -17,6 +17,8 @@ const UseQueryClientComponent: React.FC = () => {
     throw error;
   }
 
+  throw new Error("Error occurred in UseQueryClientComponent");
+
   return (
     <div>
       <h2>I'm UseQuery Client Component</h2>

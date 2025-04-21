@@ -14,7 +14,7 @@ function ErrorFallback({ error, resetErrorBoundary }:FallbackProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push("/login");
+      router.push("/error");
     }, 2000);
     
   }, []);

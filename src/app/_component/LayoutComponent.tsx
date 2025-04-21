@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { Box, AppBar, Toolbar, Typography, List, ListItem, Button } from '@mui/material';
 import Link from 'next/link';
 import {usePathname} from "next/navigation";
@@ -34,6 +34,7 @@ const menuItems = [
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname(); // 현재 경로 가져오기
   const {menuTitle, setMenuTitle} = useTitleStore();
+  const menuRef = useRef<HTMLButtonElement | null>(null);
 
   // 선택된 메뉴 스타일링 함수
   const getItemStyles = (path: string) => ({
@@ -44,6 +45,12 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const handleClick = (path: string) => {
     setMenuTitle(path); // Zustand 스토어에 현재 경로 설정
   };
+  useEffect(() => {
+    if (menuRef.current) {
+      // 선택된 메뉴 항목으로 스크롤
+      menuRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if(menuTitle === "") {
@@ -71,7 +78,9 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
           {menuItems.map((item) => (
             <Link href={item.path} passHref key={item.path}>
               <ListItem component={Button} sx={{...getItemStyles(item.path), textTransform: 'none'}}
-                        onClick={() => handleClick(item.label)}>
+                        onClick={() => handleClick(item.label)}
+                        ref={pathname === item.path ? menuRef : null}
+              >
               {item.label}
               </ListItem>
             </Link>
