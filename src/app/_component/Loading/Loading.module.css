@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 전체 화면 높이 */
+    height: 100%; /* 전체 화면 높이 */
 }
 
 .loader {

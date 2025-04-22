@@ -53,10 +53,26 @@ export interface ProductResponse {
   limit: number;
 }
 
+// API 파라미터 타입 정의
+export interface ProductParams {
+  limit?: number;
+  delay?: number;
+  skip?: number;
+  search?: string;
+  category?: string;
+  sort?: 'asc' | 'desc';
+  // 필요한 다른 파라미터들 추가
+}
+
+
 export const getProductsApi = (): Promise<ProductResponse> => {
   return commonAxios.get({url: '/products?limit=3&delay=1000',})
 }
 
 export const getErrorProductsApi = (): Promise<ProductResponse> => {
   return commonAxios.get({url: '/error/products?limit=3&delay=1000',})
+}
+
+export const getProductsApiWithParam = (params?: ProductParams): Promise<ProductResponse> => {
+  return commonAxios.get({url: '/products', params: params});
 }
