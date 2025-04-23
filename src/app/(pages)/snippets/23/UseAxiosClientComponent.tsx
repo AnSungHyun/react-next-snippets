@@ -14,6 +14,7 @@ import { useAxios } from '@/hooks/useAxios';
 import Loading from '@/app/_component/Loading/Loading';
 import { Divider, Grid, Paper } from '@mui/material';
 import Button from '@mui/material/Button';
+import ProductList from '@/app/_component/ProductList';
 
 const productParamsSchema = z.object({
   limit: z
@@ -92,6 +93,7 @@ const UseAxiosClientComponent: React.FC = () => {
     },
   );
 
+  // 초기 값
   const [reqParam, setReqParam] = useState<ProductRequestParams>({
     limit: 3,
     delay: 1000,
@@ -236,6 +238,7 @@ const UseAxiosClientComponent: React.FC = () => {
         <>{JSON.stringify(productResponse, null, 2)}</>
       )}
       {error && <>{error.toString()}</>}
+      <ProductList products={productResponse?.products ?? []} />
     </div>
   );
 };

@@ -46,6 +46,10 @@ interface Meta {
   qrCode: string;
 }
 
+export interface ProductListProps {
+  products: Product[];
+}
+
 export interface ProductResponse {
   products: Product[];
   total: number;
