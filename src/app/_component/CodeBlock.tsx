@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from "react";
+import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialOceanic } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { CopyToClipboard } from 'react-copy-to-clipboard-ts';
 
 interface TProps {
   language: string;

@@ -36,7 +36,6 @@ const UseAxiosClientComponent: React.FC = () => {
     (params) => getProductsApiWithParam(params),
     {
       button: {
-        // 기본 텍스트
         text: '정상 요청 새로고침',
       },
     },
