@@ -35,6 +35,7 @@ const menuItems = [
   { path: '/snippets/23', label: '[useAxios] axios 공통 모듈 구현' },
   { path: '/snippets/24', label: '[useAxios] axios intersection observer' },
   { path: '/snippets/25', label: '[useAxios] useInfinityQuery intersection observer' },
+  { path: '/snippets/26', label: '[router] detect router' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
