@@ -16,9 +16,10 @@ import { Product, ProductListProps } from '../_api/GetProduct';
 // import { Product, ProductListProps } from '../types/product';
 import Image from 'next/image'
 
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+// const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+const ProductCard = React.memo(({ product }: { product: Product }) => {
+  console.log(`ProductCard rendering: ${product.id}`);
   const discountedPrice = product.price * (1 - product.discountPercentage / 100);
-
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box sx={{
@@ -27,13 +28,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         alignItems: 'center',
         p: 2
       }}>
-      <Image
-        src={product.thumbnail}
-        width={200}
-        height={200}
-        alt="Picture of the author"
-        style={{ objectFit: 'contain' }}
-      />
+        <Image
+          src={product.thumbnail}
+          width={200}
+          height={200}
+          alt="Picture of the author"
+          style={{ objectFit: 'contain' }}
+        />
       </Box>
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="h6" component="div">
@@ -82,13 +83,14 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       </CardContent>
     </Card>
   );
-};
+});
+// };
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
   return (
     <Grid container spacing={3}>
       {products.map((product) => (
-        <Grid key={product.id} >
+        <Grid key={product.id}  sx={{ width: '100%' }}>
           <ProductCard product={product} />
         </Grid>
       ))}

@@ -35,7 +35,7 @@ const UseAxiosClientComponent: React.FC = () => {
   // 페이징 관련 상태
   const [products, setProducts] = useState<Product[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(-1);
 
   // 스크롤 관련 상태
   const { ref, inView } = useInView({
@@ -69,21 +69,16 @@ const UseAxiosClientComponent: React.FC = () => {
 
 
   // 초기 데이터 로드
-  useEffect(() => {
-    execute(reqParam);
-  }, []);
+  // useEffect(() => {
+  //   execute(reqParam);
+  // }, []);
 
   // 스크롤 감지 시 추가 데이터 로드
   useEffect(() => {
     if (inView && hasMore && !loading) {
       const nextPage = page + 1;
       const newSkip = nextPage * reqParam.limit;
-
       setPage(nextPage);
-      setReqParam((prev) => ({
-        ...prev,
-        skip: newSkip,
-      }));
 
       execute({
         ...reqParam,
@@ -92,29 +87,12 @@ const UseAxiosClientComponent: React.FC = () => {
     }
   }, [inView]);
 
-  const handleLoadMore = () => {
-    if (hasMore && !loading) {
-      const nextPage = page + 1;
-      const newSkip = nextPage * reqParam.limit;
-
-      setPage(nextPage);
-      execute({
-        ...reqParam,
-        skip: newSkip,
-      });
-    }
-  };
 
   return (
     <div>
       <Divider />
-      {/*<ProductList products={productResponse?.products ?? []} />*/}
-      <InfiniteProductList
-        initialProducts={products}
-        onLoadMore={handleLoadMore}
-        loading={loading}
-      />
-
+      {products.length} 개 상품 조회
+      <ProductList products={products} />
 
       <div ref={ref} style={{ height: '20px', margin: '20px 0' }}>
         {loading && <Loading />}
@@ -130,32 +108,5 @@ const UseAxiosClientComponent: React.FC = () => {
     </div>
   );
 };
-
-const InfiniteProductList: React.FC<{
-  initialProducts: Product[];
-  onLoadMore: () => void;
-  loading: boolean;
-}> = ({ initialProducts, onLoadMore, loading }) => {
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    if (inView && !loading) {
-      onLoadMore();
-    }
-  }, [inView]);
-
-  return (
-    <>
-      {initialProducts.length} 개 상품 조회
-      <ProductList products={initialProducts} />
-      <div ref={ref} style={{ height: '20px', margin: '20px 0' }}>
-        {loading && <Loading />}
-      </div>
-    </>
-  );
-};
-
 
 export default UseAxiosClientComponent;
