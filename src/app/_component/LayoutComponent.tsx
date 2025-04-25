@@ -34,6 +34,7 @@ const menuItems = [
   { path: '/snippets/22', label: '[Error Boundary] Server Comp fetch 에러 구현' },
   { path: '/snippets/23', label: '[useAxios] axios 공통 모듈 구현' },
   { path: '/snippets/24', label: '[useAxios] axios intersection observer' },
+  { path: '/snippets/25', label: '[useAxios] useInfinityQuery intersection observer' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -67,21 +68,26 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      {/* 좌측 메뉴 */}
+    <Box sx={{ display: 'flex' }} >
+       {/*좌측 메뉴*/}
       <Box
         sx={{
           width: '20%',
           borderRight: '1px solid lightgray',
           height: '100vh',
           padding: 2,
-          overflowY: 'auto',
+          position: 'fixed', // 메뉴를 fixed로 설정
         }}
       >
         <Typography variant="h6">리스트</Typography>
+        <Box sx={{
+          height: 'calc(100vh - 80px)', // 제목 영역을 제외한 높이
+          overflowY: 'auto' // 메뉴 내용이 길 경우 스크롤
+        }}>
+
         <List>
           {menuItems.map((item) => (
-            <Link href={item.path} passHref key={item.path}>
+            <Link href={item.path} passHref key={item.path} >
               <ListItem component={Button} sx={{...getItemStyles(item.path), textTransform: 'none'}}
                         onClick={() => handleClick(item.label)}
                         ref={pathname === item.path ? menuRef : null}
@@ -92,14 +98,14 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
           ))}
         </List>
       </Box>
+      </Box>
 
       {/* 우측 콘텐츠 */}
       <Box
         sx={{
           width: '80%',
           padding: 2,
-          height: '100vh',
-          overflowY: 'auto',
+          marginLeft: '20%',
         }}
       >
         <AppBar position="static">

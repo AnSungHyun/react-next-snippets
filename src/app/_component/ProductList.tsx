@@ -10,14 +10,18 @@ import {
   CardMedia,
   Chip,
   Box,
-  Rating,
+  Rating, Button,
 } from '@mui/material';
 import { Product, ProductListProps } from '../_api/GetProduct';
 // import { Product, ProductListProps } from '../types/product';
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 const ProductCard = React.memo(({ product }: { product: Product }) => {
+  const router = useRouter();
+
   console.log(`ProductCard rendering: ${product.id}`);
   const discountedPrice = product.price * (1 - product.discountPercentage / 100);
   return (
@@ -81,6 +85,12 @@ const ProductCard = React.memo(({ product }: { product: Product }) => {
           ))}
         </Box>
       </CardContent>
+      <Button
+        variant="contained"
+        onClick={() => router.push('/snippets/1')}
+        sx={{ mb: 2 }}  // 마진 bottom 추가
+      >페이지 이동(history back test)</Button>
+      {/*<Link href={'/snippets/1'} >링크</Link>*/}
     </Card>
   );
 });
