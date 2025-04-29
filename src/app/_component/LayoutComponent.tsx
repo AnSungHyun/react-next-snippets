@@ -36,7 +36,7 @@ const menuItems = [
   { path: '/snippets/24', label: '[useAxios] axios intersection observer' },
   { path: '/snippets/25', label: '[TanStack] useInfinityQuery intersection observer' },
   { path: '/snippets/26', label: '[router] navigation guard' },
-  { path: '/snippets/27', label: '[TanStack] onMutation' },
+  { path: '/snippets/27', label: '[TanStack] useMutation' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

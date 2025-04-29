@@ -9,18 +9,18 @@ export interface Product {
   discountPercentage: number;
   rating: number;
   stock: number;
-  tags: string[];
+  tags?: string[];
   brand: string;
-  sku: string;
-  weight: number;
-  dimensions: Dimensions;
-  warrantyInformation: string;
-  shippingInformation: string;
-  availabilityStatus: string;
-  reviews: Review[];
-  returnPolicy: string;
-  minimumOrderQuantity: number;
-  meta: Meta;
+  sku?: string;
+  weight?: number;
+  dimensions?: Dimensions;
+  warrantyInformation?: string;
+  shippingInformation?: string;
+  availabilityStatus?: string;
+  reviews?: Review[];
+  returnPolicy?: string;
+  minimumOrderQuantity?: number;
+  meta?: Meta;
   thumbnail: string;
   images: string[];
 }
@@ -68,15 +68,34 @@ export interface ProductParams {
   // 필요한 다른 파라미터들 추가
 }
 
+export interface ProductAddRequest {
+  title: string;    // 필수
+  description: string;    // 필수
+  price: number;    // 필수
+  category?: string;   // 선택
+  brand?: string;    // 선택
+  stock?: number;    // 선택
+  thumbnail?: string;  // 선택
+  images?: string[];   // 선택
+}
 
+
+// 상품 조회
 export const getProductsApi = (): Promise<ProductResponse> => {
   return commonAxios.get({url: '/products?limit=3&delay=1000',})
 }
 
+// 상품 조회
 export const getErrorProductsApi = (): Promise<ProductResponse> => {
   return commonAxios.get({url: '/error/products?limit=3&delay=1000',})
 }
 
+// 상품 조회 with param
 export const getProductsApiWithParam = (params?: ProductParams): Promise<ProductResponse> => {
-  return commonAxios.get({url: '/products', params: params});
+  return commonAxios.get({ url: '/products', params: params });
+}
+
+// 상품 추가
+export const postProductsApi = (data: ProductAddRequest): Promise<ProductResponse> => {
+  return commonAxios.post({url: '/products/add', data: data});
 }

@@ -75,7 +75,7 @@ const ProductCard = React.memo(({ product }: { product: Product }) => {
         </Box>
 
         <Box sx={{ mt: 2 }}>
-          {product.tags.map((tag) => (
+          {product.tags?.map((tag) => (
             <Chip
               key={tag}
               label={tag}

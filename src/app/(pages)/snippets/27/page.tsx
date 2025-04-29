@@ -3,6 +3,8 @@
 import React, { useEffect } from "react";
 import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
+import ResultBlock from '@/app/_component/CodeResultBlock';
+import UseInfinityQueryClientComponent from './UseInfinityQueryClientComponent';
 interface Props {
   title? :string;
   contents?: string;
@@ -14,13 +16,16 @@ const TestPage1: React.FC = ({}) => {
   return (
     <div>
       <Container>
-        <h1>
-          기본 Component Snippets
-        </h1>
         <p>
-          - asdf
+          - TanStack Query로 조회한 결과에 useMutation으로 데이터 추가하기
         </p>
+        <ResultBlock>
+          <UseInfinityQueryClientComponent />
+
+        </ResultBlock>
       </Container>
     </div>
   );
 };
+
+export default TestPage1;
