@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialOceanic } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { CopyToClipboard } from 'react-copy-to-clipboard-ts';
+import clsx from 'clsx';
 
 interface TProps {
   language: string;
@@ -35,7 +36,7 @@ const CodeBlock: React.FC<TProps> = ({ language, value, filename }) => {
         <button style={{
           position: "absolute",
           right: "10px",
-          top: "45px",
+          top: clsx(filename ? "45px" : "10px"), // filename 값에 따라 top 값 변경
           zIndex: 1, // 버튼을 위로 올리기
           backgroundColor: "white", // 배경색 설정
           border: "1px solid #ccc", // 테두리 설정

@@ -11,7 +11,7 @@ import {
   DialogTitle, Divider,
 } from '@mui/material';
 import ResultBlock from "@/app/_component/CodeResultBlock";
-import { NavigationGuard, NavigationGuardProvider, useNavigationGuard } from 'next-navigation-guard';
+import { useNavigationGuard } from 'next-navigation-guard';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -36,7 +36,6 @@ const TestPage26: React.FC = () => {
         setPendingNavigation(() => () => resolve(true));
       });
     }
-
   });
 
   const handleCancel = () => {
@@ -58,8 +57,6 @@ const TestPage26: React.FC = () => {
   }
 
   const handleNavigation = ({ type }: HandleNavigationProps): void => {
-
-    // const executeNavigation = () => {
       switch (type) {
         case 'back':
           router.back();
@@ -73,13 +70,12 @@ const TestPage26: React.FC = () => {
         default:
           break;
       }
-    // };
   }
 
     return (
       <div>
         <Container>
-          <h1>라우터 가드 테스트</h1>
+          <h1>네비게이션 가드 테스트</h1>
           <button onClick={handleClick}> onClick 링크</button>
           <Divider />
           <Link href="/snippets/1"> 링크Link(적용 안됨)</Link>
