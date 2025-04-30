@@ -20,9 +20,6 @@ export const config = {
 
 const isServer = typeof window === 'undefined'; // 서버인지 클라이언트인지 확인
 
-export const PATH_URL =
-  config.base_url[process.env.NEXT_PUBLIC_MODE as keyof typeof config.base_url];
-
 const request = (option: any) => {
   const {url, method, params, data, headersType, responseType, adapter, fetchOptions} = option;
   return service({
@@ -69,12 +66,14 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     console.info("commonAxios url : " + config.url);
-    if (
-      config.method === "post" &&
-      config.headers?.["Content-Type"] === "application/x-www-form-urlencoded"
-    ) {
-      config.data = qs.stringify(config.data);
-    }
+
+    // legacy API 요청 시 필요 할 수 있음.
+    // if (
+    //   config.method === "post" &&
+    //   config.headers?.["Content-Type"] === "application/x-www-form-urlencoded"
+    // ) {
+    //   config.data = qs.stringify(config.data);
+    // }
 
     // API 요청 시 token 전송
     // const token = getToken();
@@ -86,6 +85,10 @@ service.interceptors.request.use(
     // }
 
     // GET 요청 파라미터 인코딩
+    // 기본적으로 Axios의 Query String은 잘 동작함.
+    // 배열이나 중첩 Object 가 Query String 으로 들어오게되면 아래처럼 잘못 반환되는 문제가 있음
+    // test=['aa','bb','cc'] => test[]=aa&test[]=bb&test[]=cc
+    // 아래 코드를 통해 test=aa,bb,cc 형태로 Query String 이 정상적으로 생성되도록 구현
     if (config.method === "get" && config.params) {
       let url = config.url as string;
       url += "?";
