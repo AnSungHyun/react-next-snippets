@@ -7,13 +7,13 @@ import {
   ProductResponse,
   Product,
   postProductsApi,
-  ProductAddRequest,
+  ProductAddRequest, ProductAddResponse,
 } from '@/app/_api/GetProduct';
 import Loading from '@/app/_component/Loading/Loading';
 import { Button, Divider, TextField } from '@mui/material';
 import ProductList from '@/app/_component/ProductList';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 interface ProductRequestParams {
@@ -30,10 +30,13 @@ const UseQueryClientComponent: React.FC = () => {
   const [newProduct, setNewProduct] = useState<ProductAddRequest>({
     "title": "새로운 상품",
     "description": "상품 설명입니다",
-    "price": 50000,
+    "price": 59.99,
+    "discountPercentage": 10.28,
+    "rating": 3.78,
     "category": "electronics",
     "brand": "테스트 브랜드",
     "stock": 100,
+    "availabilityStatus": "In Stock",
     "thumbnail": "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
     "images": [
       "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
@@ -62,23 +65,33 @@ const UseQueryClientComponent: React.FC = () => {
   const addProductMutation = useMutation({
     mutationFn: async (product: ProductAddRequest) => {
       // API 호출 구현 필요
-      const response = await postProductsApi(product);
+      console.log("mutationFn: ");
+      const response:Product = await postProductsApi(product);
+      console.log(response);
       return response;
     },
-    onSuccess: (addedProduct) => {
+    onSuccess: (addedProduct:Product) => {
+      console.log("onSuccess: ", addedProduct);
       try {
         queryClient.setQueryData(
           ['products', { limit: reqParam.limit, sort: reqParam.sort }],
-          (oldData: any) => {
+          (oldData: InfiniteData<ProductResponse>
+          ) => {
             if (!oldData?.pages?.[0]?.products) {
               return oldData; // 데이터가 없으면 그대로 반환
             }
 
+            addedProduct.id = new Date().getTime();
+            addedProduct.availabilityStatus = "In Stock";
+            console.log(addedProduct);
             const newPages = [...oldData.pages];
+            console.log(newPages);
+            console.log(...newPages);
             newPages[0] = {
               ...newPages[0],
               products: [addedProduct, ...newPages[0].products]
             };
+            console.log(...newPages);
 
             return {
               ...oldData,
@@ -91,6 +104,10 @@ const UseQueryClientComponent: React.FC = () => {
       }
 
     },
+    onError: (error) => {
+      console.error("Mutation Error:", error); // 에러 확인
+    }
+
   });
 
 

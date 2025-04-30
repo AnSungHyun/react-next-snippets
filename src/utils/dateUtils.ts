@@ -12,7 +12,25 @@ dayjs.locale('ko');
 // 타임존 설정
 const myTimezone = 'Asia/Seoul';
 
-// 현재 시간 반환
+/**
+ * 현재 시간을 지정된 타임존 기준으로 반환하는 함수
+ * UTC 시간을 기준으로 설정된 타임존(myTimezone)으로 변환하여 반환
+ *
+ * @returns 'YYYY-MM-DD HH:mm:ss' 형식의 날짜/시간 문자열
+ *
+ * @example
+ * // 타임존이 'Asia/Seoul'인 경우
+ * getCurrentDateTime()
+ * // 결과: "2024-03-14 15:30:45"
+ *
+ * // 시스템 시간이 UTC 기준 06:30:45일 때
+ * // 한국 시간(UTC+9)으로 변환되어 15:30:45로 표시
+ *
+ * @note
+ * - UTC 기준 시간을 사용하여 시간대 불일치 문제 방지
+ * - 서버와 클라이언트 간 시간 동기화에 유용
+ * - 24시간 형식 사용 (00~23시)
+ */
 export const getCurrentDateTime = () => {
   return dayjs.utc().tz(myTimezone).format('YYYY-MM-DD HH:mm:ss');
 };

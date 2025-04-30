@@ -36,7 +36,19 @@ const menuItems = [
   { path: '/snippets/24', label: '[useAxios] axios intersection observer' },
   { path: '/snippets/25', label: '[TanStack] useInfinityQuery intersection observer' },
   { path: '/snippets/26', label: '[router] navigation guard' },
-  { path: '/snippets/27', label: '[TanStack] useMutation' },
+  { path: '/snippets/27', label: '[TanStack] useMutation 상품 추가' },
+  { path: '/snippets/28', label: '[TanStack] useMutation 상품 수정' },
+  { path: '/snippets/29', label: '[TanStack] useMutation 상품 삭제' },
+  { path: '/snippets/30', label: '[immer] 예시 코드' },
+  { path: '/snippets/31', label: '[TanStack] 캐시 데이터 부분 삭제' },
+  { path: '/snippets/32', label: '[TanStack] API 요청 전에 먼저 ui 반영 후 api 요청' },
+  { path: '/snippets/33', label: '[Session] 세션 정보 핸들링 ' },
+  { path: '/snippets/34', label: '[Cookie] 쿠키 정보 핸들링 ' },
+  { path: '/snippets/35', label: '[LocalStorage] LocalStorage 정보 핸들링 ' },
+  { path: '/snippets/36', label: '[i18n] 다국어 처리, 공통 메세지 처리' },
+  { path: '/snippets/37', label: '[dayjs] DateUtils 날짜 핸들링' },
+  { path: '/snippets/38', label: '[새로고침] pull to refresh' },
+  { path: '/snippets/39', label: '[동영상] player' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

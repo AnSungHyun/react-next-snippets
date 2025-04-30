@@ -17,11 +17,10 @@ const TestPage1: React.FC = ({}) => {
     <div>
       <Container>
         <p>
-          - TanStack Query로 조회한 결과에 useMutation으로 데이터 추가하기
+          - TanStack Query로 조회한 캐시 데이터에 useMutation으로 데이터 추가하기
         </p>
         <ResultBlock>
           <UseInfinityQueryClientComponent />
-
         </ResultBlock>
       </Container>
     </div>

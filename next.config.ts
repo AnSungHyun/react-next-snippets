@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       // },
       {
         // rewirtes 설정을 통해 cors 문제 해결 및 backend api 주소 숨김
-        source: '/:path*', // 클라이언트에서 요청할 경로
+        source: '/dummy/:path*', // 클라이언트에서 요청할 경로
         destination: 'https://dummyjson.com/:path*', // 실제 백엔드 API 주소
       },
       // {
@@ -37,6 +37,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cdn.dummyjson.com",
+        pathname: '**',
+      },
+      {
+        protocol: "https",
+        hostname: "dummyimage.com",
         pathname: '**',
       }
     ]
