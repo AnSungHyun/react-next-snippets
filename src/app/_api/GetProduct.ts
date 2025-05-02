@@ -69,6 +69,7 @@ export interface ProductParams {
 }
 
 export interface ProductAddRequest {
+  id?: number;
   title: string;    // 필수
   description: string;    // 필수
   price: number;    // 필수
@@ -112,7 +113,7 @@ export const getProductsApiWithParam = (params?: ProductParams): Promise<Product
 }
 
 // 상품 1건 조회
-export const getProductsApiOne = (productId: string, params?: ProductParams): Promise<ProductResponse> => {
+export const getProductsApiOne = (productId: number, params?: ProductParams): Promise<ProductResponse> => {
   return commonAxios.get({ url: `/products/${productId}`, params: params });
 }
 
@@ -122,11 +123,11 @@ export const postProductsApi = (data: ProductAddRequest): Promise<Product> => {
 }
 
 // 상품 수정
-export const putProductsApi = (productId: string, data: ProductAddRequest): Promise<Product> => {
+export const putProductsApi = (productId: number, data: ProductAddRequest): Promise<Product> => {
   return commonAxios.put({url: `/products/${productId}`, data: data});
 }
 
 // 상품 삭제
-export const deleteProductsApi = (productId: string, data: ProductAddRequest): Promise<Product> => {
+export const deleteProductsApi = (productId: number, data: ProductAddRequest): Promise<Product> => {
   return commonAxios.delete({url: `/products/${productId}`, data: data});
 }

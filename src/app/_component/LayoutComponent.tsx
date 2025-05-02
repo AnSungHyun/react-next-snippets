@@ -55,6 +55,10 @@ const menuItems = [
   { path: '/snippets/43', label: '[axios] blob 파일 다운로드' },
   { path: '/snippets/44', label: '[jest] 테스트 코드 작성(정상)' },
   { path: '/snippets/45', label: '[jest] 테스트 코드 작성(에러)' },
+  { path: '/snippets/46', label: '[code splitting] 컴포넌트 동적 import' },
+  { path: '/snippets/47', label: '[next/dynamic] 컴포넌트 지연 로딩' },
+  { path: '/snippets/48', label: '[email] email 발송용 템플릿' },
+  { path: '/snippets/49', label: '[meta,SEO] 메타데이터 설정' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -68,9 +72,9 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
     color: pathname === path ? 'white' : 'inherit',
   });
 
-  const handleClick = (path: string) => {
-    setMenuTitle(path); // Zustand 스토어에 현재 경로 설정
-  };
+  // const handleClick = (path: string) => {
+  //   setMenuTitle(path); // Zustand 스토어에 현재 경로 설정
+  // };
   useEffect(() => {
     if (menuRef.current) {
       // 선택된 메뉴 항목으로 스크롤
@@ -112,7 +116,7 @@ const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) 
           {menuItems.map((item) => (
             <Link href={item.path} passHref key={item.path} >
               <ListItem component={Button} sx={{...getItemStyles(item.path), textTransform: 'none'}}
-                        onClick={() => handleClick(item.label)}
+                        // onClick={() => handleClick(item.label)}
                         ref={pathname === item.path ? menuRef : null}
               >
               {item.label}

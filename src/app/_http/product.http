@@ -24,10 +24,11 @@ Content-Type: application/json
 }
 
 ### 상품 수정
-PUT https://dummyjson.com/products/1
+PUT https://dummyjson.com/products/11
 Content-Type: application/json
 
 {
+  "id": 1,
   "title": "새로운 상품",
   "description": "상품 설명입니다",
   "price": 59.99,

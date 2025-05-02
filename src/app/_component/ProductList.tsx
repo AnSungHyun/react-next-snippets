@@ -41,6 +41,7 @@ const ProductCard = React.memo(({ product }: { product: Product }) => {
         />
       </Box>
       <CardContent sx={{ flexGrow: 1 }}>
+        <Typography>상품 id : {product.id}</Typography>
         <Typography gutterBottom variant="h6" component="div">
           {product.title}
         </Typography>
