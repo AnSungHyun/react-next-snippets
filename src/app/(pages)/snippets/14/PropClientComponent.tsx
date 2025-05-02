@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import {ProductResponse} from "@/app/_api/ClientGetProduct";
+import {ProductResponse} from "@/app/_api/GetProduct";
 
 interface PropClientComponentProps {
   productResponse: ProductResponse;

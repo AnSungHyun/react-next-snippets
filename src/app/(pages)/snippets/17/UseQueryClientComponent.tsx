@@ -1,14 +1,14 @@
 'use client'
 
 import React from "react";
-import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import {useQuery} from "@tanstack/react-query";
 
 const UseQueryClientComponent: React.FC = () => {
 
   const {data: productResponse, status, fetchStatus, } = useQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getClientProductsApi(),
+    queryFn: () => getProductsApi(),
     staleTime: 6000,
     // gcTime: 1000,
     // gcTime: 6000,

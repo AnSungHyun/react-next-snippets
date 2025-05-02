@@ -1,12 +1,12 @@
 import React from "react";
 import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
-import {getServerProductsApi, ProductResponse} from "@/app/_api/ServerGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 
 const PrefetchServerComponent: React.FC = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getServerProductsApi(),
+    queryFn: () => getProductsApi(),
     staleTime: 3000,
     // staleTime: 0,
     gcTime: 0

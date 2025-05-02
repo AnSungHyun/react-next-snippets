@@ -3,7 +3,7 @@ import {Container} from "@mui/material";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 import Loading from "@/app/_component/Loading/Loading";
 import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from "@tanstack/react-query";
-import {getServerProductsApi, ProductResponse} from "@/app/_api/ServerGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import DynamicClientComponent from "@/app/(pages)/snippets/17/DynamicClientComponent";
 import PrefetchServerComponent from "@/app/(pages)/snippets/17/PrefetchServerComponent";
 
@@ -14,7 +14,7 @@ const TestPage17: React.FC = async () => {
   // 이 영역을 주석 해제 하여 다시 확인
   await queryClient.prefetchQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getServerProductsApi(),
+    queryFn: () => getProductsApi(),
     staleTime: 3000,
     gcTime: 0
   });

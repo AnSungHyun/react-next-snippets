@@ -53,6 +53,8 @@ const menuItems = [
   { path: '/snippets/41', label: '[TanStack] combo 선택 필터링 조회' },
   { path: '/snippets/42', label: '[axios] blob 파일 업로드' },
   { path: '/snippets/43', label: '[axios] blob 파일 다운로드' },
+  { path: '/snippets/44', label: '[jest] 테스트 코드 작성(정상)' },
+  { path: '/snippets/45', label: '[jest] 테스트 코드 작성(에러)' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

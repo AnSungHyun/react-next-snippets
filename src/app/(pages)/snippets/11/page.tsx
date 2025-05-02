@@ -2,7 +2,7 @@
 
 import React, {use, useEffect} from "react";
 import {Container} from "@mui/material";
-import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 
 const TestPage11: React.FC = () => {
@@ -11,7 +11,7 @@ const TestPage11: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getClientProductsApi();
+        const response = await getProductsApi();
         // const response = await getProductsApi();
         setData(response);
       } catch (e) {

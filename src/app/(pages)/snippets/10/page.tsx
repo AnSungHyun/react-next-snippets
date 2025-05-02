@@ -1,10 +1,10 @@
 import React from "react";
 import {Container} from "@mui/material";
-import {getServerProductsApi} from "@/app/_api/ServerGetProduct";
+import {getProductsApi} from "@/app/_api/GetProduct";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 
 const TestPage10: React.FC = async () => {
-  const fetchData = await getServerProductsApi();
+  const fetchData = await getProductsApi();
   const data = JSON.stringify(fetchData, null, 2);
   return (
     <div>

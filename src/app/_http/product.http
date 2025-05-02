@@ -47,3 +47,7 @@ Content-Type: application/json
 ### 상품 삭제
 DELETE https://dummyjson.com/products/1
 Content-Type: application/json
+
+### 상품 1개 조회
+GET https://dummyjson.com/products/1
+Content-Type: application/json

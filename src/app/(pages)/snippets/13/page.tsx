@@ -2,7 +2,7 @@
 
 import React, {Suspense, useEffect} from "react";
 import {Container} from "@mui/material";
-import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 import Loading from "@/app/_component/Loading/Loading";
 import SuspenseClientComponent from "@/app/(pages)/snippets/13/SuspenseClientComponent";
@@ -18,7 +18,7 @@ const TestPage13: React.FC = () => {
           setTimeout(() => resolve('Client 컴포넌트 비동기 데이터 로드 완료!'), 2000)
         );
 
-        const response = await getClientProductsApi();
+        const response = await getProductsApi();
 
         setData(response);
       } catch (e) {

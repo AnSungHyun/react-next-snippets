@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
 import {Container} from "@mui/material";
-import {getServerProductsApi} from "@/app/_api/ServerGetProduct";
+import {getProductsApi} from "@/app/_api/GetProduct";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 import Loading from "@/app/_component/Loading/Loading";
 import SuspenseServerComponent from "@/app/(pages)/snippets/12/SuspenseServerComponent";
 
 async function ProductData() {
   // 서버에서 데이터를 가져오는 비동기 함수
-  const response = await getServerProductsApi();
+  const response = await getProductsApi();
   return JSON.stringify(response, null, 2);
 }
 

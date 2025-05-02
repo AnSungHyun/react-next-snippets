@@ -2,7 +2,7 @@
 
 import Loading from "@/app/_component/Loading/Loading";
 import React from "react";
-import {getClientProductsApi, ProductResponse} from "@/app/_api/ClientGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 
 // 비동기적으로 데이터를 가져오는 컴포넌트
 const SuspenseClientComponent = () => {
@@ -17,7 +17,7 @@ const SuspenseClientComponent = () => {
       );
       setData(response);
 
-      const productResponse = await getClientProductsApi();
+      const productResponse = await getProductsApi();
       setProductData(productResponse);
     };
 

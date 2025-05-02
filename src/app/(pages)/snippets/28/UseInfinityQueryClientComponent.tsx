@@ -7,7 +7,7 @@ import {
   ProductResponse,
   Product,
   postProductsApi,
-  ProductAddRequest, ProductAddResponse, getProductsApiOne,
+  ProductAddRequest, ProductAddResponse,
 } from '@/app/_api/GetProduct';
 import Loading from '@/app/_component/Loading/Loading';
 import { Button, Divider, TextField } from '@mui/material';

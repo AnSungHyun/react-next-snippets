@@ -98,25 +98,35 @@ export interface ProductAddResponse {
 
 // 상품 조회
 export const getProductsApi = (): Promise<ProductResponse> => {
-  return commonAxios.get({url: '/dummy/products?limit=3&delay=1000',})
+  return commonAxios.get({url: '/products?limit=3&delay=1000',})
 }
 
-// 상품 조회
+// 상품 조회 ( error case )
 export const getErrorProductsApi = (): Promise<ProductResponse> => {
-  return commonAxios.get({url: '/dummy/error/products?limit=3&delay=1000',})
+  return commonAxios.get({url: '/error/products?limit=3&delay=1000',})
 }
 
 // 상품 조회 with param
 export const getProductsApiWithParam = (params?: ProductParams): Promise<ProductResponse> => {
-  return commonAxios.get({ url: '/dummy/products', params: params });
+  return commonAxios.get({ url: '/products', params: params });
+}
+
+// 상품 1건 조회
+export const getProductsApiOne = (productId: string, params?: ProductParams): Promise<ProductResponse> => {
+  return commonAxios.get({ url: `/products/${productId}`, params: params });
 }
 
 // 상품 추가
 export const postProductsApi = (data: ProductAddRequest): Promise<Product> => {
-  return commonAxios.post({url: '/dummy/products/add', data: data});
+  return commonAxios.post({url: '/products/add', data: data});
 }
 
 // 상품 수정
-export const putProductsApi = (data: ProductAddRequest): Promise<Product> => {
-  return commonAxios.post({url: '/dummy/products/add', data: data});
+export const putProductsApi = (productId: string, data: ProductAddRequest): Promise<Product> => {
+  return commonAxios.put({url: `/products/${productId}`, data: data});
+}
+
+// 상품 삭제
+export const deleteProductsApi = (productId: string, data: ProductAddRequest): Promise<Product> => {
+  return commonAxios.delete({url: `/products/${productId}`, data: data});
 }

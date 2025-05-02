@@ -3,7 +3,7 @@ import {Container} from "@mui/material";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 import Loading from "@/app/_component/Loading/Loading";
 import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from "@tanstack/react-query";
-import {getServerProductsApi, ProductResponse} from "@/app/_api/ServerGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import DynamicClientComponent from "@/app/(pages)/snippets/18/DynamicClientComponent";
 import {getProductsApi} from "@/app/_api/GetProduct";
 

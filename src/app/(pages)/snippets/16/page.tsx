@@ -3,7 +3,7 @@ import {Container} from "@mui/material";
 import ResultBlock from "@/app/_component/CodeResultBlock";
 import Loading from "@/app/_component/Loading/Loading";
 import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from "@tanstack/react-query";
-import {getServerProductsApi, ProductResponse} from "@/app/_api/ServerGetProduct";
+import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import UseQueryClientComponent from "@/app/(pages)/snippets/16/UseQueryClientComponent";
 
 const TestPage16: React.FC = async () => {
@@ -11,7 +11,7 @@ const TestPage16: React.FC = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getServerProductsApi(),
+    queryFn: () => getProductsApi(),
     staleTime: 3000,
     // staleTime: 0,
     gcTime: 0
@@ -20,7 +20,7 @@ const TestPage16: React.FC = async () => {
   console.log("prefetchQuery first request");
   await queryClient.prefetchQuery<ProductResponse>({
     queryKey: ["products", "server"],
-    queryFn: () => getServerProductsApi(),
+    queryFn: () => getProductsApi(),
     staleTime: 3000,
     // staleTime: 0,
     gcTime: 0
