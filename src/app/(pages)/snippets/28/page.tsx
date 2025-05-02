@@ -19,6 +19,9 @@ const TestPage28: React.FC = ({}) => {
         <p>
           - TanStack Query로 조회한 캐시 데이터에 useMutation으로 데이터 수정하기
         </p>
+        <p>
+          - PUT 요청 수행 후 cache 데이터에서 해당 데이터 찾아서 변경처리.
+        </p>
         <ResultBlock>
           <UseInfinityQueryClientComponent />
         </ResultBlock>

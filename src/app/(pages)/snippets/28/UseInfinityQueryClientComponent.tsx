@@ -54,6 +54,7 @@ const UseQueryClientComponent: React.FC = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: {
+      id: 1,
       title: "상품 이름 수정",
       description: "상품 설명입니다",
       price: 59.99,
@@ -131,6 +132,7 @@ const UseQueryClientComponent: React.FC = () => {
               return oldData;
             }
 
+            updatedProduct.availabilityStatus = "In Stock";
             const newPages = oldData.pages.map(page => ({
               ...page,
               products: page.products.map(product =>
@@ -203,9 +205,14 @@ const UseQueryClientComponent: React.FC = () => {
   // 수정된 데이터가 캐시에 남아있을 수 있기 때문에 캐시 초기화
   React.useEffect(() => {
     console.log("useEffect: 초기 로딩");
-    queryClient.invalidateQueries({
+    // queryClient.invalidateQueries({
+    //   queryKey: ['products', { limit: reqParam.limit, sort: reqParam.sort }],
+    // })
+
+    queryClient.resetQueries({
       queryKey: ['products', { limit: reqParam.limit, sort: reqParam.sort }],
-    })
+    });
+
   }, []);
 
   // 모든 제품을 하나의 배열로 합치기
