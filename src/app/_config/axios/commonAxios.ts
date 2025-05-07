@@ -85,10 +85,9 @@ service.interceptors.request.use(
     // }
 
     // GET 요청 파라미터 인코딩
-    // 기본적으로 Axios의 Query String은 잘 동작함.
-    // 배열이나 중첩 Object 가 Query String 으로 들어오게되면 아래처럼 잘못 반환되는 문제가 있음
+    // 기본적으로 Axios의 params 객체를 Query String로 변환하여 전송함
     // test=['aa','bb','cc'] => test[]=aa&test[]=bb&test[]=cc
-    // 아래 코드를 통해 test=aa,bb,cc 형태로 Query String 이 정상적으로 생성되도록 구현
+    /**
     if (config.method === "get" && config.params) {
       let url = config.url as string;
       url += "?";
@@ -101,7 +100,7 @@ service.interceptors.request.use(
       url = url.substring(0, url.length - 1);
       config.params = {};
       config.url = url;
-    }
+    }*/
 
     return config;
   },
