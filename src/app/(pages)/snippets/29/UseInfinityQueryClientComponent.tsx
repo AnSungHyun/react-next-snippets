@@ -76,39 +76,10 @@ const UseQueryClientComponent: React.FC = () => {
     deleteProductMutation.mutate(data);
   };
 
-  // const [newProduct, setNewProduct] = useState<ProductAddRequest>({
-  //   "title": "상품 이름 수정",
-  //   "description": "상품 설명입니다",
-  //   "price": 59.99,
-  //   "discountPercentage": 10.28,
-  //   "rating": 3.78,
-  //   "category": "electronics",
-  //   "brand": "테스트 브랜드",
-  //   "stock": 100,
-  //   "availabilityStatus": "In Stock",
-  //   "thumbnail": "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
-  //   "images": [
-  //     "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
-  //     "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png"
-  //   ]
-  // });
-
-  // const handleAddProduct = () => {
-  //   addProductMutation.mutate(newProduct);
-  //   // setNewProduct({
-  //   //   "title": "새로운 상품",
-  //   //   "description": "상품 설명입니다",
-  //   //   "price": 50000,
-  //   //   "category": "electronics",
-  //   //   "brand": "테스트 브랜드",
-  //   //   "stock": 100,
-  //   //   "thumbnail": "https://example.com/thumbnail.jpg",
-  //   //   "images": [
-  //   //     "https://example.com/image1.jpg",
-  //   //     "https://example.com/image2.jpg"
-  //   //   ]
-  //   // });
-  // };
+  // 별도의 핸들러 함수 생성
+  const handleDelete = (product: ProductAddRequest) => {
+    deleteProductMutation.mutate(product);
+  };
 
   // 상품 삭제를 위한 mutation 정의
   const deleteProductMutation = useMutation({
@@ -256,7 +227,7 @@ const UseQueryClientComponent: React.FC = () => {
 
       <Divider />
       {products.length} 개 상품 조회
-      <ProductList products={products} />
+      <ProductList products={products} onDelete={handleDelete} />
 
       <div ref={ref} style={{ height: '20px', margin: '20px 0' }}>
         {(isLoading || isFetchingNextPage) && <Loading />}

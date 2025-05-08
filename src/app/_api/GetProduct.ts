@@ -48,6 +48,7 @@ interface Meta {
 
 export interface ProductListProps {
   products: Product[];
+  onDelete?: (product: ProductAddRequest) => void;
 }
 
 export interface ProductResponse {
