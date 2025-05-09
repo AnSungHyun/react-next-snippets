@@ -5,7 +5,6 @@ import Loading from "@/app/_component/Loading/Loading";
 import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from "@tanstack/react-query";
 import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import DynamicClientComponent from "@/app/(pages)/snippets/18/DynamicClientComponent";
-import {getProductsApi} from "@/app/_api/GetProduct";
 
 const TestPage18: React.FC = async () => {
 

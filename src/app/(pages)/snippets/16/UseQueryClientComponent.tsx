@@ -4,7 +4,6 @@ import React from "react";
 import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import {useQuery} from "@tanstack/react-query";
 import Button from "@mui/material/Button";
-import {getProductsApi} from "@/app/_api/GetProduct";
 
 const UseQueryClientComponent: React.FC = () => {
 
