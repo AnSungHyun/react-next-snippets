@@ -27,9 +27,10 @@ const ErrorComponent = dynamic(() => import('./ErrorComponent'), {
 });
 
 // SSR이 활성화된 컴포넌트
-const ServerSideWrapper = dynamic(() => import('./ServerSideWrapper'), {
+const ServerSideComponent = dynamic(() => import('./ServerSideComponent'), {
   loading: () => <LoadingComponent name="SSR 컴포넌트" />,
-  ssr: false // SSR 활성화
+  ssr: true // SSR 활성화
+  // ssr: true 로 설정하였으나 실제로는 client 렌더링됨.
 });
 
 
@@ -130,11 +131,11 @@ const DynamicDashboardPage = () => {
         {activeTab === 2 && <ProductExample />}
         {activeTab === 3 && <ErrorComponent />}
         {activeTab === 4 && (
-          <ServerSideWrapper />
-          // <ServerSideComponent
-          //   products={[]} // 실제 데이터는 서버 사이드에서 주입됨
-          //   loadTime={new Date().toISOString()}
-          // />
+          // <ServerSideWrapper />
+          <ServerSideComponent
+            products={[]} // 실제 데이터는 서버 사이드에서 주입됨
+            loadTime={new Date().toISOString()}
+          />
         )}
 
       </ErrorBoundary>
