@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { Container } from '@mui/material';
 
 export default function Home() {
   const [Section1, setSection1] = useState<any>(null);
@@ -87,6 +88,13 @@ export default function Home() {
   );
 
   return (
+    <Container>
+      <p>
+        - scroll 위치에 따라 next/dynamic을 사용하여 동적 컴포넌트 로딩을 구현한 예시 코드
+      </p>
+      <p>
+        - 하지만 동적으로 로딩한 컴포넌트여서, 페이지 이동후 "뒤로가기" 시 컨텐츠, 스크롤 유실
+      </p>
     <div className="max-w-6xl mx-auto">
       <div ref={section1Ref} className="mb-8">
         {Section1 ? <Section1 /> : <LoadingSection />}
@@ -110,5 +118,6 @@ export default function Home() {
         </div>
       )}
     </div>
+    </Container>
   );
 }
