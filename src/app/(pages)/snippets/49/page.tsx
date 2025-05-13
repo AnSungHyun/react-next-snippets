@@ -30,6 +30,7 @@ export default function TestPage49() {
       {
         queryKey: ['section', 1],
         queryFn: async () => {
+          console.log("섹션 1 로딩 시작...");
           const module = await import('./Section1');
           return module.default;
         },
@@ -39,6 +40,7 @@ export default function TestPage49() {
       {
         queryKey: ['section', 2],
         queryFn: async () => {
+          console.log("섹션 2 로딩 시작...");
           const module = await import('./Section2');
           return module.default;
         },
@@ -49,6 +51,7 @@ export default function TestPage49() {
       {
         queryKey: ['section', 3],
         queryFn: async () => {
+          console.log("섹션 3 로딩 시작...");
           const module = await import('./Section3');
           return module.default;
         },
@@ -59,6 +62,7 @@ export default function TestPage49() {
       {
         queryKey: ['section', 4],
         queryFn: async () => {
+          console.log("섹션 4 로딩 시작...");
           const module = await import('./Section4');
           return module.default;
         },
