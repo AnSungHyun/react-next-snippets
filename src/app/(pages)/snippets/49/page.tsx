@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useQueries, useQueryClient } from '@tanstack/react-query';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
+import Link from 'next/link';
 
 export default function TestPage49() {
   const queryClient = useQueryClient();
@@ -99,34 +100,41 @@ export default function TestPage49() {
   return (
     <Container>
       <p>
-        - scroll 위치에 따라 next/dynamic을 사용하여 동적 컴포넌트 로딩을 구현한 예시 코드
+        - scroll 위치에 따라 next/dynamic을 사용하여 동적 컴포넌트 로딩을 구현한
+        예시 코드
       </p>
       <p>
-        - "뒤로가기" 시에 동적 로드한 컨텐츠, 스크롤을 유실하는 문제로 인해 TanStack Query와 조합으로 해결
+        - "뒤로가기" 시에 동적 로드한 컨텐츠, 스크롤을 유실하는 문제로 인해
+        TanStack Query와 조합으로 해결
       </p>
-    <div className="max-w-6xl mx-auto">
-      <div ref={section1Ref} className="mb-8">
-        {Section1 ? <Section1 /> : <LoadingSection />}
+      <div className="max-w-6xl mx-auto">
+        <div ref={section1Ref} className="mb-8">
+          {Section1 ? <Section1 /> : <LoadingSection />}
+        </div>
+
+        {Section1 && (
+          <div ref={section2Ref} className="mb-8">
+            {Section2 ? <Section2 /> : <LoadingSection />}
+          </div>
+        )}
+
+        {Section2 && (
+          <div ref={section3Ref} className="mb-8">
+            {Section3 ? <Section3 /> : <LoadingSection />}
+          </div>
+        )}
+        {Section3 && (
+          <div className="mb-8">
+            {Section4 ? <Section4 /> : <LoadingSection />}
+          </div>
+        )}
       </div>
-
-      {Section1 && (
-        <div ref={section2Ref} className="mb-8">
-          {Section2 ? <Section2 /> : <LoadingSection />}
-        </div>
-      )}
-
-      {Section2 && (
-        <div ref={section3Ref} className="mb-8">
-          {Section3 ? <Section3 /> : <LoadingSection />}
-        </div>
-      )}
-
-      {Section3 && (
-        <div className="mb-8">
-          {Section4 ? <Section4 /> : <LoadingSection />}
-        </div>
-      )}
-    </div>
+      <Button>
+        <Link href={'/snippets/1'}>
+          다른 페이지로 이동!
+          <br />( 뒤로가기로 스크롤 유지 되는지 확인 )
+        </Link>
+      </Button>
     </Container>
   );
 }
