@@ -61,6 +61,7 @@ const menuItems = [
   { path: '/snippets/49', label: '[next/dynamic,tanstack] 컴포넌트 지연 로딩(scroll)' },
   { path: '/snippets/50', label: '[email] email 발송용 템플릿' },
   { path: '/snippets/51', label: '[meta,SEO] 메타데이터 설정' },
+  { path: '/snippets/52', label: '[pathname,searchParams] url 관련 값 사용' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
