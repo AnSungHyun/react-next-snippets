@@ -10,17 +10,17 @@ export default function TestPage49() {
   const queryClient = useQueryClient();
 
   const { ref: section1Ref, inView: section1InView } = useInView({
-    threshold: 1,
+    threshold: 0.1,
     triggerOnce: true
   });
 
   const { ref: section2Ref, inView: section2InView } = useInView({
-    threshold: 1,
+    threshold: 0.1,
     triggerOnce: true
   });
 
   const { ref: section3Ref, inView: section3InView } = useInView({
-    threshold: 1,
+    threshold: 0.1,
     triggerOnce: true
   });
 
@@ -72,23 +72,6 @@ export default function TestPage49() {
       },
     ],
   });
-
-  // 스크롤 위치 저장 및 복원
-  useEffect(() => {
-    const savedScrollPosition = queryClient.getQueryData(['scrollPosition']);
-    if (savedScrollPosition) {
-      window.scrollTo(0, savedScrollPosition as number);
-    }
-
-    const handleBeforeUnload = () => {
-      queryClient.setQueryData(['scrollPosition'], window.scrollY);
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [queryClient]);
 
   const LoadingSection = () => (
     <div className="min-h-[400px] p-8 bg-gray-50">

@@ -57,11 +57,13 @@ const menuItems = [
   { path: '/snippets/45', label: '[jest] 테스트 코드 작성(에러)' },
   { path: '/snippets/46', label: '[code splitting, lazy] 컴포넌트 동적 import' },
   { path: '/snippets/47', label: '[next/dynamic] 컴포넌트 지연 로딩(tab)' },
-  { path: '/snippets/48', label: '[next/dynamic] 컴포넌트 지연 로딩(scroll)' },
-  { path: '/snippets/49', label: '[next/dynamic,tanstack] 컴포넌트 지연 로딩(scroll)' },
+  { path: '/snippets/48', label: '[await import] 컴포넌트 지연 로딩(scroll)' },
+  { path: '/snippets/49', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)' },
   { path: '/snippets/50', label: '[email] email 발송용 템플릿' },
   { path: '/snippets/51', label: '[meta,SEO] 메타데이터 설정' },
   { path: '/snippets/52', label: '[pathname,searchParams] url 관련 값 사용' },
+  { path: '/snippets/53', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)2' },
+  { path: '/snippets/54', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)2' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
