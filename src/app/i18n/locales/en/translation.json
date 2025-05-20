@@ -1,0 +1,16 @@
+{
+  "welcome": "Welcome",
+  "description": "This is an internationalization example",
+  "buttons": {
+    "changeLanguage": "Change Language",
+    "korean": "Korean",
+    "english": "English"
+  },
+  "clientComponent": "Client Component",
+  "serverComponent": {
+    "title": "Server Component",
+    "message": "This message was generated on the server",
+    "currentTime": "Current Server Time: {{time}}"
+  },
+  "count": "Current count: {{count}}"
+}
