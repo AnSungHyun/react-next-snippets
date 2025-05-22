@@ -12,5 +12,10 @@
     "message": "This message was generated on the server",
     "currentTime": "Current Server Time: {{time}}"
   },
-  "count": "Current count: {{count}}"
+  "count": "Current count: {{count}}",
+  "LocaleSwitcher": {
+    "ko": "Korean",
+    "en": "English",
+    "label": "Language"
+  }
 }

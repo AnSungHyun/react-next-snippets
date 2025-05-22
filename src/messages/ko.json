@@ -12,5 +12,10 @@
     "message": "이 메시지는 서버에서 생성되었습니다",
     "currentTime": "현재 서버 시간: {{time}}"
   },
-  "count": "현재 카운트: {{count}}"
+  "count": "현재 카운트: {{count}}",
+  "LocaleSwitcher": {
+    "ko": "한국어",
+    "en": "영어",
+    "label": "언어"
+  }
 }
