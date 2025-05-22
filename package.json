@@ -39,10 +39,7 @@
     "react-syntax-highlighter": "^15.6.1",
     "react-copy-to-clipboard-ts": "^1.1.0",
     "next-navigation-guard": "^0.1.2",
-    "i18next": "^25.2.0",
-    "react-i18next": "^13.2.2",
-    "i18next-resources-to-backend": "^1.2.1",
-    "i18next-browser-languagedetector": "^8.1.0"
+    "next-intl": "^4.1.0"
   },
   "devDependencies": {
     "typescript": "^5.8.3",

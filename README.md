@@ -52,3 +52,4 @@ http://localhost:3010
 - "next-intl": 다국어 처리를 위해 필요
   - with routing, without routing 방식 모두 사용 가능
   - i18next, react-i18next 조합은 너무 복잡
+  - react-intl 아님 헷갈리지 말 것
