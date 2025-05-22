@@ -63,7 +63,9 @@ const menuItems = [
   { path: '/snippets/51', label: '[meta,SEO] 메타데이터 설정' },
   { path: '/snippets/52', label: '[pathname,searchParams] url 관련 값 사용' },
   { path: '/snippets/53', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)2' },
-  { path: '/snippets/54', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)2' },
+  { path: '/snippets/54', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)3' },
+  { path: '/snippets/55', label: '[kakao, toss] 결제 모듈 연동' },
+  { path: '/snippets/56', label: '[SSG] Static Site Generation 예시' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
