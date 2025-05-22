@@ -1,8 +1,5 @@
-'use client';
-
 import React from 'react';
 import LayoutComponent from "@/app/_component/LayoutComponent";
-import '@/app/i18n/client';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
