@@ -5,13 +5,7 @@ import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
 import useCommonStore from "@/app/_store/useCommonStore";
 import ResultBlock from "@/app/_component/CodeResultBlock";
-interface Props {
-  title? :string;
-  contents?: string;
-  children: React.ReactNode;
-}
-
-const TestPage7: React.FC<Props> = ({title, children, ...props}) => {
+const TestPage7: React.FC = () => {
   const {isNextPublicMode, setIsNextPublicMode} = useCommonStore();
   useEffect(() => {
     setIsNextPublicMode(process.env.NEXT_PUBLIC_MODE as string);
@@ -30,14 +24,8 @@ const TestPage7: React.FC<Props> = ({title, children, ...props}) => {
         "import CodeBlock from \"@/app/_component/CodeBlock\";\n" +
         "import useCommonStore from \"@/app/_store/useCommonStore\";\n" +
         "import ResultBlock from \"@/app/_component/CodeResultBlock\";\n" +
-        "interface Props {\n" +
-        "  title? :string;\n" +
-        "  contents?: string;\n" +
-        "  children: React.ReactNode;\n" +
-        "}" +
         "\n" +
-        "\n" +
-        "const TestPage7: React.FC<Props> = ({title, children, ...props}) => {\n" +
+        "const TestPage7: React.FC = () => {\n" +
         "  const {isNextPublicMode, setIsNextPublicMode} = useCommonStore();\n" +
         "  useEffect(() => {\n" +
         "    setIsNextPublicMode(process.env.NEXT_PUBLIC_MODE as string);\n" +

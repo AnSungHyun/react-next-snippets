@@ -3,13 +3,8 @@
 import React, { useEffect } from "react";
 import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
-interface Props {
-  title? :string;
-  contents?: string;
-  children: React.ReactNode;
-}
 
-const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
+const TestPage1: React.FC = () => {
   useEffect(() => {
   }, []);
   return (
@@ -44,9 +39,6 @@ const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
         "    );\n" +
         "});"
       }/>
-      {title}
-      {props.contents}
-      {children}
       </Container>
     </div>
   );

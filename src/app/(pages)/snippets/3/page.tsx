@@ -4,13 +4,8 @@ import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
 import ClientComponent from "@/app/_component/ClientComponent";
 import ResultBlock from "@/app/_component/CodeResultBlock";
-interface Props {
-  title? :string;
-  contents?: string;
-  children: React.ReactNode;
-}
 
-const TestPage3: React.FC<Props> = ({title, children, ...props}) => {
+const TestPage3: React.FC = () => {
   return (
     <div>
       <Container>
@@ -31,13 +26,8 @@ const TestPage3: React.FC<Props> = ({title, children, ...props}) => {
           "import {Container} from \"@mui/material\";\n" +
           "import CodeBlock from \"@/app/_component/CodeBlock\";\n" +
           "import ClientComponent from \"@/app/_component/ClientComponent\";\n" +
-          "interface Props {\n" +
-          "  title? :string;\n" +
-          "  contents?: string;\n" +
-          "  children: React.ReactNode;\n" +
-          "}\n" +
           "\n" +
-          "const TestPage3: React.FC<Props> = ({title, children, ...props}) => {\n" +
+          "const TestPage3: React.FC = () => {\n" +
           "  return (\n" +
           "    <div>\n" +
           "      <Container>\n" +
@@ -52,9 +42,6 @@ const TestPage3: React.FC<Props> = ({title, children, ...props}) => {
           "\n"+
           "export default TestPage3;"
         }/>
-        {title}
-        {props.contents}
-        {children}
       </Container>
     </div>
   );

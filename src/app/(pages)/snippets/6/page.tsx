@@ -11,7 +11,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
+const TestPage6: React.FC = () => {
   const [url, setUrl] = React.useState<string>("");
 
   useEffect(() => {
@@ -42,13 +42,8 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
           "import {Container} from \"@mui/material\";\n" +
           "import CodeBlock from \"@/app/_component/CodeBlock\";\n" +
           "import {ServerActionComponent} from \"@/app/_component/ServerAction\";\n" +
-          "interface Props {\n" +
-          "  title? :string;\n" +
-          "  contents?: string;\n" +
-          "  children: React.ReactNode;\n" +
-          "}\n" +
           "\n" +
-          "const TestPage6: React.FC<Props> = ({title, children, ...props}) => {\n" +
+          "const TestPage6: React.FC = () => {\n" +
           "  const [url, setUrl] = React.useState<string>(\"\");\n" +
           "\n" +
           "  useEffect(() => {\n" +
@@ -91,10 +86,6 @@ const TestPage6: React.FC<Props> = ({title, children, ...props}) => {
           "  return `선택된 환경 변수 값: ${envValue}`;\n" +
           "}"
         }/>
-        {title}
-        {props.contents}
-        {children}
-
       </Container>
     </div>
   );

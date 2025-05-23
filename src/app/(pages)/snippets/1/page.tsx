@@ -3,13 +3,11 @@
 import React, { useEffect } from "react";
 import {Container} from "@mui/material";
 import CodeBlock from "@/app/_component/CodeBlock";
-interface Props {
-  title? :string;
-  contents?: string;
-  children: React.ReactNode;
-}
+// interface Props {
+//   contents?: string;
+// }
 
-const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
+const TestPage1: React.FC = ({...props}) => {
   useEffect(() => {
   }, []);
   return (
@@ -24,10 +22,10 @@ const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
         "\n" +
         "interface Props {\n" +
         "  title? :string;\n" +
-        "  contents?: string;\n" +
         "  children: React.ReactNode;\n" +
+        "  contents?: string;\n" +
         "}\n"+
-        "const TestPage1: React.FC<Props> = ({title, children, ...props}) => {\n" +
+        "const MyComponent: React.FC<Props> = ({title, children, ...props}) => {\n" +
         "  useEffect(() => {\n" +
         "  }, []);\n" +
         "  return (\n" +
@@ -37,8 +35,8 @@ const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
         "        기본 Component Snippets\n" +
         "      </h1>\n" +
         "      {title}\n" +
-        "      {props.contents}\n" +
         "      {children}\n" +
+        "      {props.contents}\n" +
         "      </Container>\n" +
         "    </div>\n" +
         "  );\n" +
@@ -63,9 +61,6 @@ const TestPage1: React.FC<Props> = ({title, children, ...props}) => {
         "    );\n" +
         "});"
       }/>
-      {title}
-      {props.contents}
-      {children}
       </Container>
     </div>
   );

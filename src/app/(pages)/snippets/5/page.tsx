@@ -4,13 +4,7 @@ import CodeBlock from "@/app/_component/CodeBlock";
 import ServerComponent from "@/app/_component/ServerComponent";
 import ClientChildrenComponent from "@/app/_component/ClientChildrenComponent";
 import ResultBlock from "@/app/_component/CodeResultBlock";
-interface Props {
-  title? :string;
-  contents?: string;
-  children: React.ReactNode;
-}
-
-const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
+const TestPage5: React.FC = () => {
   return (
     <div>
       <Container>
@@ -36,13 +30,8 @@ const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
           "import CodeBlock from \"@/app/_component/CodeBlock\";\n" +
           "import ServerComponent from \"@/app/_component/ServerComponent\";\n" +
           "import ClientChildrenComponent from \"@/app/_component/ClientChildrenComponent\";\n" +
-          "interface Props {\n" +
-          "  title? :string;\n" +
-          "  contents?: string;\n" +
-          "  children: React.ReactNode;\n" +
-          "}\n" +
           "\n" +
-          "const TestPage5: React.FC<Props> = ({title, children, ...props}) => {\n" +
+          "const TestPage5: React.FC = () => {\n" +
           "  return (\n" +
           "    <div>\n" +
           "      <Container>\n" +
@@ -59,9 +48,6 @@ const TestPage5: React.FC<Props> = ({title, children, ...props}) => {
           "\n" +
           "export default TestPage5;"
         }/>
-        {title}
-        {props.contents}
-        {children}
       </Container>
     </div>
   );
