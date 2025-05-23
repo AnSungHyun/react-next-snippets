@@ -257,13 +257,13 @@ const UseQueryClientComponent: React.FC = () => {
         <Button
           variant="contained"
           type="submit"
+          loading={addProductMutation.isPending}
 
           // onClick={handleAddProduct}
           disabled={addProductMutation.isPending}
         >
-          상품 추가
+          상품 수정
         </Button>
-        {addProductMutation.isPending && <Loading />}
         </form>
       </div>
 

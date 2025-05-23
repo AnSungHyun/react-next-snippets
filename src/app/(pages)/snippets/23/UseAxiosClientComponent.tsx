@@ -235,10 +235,12 @@ const UseAxiosClientComponent: React.FC = () => {
 
       {loading && <Loading />}
       {!loading && productResponse && !error && (
-        <>{JSON.stringify(productResponse, null, 2)}</>
+        <>
+          {JSON.stringify(productResponse, null, 2)}
+          <ProductList products={productResponse?.products ?? []} />
+        </>
       )}
       {error && <>{error.toString()}</>}
-      <ProductList products={productResponse?.products ?? []} />
     </div>
   );
 };
