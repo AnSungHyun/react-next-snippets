@@ -25,7 +25,7 @@ describe('UserFormTest', () => {
     expect(await screen.findByText(/유효한 이메일 주소가 아닙니다/i)).toBeInTheDocument();
 
     // 제출 함수가 호출되지 않았는지 확인
-    expect(handleSubmit).toHaveBeenCalled();
+    expect(handleSubmit).not.toHaveBeenCalled();
   });
 
 });
