@@ -21,6 +21,9 @@ const TestPage24: React.FC = () => {
         <p>
           - productList 컴포넌트 내의 productCard 컴포넌트를 React.memo 사용하여 리렌더링 최소화
         </p>
+        <p>
+          - React.memo를 사용하지 않으면 추가 조회 할 때마다, 1번째부터 n번째까지 모든 상품 영역이 리렌더링 되는 문제가 있음.
+        </p>
         <ResultBlock>
           <Suspense fallback={<Loading/>}>
             <UseAxiosClientComponent />
