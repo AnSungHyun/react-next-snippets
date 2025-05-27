@@ -9,7 +9,7 @@ const UseQueryClientComponent: React.FC = () => {
   const {data: productResponse, status, fetchStatus, } = useQuery<ProductResponse>({
     queryKey: ["products", "server"],
     queryFn: () => getProductsApi(),
-    staleTime: 6000,
+    staleTime: 3000,
     // gcTime: 1000,
     // gcTime: 6000,
   });

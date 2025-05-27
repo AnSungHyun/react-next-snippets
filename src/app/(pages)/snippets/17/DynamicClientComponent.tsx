@@ -26,7 +26,7 @@ const DynamicClientComponent: React.FC<Props> = ({children}) => {
       <Button variant="outlined" onClick={handleButtonOneClick}>서버 컴포넌트</Button>
       <Button variant="outlined" onClick={handleButtonTwoClick}>클라이언트 컴포넌트</Button>
       <br/>
-      {buttonOne && <div>{children}</div>}
+      {buttonOne && <div>{children}</div>} {/*이곳에 PrefetchServerComponent 가 렌더링 됩니다.*/}
       {buttonTwo && <div><UseQueryClientComponent /></div>}
     </div>
   );

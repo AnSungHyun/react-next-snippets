@@ -29,7 +29,13 @@ const TestPage18: React.FC = async () => {
           - 이후 에는 다른 페이지를 다녀와도 prefetch로 수행한 결과를 useQuery로 가져와서 사용 하는것 을 확인할 수 있음.
         </p>
         <p>
-          - 물론 staleTime 10초가 지난 후에는 버튼을 닫앗다 열어서 클릭하면 리페치 함
+          - staleTime 10초가 지난 후에는 버튼을 닫앗다 열어서 클릭하면 리페치 함
+        </p>
+        <p>
+          - 이 예시는 버튼으로 불필요한 요청의 발생을 줄였으나, 일반적인 경우 useEffect를 사용하여 컴포넌트가 마운트 될 때 useQuery를 호출하도록 구현
+        </p>
+        <p>
+          - "15번" 예시에서 이해가 가지 않던 부분에 대한 문제 해결.
         </p>
         <ResultBlock>
           <Suspense fallback={<Loading/>}>
