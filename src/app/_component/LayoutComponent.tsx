@@ -11,7 +11,7 @@ import useTitleStore from "@/app/_store/useTitleStore";
 // 메뉴 항목 리스트를 컴포넌트 외부로 분리
 const menuItems = [
   { path: '/snippets/1', label: 'React.FC 기본 컴포넌트' },
-  { path: '/snippets/2', label: '일반 함수 기본 컴포넌트' },
+  { path: '/snippets/2', label: '일반 함수, 화살표 함수 기본 컴포넌트' },
   { path: '/snippets/3', label: 'Server 컴포넌트에서 Client Import' },
   { path: '/snippets/4', label: 'Client 컴포넌트에서 Server Import(불가)' },
   { path: '/snippets/5', label: 'Client 컴포넌트에서 Server Import(가능)' },
