@@ -1,18 +1,24 @@
 'use client'
 
-import React from "react";
+import React, { useEffect } from 'react';
 import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
 import {useQuery} from "@tanstack/react-query";
 import Button from "@mui/material/Button";
 
 const UseQueryClientComponent: React.FC = () => {
+  // const [enabled, setEnabled] = React.useState(false);
 
   const {data: productResponse, status, fetchStatus, } = useQuery<ProductResponse>({
     queryKey: ["products", "server"],
     queryFn: () => getProductsApi(),
     staleTime: 6000,
     // gcTime: 6000,
+    // enabled: enabled, // useEffect로 enabled 상태를 true로 변경하여 useQuery 실행
   });
+
+  // useEffect(() => {
+  //   setEnabled(true);
+  // }, []);
 
   const handleButtonClick = () => {
     console.log("status  : "+status);

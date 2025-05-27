@@ -4,7 +4,8 @@ import ResultBlock from "@/app/_component/CodeResultBlock";
 import Loading from "@/app/_component/Loading/Loading";
 import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from "@tanstack/react-query";
 import {getProductsApi, ProductResponse} from "@/app/_api/GetProduct";
-import DynamicClientComponent from "@/app/(pages)/snippets/18/DynamicClientComponent";
+import DynamicClientComponent from '@/app/(pages)/snippets/18/DynamicClientComponent';
+import CodeBlock from "@/app/_component/CodeBlock";
 
 const TestPage18: React.FC = async () => {
 
@@ -44,6 +45,101 @@ const TestPage18: React.FC = async () => {
             </HydrationBoundary>
           </Suspense>
         </ResultBlock>
+        <CodeBlock filename={"page.tsx"} value={
+          "import React, {Suspense} from \"react\";\n" +
+          "import {Container} from \"@mui/material\";\n" +
+          "import ResultBlock from \"@/app/_component/CodeResultBlock\";\n" +
+          "import Loading from \"@/app/_component/Loading/Loading\";\n" +
+          "import {dehydrate, HydrationBoundary, QueryClient, useQueryClient} from \"@tanstack/react-query\";\n" +
+          "import {getProductsApi, ProductResponse} from \"@/app/_api/GetProduct\";\n" +
+          "import DynamicClientComponent from '@/app/(pages)/snippets/18/DynamicClientComponent';\n" +
+          "import CodeBlock from \"@/app/_component/CodeBlock\";\n" +
+          "\n" +
+          "const TestPage18: React.FC = async () => {\n" +
+          "\n" +
+          "  const queryClient = new QueryClient();\n" +
+          "  await queryClient.prefetchQuery<ProductResponse>({\n" +
+          "    queryKey: [\"products\", \"server\"],\n" +
+          "    queryFn: () => getProductsApi(),\n" +
+          "    staleTime: 10000,\n" +
+          "    gcTime: 0\n" +
+          "  });\n" +
+          "\n" +
+          "  return (\n" +
+          "    <div>\n" +
+          "      <Container>\n" +
+          "        <ResultBlock>\n" +
+          "          <Suspense fallback={<Loading/>}>\n" +
+          "            <HydrationBoundary state={dehydrate(queryClient)}>\n" +
+          "              <DynamicClientComponent />\n" +
+          "            </HydrationBoundary>\n" +
+          "          </Suspense>\n" +
+          "        </ResultBlock>\n" +
+          "      </Container>\n" +
+          "    </div>\n" +
+          "  );\n" +
+          "};\n" +
+          "\n" +
+          "export default TestPage18;"
+        }/>
+        <CodeBlock filename={"DynamicClientComponent.tsx"} value={
+          "'use client'\n" +
+          "\n" +
+          "import React, {useEffect} from \"react\";\n" +
+          "import Button from \"@mui/material/Button\";\n" +
+          "import UseQueryClientComponent from \"@/app/(pages)/snippets/18/UseQueryClientComponent\";\n" +
+          "\n" +
+          "const DynamicClientComponent: React.FC = () => {\n" +
+          "  const [buttonTwo, setButtonTwo] = React.useState(false);\n" +
+          "\n" +
+          "\n" +
+          "  const handleButtonTwoClick = () => {\n" +
+          "    setButtonTwo(!buttonTwo);\n" +
+          "  }\n" +
+          "\n" +
+          "  // 동적 렌더링을 바로 렌더링 하고 싶은 경우 하단 코드 주석 해제\n" +
+          "  // useEffect(() => {\n" +
+          "  //   setButtonTwo(!buttonTwo);\n" +
+          "  // }, []);\n" +
+          "\n" +
+          "  return (\n" +
+          "    <div>\n" +
+          "      <h2>I'm Dynamic Client Component</h2>\n" +
+          "      <Button variant=\"outlined\" onClick={handleButtonTwoClick}>클라이언트 컴포넌트</Button>\n" +
+          "      <br/>\n" +
+          "      {buttonTwo && <div><UseQueryClientComponent /></div>}\n" +
+          "    </div>\n" +
+          "  );\n" +
+          "};\n" +
+          "\n" +
+          "export default DynamicClientComponent;"
+        }/>
+        <CodeBlock filename={"UseQueryClientComponent.tsx"} value={
+          "'use client'\n" +
+          "\n" +
+          "import React, {useEffect} from \"react\";\n" +
+          "import {useQuery} from \"@tanstack/react-query\";\n" +
+          "import {getProductsApi, ProductResponse} from \"@/app/_api/GetProduct\";\n" +
+          "\n" +
+          "const UseQueryClientComponent: React.FC = () => {\n" +
+          "\n" +
+          "  const {data: productResponse, status, fetchStatus, } = useQuery<ProductResponse>({\n" +
+          "    queryKey: [\"products\", \"server\"],\n" +
+          "    queryFn: () => getProductsApi(),\n" +
+          "    staleTime: 10000,\n" +
+          "  });\n" +
+          "\n" +
+          "  return (\n" +
+          "    <div>\n" +
+          "      <h2>I'm UseQuery Client Component</h2>\n" +
+          "      <br/>\n" +
+          "      <>{JSON.stringify(productResponse, null, 2)}</>\n" +
+          "    </div>\n" +
+          "  );\n" +
+          "};\n" +
+          "\n" +
+          "export default UseQueryClientComponent;"
+        }/>
       </Container>
     </div>
   );

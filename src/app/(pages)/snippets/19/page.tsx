@@ -26,6 +26,12 @@ const TestPage19: React.FC = async () => {
         <p>
           - ErrorBoundary 에서 useRouter를 통해 다른 페이지로 이동가능 ex) 세션 만료 시 로그인 페이지 이동
         </p>
+        <p>
+          - React 의 기본 Error Boundary는 class 로 작성해야 함
+        </p>
+        <p>
+          - react-error-boundary 라이브러리를 사용하면 함수형 컴포넌트로 작성 가능
+        </p>
         <ResultBlock>
           <CustomClientErrorBoundary>
             <Suspense fallback={<Loading/>}>
