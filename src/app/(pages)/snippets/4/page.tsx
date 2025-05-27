@@ -27,7 +27,7 @@ const TestPage4: React.FC = () => {
         <ResultBlock>
           <ServerComponent/>
         </ResultBlock>
-        <CodeBlock language={"typescript"} value={
+        <CodeBlock filename={"4/page.tsx"} language={"typescript"} value={
           "\"use client\"" +
           "\n" +
           "import React from \"react\";\n" +
@@ -47,11 +47,10 @@ const TestPage4: React.FC = () => {
           "    </div>\n"+
           "  );\n"+
           "};\n"+
-          "\n"+
-          "export default TestPage4;" +
           "\n" +
-          "\n" +
-          "\n" +
+          "export default TestPage4;"
+        }/>
+        <CodeBlock filename={"ServerComponent.tsx"} language={"typescript"} value={
           "import React from \"react\";\n" +
           "\n" +
           "const ServerComponent: React.FC = () => {\n" +
@@ -69,6 +68,11 @@ const TestPage4: React.FC = () => {
           "\n" +
           "export default ServerComponent;"
         }/>
+        <CodeBlock filename={".env"} language={"properties"} value={
+          "## URL\n" +
+          "NEXT_PUBLIC_BASE_URL=http://localhost:3013\n" +
+          "BACKEND_API_URL=http://localhost:8081"
+        } />
       </Container>
     </div>
   );

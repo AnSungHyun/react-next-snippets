@@ -24,7 +24,7 @@ const TestPage5: React.FC = () => {
             <ServerComponent />
           </ClientChildrenComponent>
         </ResultBlock>
-        <CodeBlock language={"typescript"} value={
+        <CodeBlock filename={"5/page.tsx"} language={"typescript"} value={
           "import React from \"react\";\n" +
           "import {Container} from \"@mui/material\";\n" +
           "import CodeBlock from \"@/app/_component/CodeBlock\";\n" +
@@ -47,6 +47,46 @@ const TestPage5: React.FC = () => {
           "};\n" +
           "\n" +
           "export default TestPage5;"
+        }/>
+        <CodeBlock filename={"ClientChildrenComponent.tsx"} value={
+          "'use client'\n" +
+          "\n" +
+          "import React from \"react\";\n" +
+          "\n" +
+          "interface Props {\n" +
+          "  children: React.ReactNode;\n" +
+          "}\n" +
+          "\n" +
+          "const ClientChildrenComponent: React.FC<Props> = ({children}) => {\n" +
+          "  return (\n" +
+          "    <div style={{ border: \"1px solid red\" }}>\n" +
+          "      <h1>\n" +
+          "        I'm Client Children Component\n" +
+          "      </h1>\n" +
+          "      {children}\n" +
+          "    </div>\n" +
+          "  );\n" +
+          "};\n" +
+          "\n" +
+          "export default ClientChildrenComponent;"
+        }/>
+        <CodeBlock filename={"ServerComponent.tsx"} value={
+          "import React from \"react\";\n" +
+          "\n" +
+          "const ServerComponent: React.FC = () => {\n" +
+          "  const API_URL = process.env.BACKEND_API_URL;\n" +
+          "\n" +
+          "  return (\n" +
+          "    <div style={{ border: \"1px solid blue\" }}>\n" +
+          "      <h1>\n" +
+          "        I'm Server Component\n" +
+          "        BACKEND_API_URL: {API_URL}\n" +
+          "      </h1>\n" +
+          "    </div>\n" +
+          "  );\n" +
+          "};\n" +
+          "\n" +
+          "export default ServerComponent;"
         }/>
       </Container>
     </div>

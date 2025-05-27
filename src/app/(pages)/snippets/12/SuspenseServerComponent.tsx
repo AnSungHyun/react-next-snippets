@@ -14,10 +14,8 @@ const SuspenseServerComponent = async () => {
   return (
     <div>
       {data}
-      {/*<SuspenseClientComponent />*/}
     </div>
   );
-  // return <div>{data ? data : "데이터를 로드 중..."}</div>;
 };
 
 export default SuspenseServerComponent;

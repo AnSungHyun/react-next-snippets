@@ -13,6 +13,12 @@ const TestPage7: React.FC = () => {
   return (
     <div>
       <Container>
+        <p>
+          - Zustand을 사용하여 Next.js의 환경 변수를 클라이언트에서 사용할 수 있도록 하는 예시입니다.
+        </p>
+        <p>
+          - Context API 대체
+        </p>
       <ResultBlock>
         mode : {isNextPublicMode}
       </ResultBlock>

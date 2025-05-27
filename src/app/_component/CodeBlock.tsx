@@ -7,12 +7,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard-ts';
 import clsx from 'clsx';
 
 interface TProps {
-  language: string;
+  language?: string;
   value: string;
   filename?: string; // 파일 이름을 위한 optional prop 추가
 }
 
-const CodeBlock: React.FC<TProps> = ({ language, value, filename }) => {
+const CodeBlock: React.FC<TProps> = ({ language = "typescript", value, filename }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
