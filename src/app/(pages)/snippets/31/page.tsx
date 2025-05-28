@@ -29,7 +29,7 @@ const TestPage31: React.FC = ({}) => {
           - axios 를 사용해도 adapter를 통해 Next.js의 Fetch API 캐싱 기능을 활용할 수 있다.
         </p>
         <p>
-          - api 요청은 발생하나 "디스크 캐시에서 게재됨","캐시됨" 으로 응답속도가 빠름.
+          - api (Network) 요청은 발생하나 "디스크 캐시에서 게재됨","캐시됨" 으로 응답속도가 빠름.
         </p>
         <ProductExample />
       </Container>

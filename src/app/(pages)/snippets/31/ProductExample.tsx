@@ -23,6 +23,27 @@ const response2 = await getProductsApiWithCache({
   }
 });`;
 
+const axiosExample = `
+// 상품 조회 with param
+export const getProductsApiWithParam = (
+  params?: ProductParams,
+): Promise<ProductResponse> => {
+  return commonAxios.get({ url: '/products', params: params });
+};
+
+// 상품 조회 ( fetch cache )
+export const getProductsApiWithCache = (
+  params?: ProductParams,
+  axiosConfig?: any,
+): Promise<ProductResponse> => {
+  return commonAxios.get({
+    url: '/products',
+    params: params,
+    ...axiosConfig,
+  });
+};
+`;
+
 const ProductExample = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -69,6 +90,12 @@ const ProductExample = () => {
       <CodeBlock
         language="typescript"
         value={fetchExample}
+      />
+
+      <CodeBlock
+        filename={"GetProduct.ts"}
+        language="typescript"
+        value={axiosExample}
       />
 
       <ResultBlock>

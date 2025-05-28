@@ -96,24 +96,24 @@ const UseQueryClientComponent: React.FC = () => {
       console.log("onSuccess: ", deletedProduct);
       try {
         // immer 사용하지 않은 예시
-        queryClient.setQueryData(
-          ['products', { limit: reqParam.limit, sort: reqParam.sort }],
-          (oldData: InfiniteData<ProductResponse>) => {
-            if (!oldData?.pages) return oldData;
-
-            deletedProduct.availabilityStatus = "In Stock";
-
-            return {
-              ...oldData,
-              pages: oldData.pages
-                .map(page => ({
-                  ...page,
-                  products: page.products.filter(product => product.id !== deletedProduct.id)
-                }))
-                .filter(page => page.products.length > 0) // 빈 페이지 제거
-            };
-          }
-        );
+        // queryClient.setQueryData(
+        //   ['products', { limit: reqParam.limit, sort: reqParam.sort }],
+        //   (oldData: InfiniteData<ProductResponse>) => {
+        //     if (!oldData?.pages) return oldData;
+        //
+        //     deletedProduct.availabilityStatus = "In Stock";
+        //
+        //     return {
+        //       ...oldData,
+        //       pages: oldData.pages
+        //         .map(page => ({
+        //           ...page,
+        //           products: page.products.filter(product => product.id !== deletedProduct.id)
+        //         }))
+        //         .filter(page => page.products.length > 0) // 빈 페이지 제거
+        //     };
+        //   }
+        // );
 
         // immer 사용한 예시
         queryClient.setQueryData(

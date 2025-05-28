@@ -73,11 +73,11 @@ const UseQueryClientComponent: React.FC = () => {
   });
 
   const onSubmit = (data: ProductFormData) => {
-    addProductMutation.mutate(data);
+    updateProductMutation.mutate(data);
   };
 
   // 상품 수정를 위한 mutation 정의
-  const addProductMutation = useMutation({
+  const updateProductMutation = useMutation({
     mutationFn: async (product: ProductAddRequest) => {
       const { id, ...productWithoutId } = product;
 
@@ -186,7 +186,7 @@ const UseQueryClientComponent: React.FC = () => {
       fetchNextPage();
     }
   }, [inView]);
-  
+
   // 수정된 데이터가 캐시에 남아있을 수 있기 때문에 캐시 초기화
   React.useEffect(() => {
     console.log("useEffect: 초기 로딩");
@@ -242,10 +242,10 @@ const UseQueryClientComponent: React.FC = () => {
         <Button
           variant="contained"
           type="submit"
-          loading={addProductMutation.isPending}
+          loading={updateProductMutation.isPending}
 
           // onClick={handleAddProduct}
-          disabled={addProductMutation.isPending}
+          disabled={updateProductMutation.isPending}
         >
           상품 수정
         </Button>
