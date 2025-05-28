@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
+import { produce } from 'immer';
 
 interface ProductRequestParams {
   limit: number;
@@ -95,31 +95,45 @@ const UseQueryClientComponent: React.FC = () => {
     onSuccess: (deletedProduct:Product) => {
       console.log("onSuccess: ", deletedProduct);
       try {
+        // immer 사용하지 않은 예시
         queryClient.setQueryData(
           ['products', { limit: reqParam.limit, sort: reqParam.sort }],
-          (oldData: InfiniteData<ProductResponse>
-          ) => {
-            if (!oldData?.pages) {
-              return oldData;
-            }
+          (oldData: InfiniteData<ProductResponse>) => {
+            if (!oldData?.pages) return oldData;
 
             deletedProduct.availabilityStatus = "In Stock";
-            const newPages = oldData.pages.map(page => ({
-              ...page,
-              products: page.products.filter(product => product.id !== deletedProduct.id)
-
-            }));
-
-            // 빈 페이지 제거 (선택사항)
-            const filteredPages = newPages.filter(page => page.products.length > 0);
-
 
             return {
               ...oldData,
-              pages: newPages
+              pages: oldData.pages
+                .map(page => ({
+                  ...page,
+                  products: page.products.filter(product => product.id !== deletedProduct.id)
+                }))
+                .filter(page => page.products.length > 0) // 빈 페이지 제거
             };
-
           }
+        );
+
+        // immer 사용한 예시
+        queryClient.setQueryData(
+          ['products', { limit: reqParam.limit, sort: reqParam.sort }],
+          (oldData: InfiniteData<ProductResponse>) =>
+            produce(oldData, draft => {
+              if (!draft?.pages) return;
+
+              deletedProduct.availabilityStatus = "In Stock";
+
+              // 각 페이지에서 삭제된 상품 제거
+              draft.pages.forEach(page => {
+                page.products = page.products.filter(
+                  product => product.id !== deletedProduct.id
+                );
+              });
+
+              // 빈 페이지 제거
+              draft.pages = draft.pages.filter(page => page.products.length > 0);
+            })
         );
       } catch (error) {
         console.error('캐시 업데이트 중 오류:', error);

@@ -49,13 +49,13 @@ const menuItems = [
   { path: '/snippets/37', label: '[dayjs] DateUtils 날짜 핸들링' },
   { path: '/snippets/38', label: '[새로고침] pull to refresh' },
   { path: '/snippets/39', label: '[동영상] player' },
-  { path: '/snippets/40', label: '[axios] fetch 기본 캐시' },
-  { path: '/snippets/41', label: '[TanStack] combo 선택 필터링 조회' },
+  { path: '/snippets/40', label: '[useAxios] POST, PUT, DELETE 요청' },
+  { path: '/snippets/41', label: '[useAxios] GET 요청 + Fetch API 캐시 사용' },
   { path: '/snippets/42', label: '[axios] blob 파일 업로드' },
   { path: '/snippets/43', label: '[axios] blob 파일 다운로드' },
   { path: '/snippets/44', label: '[jest] 테스트 코드 작성(정상)' },
   { path: '/snippets/45', label: '[jest] 테스트 코드 작성(에러)' },
-  { path: '/snippets/46', label: '[code splitting, lazy] 컴포넌트 동적 import' },
+  { path: '/snippets/46', label: '[code splitting, lazy] 컴포넌트 동적 import(tab)' },
   { path: '/snippets/47', label: '[next/dynamic] 컴포넌트 지연 로딩(tab)' },
   { path: '/snippets/48', label: '[await import] 컴포넌트 지연 로딩(scroll)' },
   { path: '/snippets/49', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)' },
@@ -66,6 +66,9 @@ const menuItems = [
   { path: '/snippets/54', label: '[await import,tanstack] 컴포넌트 지연 로딩(scroll)3' },
   { path: '/snippets/55', label: '[kakao, toss] 결제 모듈 연동' },
   { path: '/snippets/56', label: '[SSG] Static Site Generation 예시' },
+  { path: '/snippets/57', label: '[SSE] Server Sent Event 예시' },
+  { path: '/snippets/58', label: '[swiper, tab] 메인 페이지 tab swiper 예시' },
+  { path: '/snippets/59', label: '재귀 컴포넌트 예시' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -15,6 +15,7 @@ import ProductList from '@/app/_component/ProductList';
 import { useInView } from 'react-intersection-observer';
 import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { produce } from 'immer';
 
 interface ProductRequestParams {
   limit: number;
@@ -46,19 +47,6 @@ const UseQueryClientComponent: React.FC = () => {
 
   const handleAddProduct = () => {
     addProductMutation.mutate(newProduct);
-    // setNewProduct({
-    //   "title": "새로운 상품",
-    //   "description": "상품 설명입니다",
-    //   "price": 50000,
-    //   "category": "electronics",
-    //   "brand": "테스트 브랜드",
-    //   "stock": 100,
-    //   "thumbnail": "https://example.com/thumbnail.jpg",
-    //   "images": [
-    //     "https://example.com/image1.jpg",
-    //     "https://example.com/image2.jpg"
-    //   ]
-    // });
   };
 
   // 상품 추가를 위한 mutation 정의
@@ -71,46 +59,52 @@ const UseQueryClientComponent: React.FC = () => {
       return response;
     },
     onSuccess: (addedProduct:Product) => {
-      console.log("onSuccess: ", addedProduct);
       try {
+        // immer 사용하지 않은 예시
+        // queryClient.setQueryData(
+        //   ['products', { limit: reqParam.limit, sort: reqParam.sort }],
+        //   (oldData: InfiniteData<ProductResponse>) => {
+        //     if (!oldData?.pages?.[0]?.products) return oldData;
+        //
+        //     addedProduct.id = new Date().getTime();
+        //     addedProduct.availabilityStatus = "In Stock";
+        //
+        //     return {
+        //       ...oldData,
+        //       pages: [
+        //         {
+        //           ...oldData.pages[0],
+        //           products: [addedProduct, ...oldData.pages[0].products]
+        //         },
+        //         ...oldData.pages.slice(1)
+        //       ]
+        //     };
+        //   }
+        // );
+        // immer 사용한 예시
         queryClient.setQueryData(
           ['products', { limit: reqParam.limit, sort: reqParam.sort }],
-          (oldData: InfiniteData<ProductResponse>
-          ) => {
-            if (!oldData?.pages?.[0]?.products) {
-              return oldData; // 데이터가 없으면 그대로 반환
-            }
+          (oldData: InfiniteData<ProductResponse>) => {
+            return produce(oldData, draft => {
+              if (!draft?.pages?.[0]?.products) return;
 
-            addedProduct.id = new Date().getTime();
-            addedProduct.availabilityStatus = "In Stock";
-            console.log(addedProduct);
-            const newPages = [...oldData.pages];
-            console.log(newPages);
-            console.log(...newPages);
-            newPages[0] = {
-              ...newPages[0],
-              products: [addedProduct, ...newPages[0].products]
-            };
-            console.log(...newPages);
+              // 새 상품 데이터 설정
+              addedProduct.id = new Date().getTime();
+              addedProduct.availabilityStatus = "In Stock";
 
-            return {
-              ...oldData,
-              pages: newPages
-            };
+              // 첫 페이지의 상품 목록 앞에 새 상품 추가
+              draft.pages[0].products.unshift(addedProduct);
+            });
           }
         );
       } catch (error) {
         console.error('캐시 업데이트 중 오류:', error);
       }
-
     },
     onError: (error) => {
       console.error("Mutation Error:", error); // 에러 확인
     }
-
   });
-
-
 
   const { ref, inView } = useInView({
     threshold: 0.1,

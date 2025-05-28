@@ -27,14 +27,6 @@ const UseQueryClientComponent: React.FC = () => {
   const { ref, inView } = useInView({
     threshold: 0.1,
   });
-  //
-  // const initialParams: ProductRequestParams = {
-  //   limit: 3,
-  //   delay: 1000,
-  //   sort: 'desc',
-  //   skip: 0,
-  // };
-
   // 초기 값
   const [reqParam, setReqParam] = useState<ProductRequestParams>({
     limit: 3,

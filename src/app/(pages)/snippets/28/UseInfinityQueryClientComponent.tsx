@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
+import { produce } from 'immer';
 
 interface ProductRequestParams {
   limit: number;
@@ -73,45 +73,11 @@ const UseQueryClientComponent: React.FC = () => {
   });
 
   const onSubmit = (data: ProductFormData) => {
-    addProductMutation.mutate(data);
+    updateProductMutation.mutate(data);
   };
 
-  // const [newProduct, setNewProduct] = useState<ProductAddRequest>({
-  //   "title": "상품 이름 수정",
-  //   "description": "상품 설명입니다",
-  //   "price": 59.99,
-  //   "discountPercentage": 10.28,
-  //   "rating": 3.78,
-  //   "category": "electronics",
-  //   "brand": "테스트 브랜드",
-  //   "stock": 100,
-  //   "availabilityStatus": "In Stock",
-  //   "thumbnail": "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
-  //   "images": [
-  //     "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
-  //     "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png"
-  //   ]
-  // });
-
-  // const handleAddProduct = () => {
-  //   addProductMutation.mutate(newProduct);
-  //   // setNewProduct({
-  //   //   "title": "새로운 상품",
-  //   //   "description": "상품 설명입니다",
-  //   //   "price": 50000,
-  //   //   "category": "electronics",
-  //   //   "brand": "테스트 브랜드",
-  //   //   "stock": 100,
-  //   //   "thumbnail": "https://example.com/thumbnail.jpg",
-  //   //   "images": [
-  //   //     "https://example.com/image1.jpg",
-  //   //     "https://example.com/image2.jpg"
-  //   //   ]
-  //   // });
-  // };
-
   // 상품 수정를 위한 mutation 정의
-  const addProductMutation = useMutation({
+  const updateProductMutation = useMutation({
     mutationFn: async (product: ProductAddRequest) => {
       // API 호출 구현 필요
       const { id, ...productWithoutId } = product;
@@ -124,29 +90,46 @@ const UseQueryClientComponent: React.FC = () => {
     onSuccess: (updatedProduct:Product) => {
       console.log("onSuccess: ", updatedProduct);
       try {
+        // immer 사용하지 않은 예시
+        // queryClient.setQueryData(
+        //   ['products', { limit: reqParam.limit, sort: reqParam.sort }],
+        //   (oldData: InfiniteData<ProductResponse>) => {
+        //     if (!oldData?.pages) return oldData;
+        //
+        //     updatedProduct.availabilityStatus = "In Stock";
+        //
+        //     return {
+        //       ...oldData,
+        //       pages: oldData.pages.map(page => ({
+        //         ...page,
+        //         products: page.products.map(product =>
+        //           product.id === updatedProduct.id ? updatedProduct : product
+        //         )
+        //       }))
+        //     };
+        //   }
+        // );
+
+        // immer 사용한 예시
         queryClient.setQueryData(
           ['products', { limit: reqParam.limit, sort: reqParam.sort }],
-          (oldData: InfiniteData<ProductResponse>
-          ) => {
-            if (!oldData?.pages) {
-              return oldData;
-            }
+          (oldData: InfiniteData<ProductResponse>) =>
+            produce(oldData, draft => {
+              if (!draft?.pages) return;
 
-            updatedProduct.availabilityStatus = "In Stock";
-            const newPages = oldData.pages.map(page => ({
-              ...page,
-              products: page.products.map(product =>
-                product.id === updatedProduct.id ? updatedProduct : product
-              )
-            }));
+              updatedProduct.availabilityStatus = "In Stock";
 
-            return {
-              ...oldData,
-              pages: newPages
-            };
-
-          }
+              draft.pages.forEach(page => {
+                const productIndex = page.products.findIndex(
+                  product => product.id === updatedProduct.id
+                );
+                if (productIndex !== -1) {
+                  page.products[productIndex] = updatedProduct;
+                }
+              });
+            })
         );
+
       } catch (error) {
         console.error('캐시 업데이트 중 오류:', error);
       }
@@ -201,7 +184,7 @@ const UseQueryClientComponent: React.FC = () => {
       fetchNextPage();
     }
   }, [inView]);
-  
+
   // 수정된 데이터가 캐시에 남아있을 수 있기 때문에 캐시 초기화
   React.useEffect(() => {
     console.log("useEffect: 초기 로딩");
@@ -257,10 +240,10 @@ const UseQueryClientComponent: React.FC = () => {
         <Button
           variant="contained"
           type="submit"
-          loading={addProductMutation.isPending}
+          loading={updateProductMutation.isPending}
 
           // onClick={handleAddProduct}
-          disabled={addProductMutation.isPending}
+          disabled={updateProductMutation.isPending}
         >
           상품 수정
         </Button>

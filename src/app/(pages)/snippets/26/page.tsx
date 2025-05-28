@@ -14,6 +14,7 @@ import ResultBlock from "@/app/_component/CodeResultBlock";
 import { useNavigationGuard } from 'next-navigation-guard';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import CodeBlock from '@/app/_component/CodeBlock';
 
 type NavigationType = 'back' | 'forward' | 'refresh' | 'push';
 interface HandleNavigationProps {
@@ -76,11 +77,17 @@ const TestPage26: React.FC = () => {
       <div>
         <Container>
           <h1>네비게이션 가드 테스트</h1>
+          <p>
+            - 페이지 이동 시 confirm 창을 띄워 페이지 이탈 방지 기능을 테스트합니다.
+          </p>
+          <p>
+            - /app/layout.tsx 에서 NavigationGuardProvider 를 사용하여 네비게이션 가드를 설정합니다.
+          </p>
           <button onClick={handleClick}> onClick 링크</button>
           <Divider />
-          <Link href="/snippets/1"> 링크Link(적용 안됨)</Link>
+          <Link href="/snippets/1"><button>링크Link(적용 안됨)</button></Link>
           <Divider />
-          <CustomLink href={'/snippets/1'}> 링크CustomLink</CustomLink>
+          <CustomLink href={'/snippets/1'}><button>링크CustomLink</button></CustomLink>
           <Divider />
           <button onClick={() => handleNavigation({ type: 'back' })}>
             {' '}
@@ -107,6 +114,21 @@ const TestPage26: React.FC = () => {
               <p>위 동작 시 confirm 창이 표시됩니다.</p>
             </div>
           </ResultBlock>
+          <CodeBlock filename={"app/layout.tsx"} value={
+            "export default function RootLayout({\n" +
+            "  children,\n" +
+            "}: Readonly<{\n" +
+            "  children: React.ReactNode;\n" +
+            "}>) {\n" +
+            "  return (\n" +
+            "    <html lang=\"ko\">\n" +
+            "      <body className={`${geistSans.variable} ${geistMono.variable}`}>\n" +
+            "        <NavigationGuardProvider>{children}</NavigationGuardProvider>\n" +
+            "      </body>\n" +
+            "    </html>\n" +
+            "  );\n" +
+            "}\n"
+          }/>
         </Container>
 
         {/* MUI Dialog */}
