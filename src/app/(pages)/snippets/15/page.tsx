@@ -13,7 +13,7 @@ const TestPage15: React.FC = async () => {
   await queryClient.prefetchQuery<ProductResponse>({
     queryKey: ["products", "server"],
     queryFn: () => getProductsApi(),
-    staleTime: 3000,
+    staleTime: 10000,
     gcTime: 0
   });
 
@@ -72,7 +72,7 @@ const TestPage15: React.FC = async () => {
           "  await queryClient.prefetchQuery<ProductResponse>({\n" +
           "    queryKey: [\"products\", \"server\"],\n" +
           "    queryFn: () => getProductsApi(),\n" +
-          "    staleTime: 3000,\n" +
+          "    staleTime: 10000,\n" +
           "    gcTime: 0\n" +
           "  });\n" +
           "\n" +
@@ -106,7 +106,7 @@ const TestPage15: React.FC = async () => {
           "  const {data: productResponse, status, fetchStatus, } = useQuery<ProductResponse>({\n" +
           "    queryKey: [\"products\", \"server\"],\n" +
           "    queryFn: () => getProductsApi(),\n" +
-          "    staleTime: 6000,\n" +
+          "    staleTime: 10000,\n" +
           "    // gcTime: 6000,\n" +
           "  });\n" +
           "\n" +
