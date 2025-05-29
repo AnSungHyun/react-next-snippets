@@ -44,6 +44,7 @@ const TestPage1: React.FC = () => {
             '};\n'
           }
         />
+        <h1>일반 함수 컴포넌트 예시</h1>
         <CodeBlock
           language={'typescript'}
           value={
