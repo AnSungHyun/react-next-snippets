@@ -1,22 +1,32 @@
-// components/Section3.tsx
-const Section3 = () => {
+// components/Section4.tsx
+import { Card, CardContent, Typography, Box } from '@mui/material';
+
+const Section4 = () => {
   return (
-    <div className="min-h-[1200px] p-8 bg-red-100">
-      <h2 className="text-2xl mb-4">섹션 4</h2>
-      <div className="space-y-8">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl mb-4">큰 컨텐츠 블록 {i + 1}</h3>
-            <div className="space-y-4">
-              <p>섹션 4의 긴 컨텐츠입니다...</p>
-              <div className="h-60 bg-red-50"></div>
-              <p>추가 설명 텍스트...</p>
-            </div>
-          </div>
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h4" gutterBottom>1Column 배너 리스트</Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Card key={i}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>배너 {i + 1}</Typography>
+              <Box sx={{
+                height: '200px',
+                bgcolor: '#f0f0f0',
+                my: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                배너 이미지 영역
+              </Box>
+              <Typography variant="body1">배너 설명이 들어갈 영역입니다.</Typography>
+            </CardContent>
+          </Card>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
-export default Section3;
+export default Section4;

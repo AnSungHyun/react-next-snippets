@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Container, Tab, Tabs, CircularProgress } from '@mui/material';
+import CodeBlock from '@/app/_component/CodeBlock';
 // import ServerSideWrapper from './ServerSideWrapper';
 
 // 동적 임포트를 사용한 컴포넌트 로딩
@@ -144,10 +145,7 @@ const DynamicDashboardPage = () => {
 
   return (
     <Container>
-      <h2>Next.js Dynamic Import 예제</h2>
-
       <div style={{ marginBottom: '20px' }}>
-        <h3>주요 특징</h3>
         <ul>
           <li>next/dynamic을 사용한 컴포넌트 동적 로딩</li>
           <li>컴포넌트별 커스텀 로딩 상태 표시</li>
@@ -156,28 +154,6 @@ const DynamicDashboardPage = () => {
         </ul>
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <h3>코드 예시</h3>
-        <pre style={{
-          backgroundColor: '#f5f5f5',
-          padding: '15px',
-          borderRadius: '4px',
-          overflow: 'auto'
-        }}>
-{`// CSR 전용 컴포넌트
-const ClientComponent = dynamic(() => import('./ClientComponent'), {
-  loading: () => <LoadingComponent name="클라이언트" />,
-  ssr: false
-});
-
-// SSR 활성화 컴포넌트
-const ServerComponent = dynamic(() => import('./ServerComponent'), {
-  loading: () => <LoadingComponent name="서버" />,
-  ssr: true
-});`}
-
-        </pre>
-      </div>
 
       <Tabs
         value={activeTab}
@@ -193,6 +169,92 @@ const ServerComponent = dynamic(() => import('./ServerComponent'), {
       </Tabs>
 
       {renderTabContent()}
+
+
+      <CodeBlock value={
+        "'use client';\n" +
+        "import React, { useState } from 'react';\n" +
+        "import dynamic from 'next/dynamic';\n" +
+        "import { Container, Tab, Tabs, CircularProgress } from '@mui/material';\n" +
+        "// import ServerSideWrapper from './ServerSideWrapper';\n" +
+        "\n" +
+        "// 동적 임포트를 사용한 컴포넌트 로딩\n" +
+        "const ChartComponent = dynamic(() => import('./ChartComponent'), {\n" +
+        "  loading: () => <LoadingComponent name=\"차트\" />,\n" +
+        "  ssr: false\n" +
+        "});\n" +
+        "\n" +
+        "const DataTableComponent = dynamic(() => import('./DataTableComponent'), {\n" +
+        "  loading: () => <LoadingComponent name=\"테이블\" />,\n" +
+        "  ssr: false\n" +
+        "});\n" +
+        "\n" +
+        "const ProductExample = dynamic(() => import('./ProductExample'), {\n" +
+        "  loading: () => <LoadingComponent name=\"제품 목록\" />,\n" +
+        "  ssr: false\n" +
+        "});\n" +
+        "\n" +
+        "// 에러가 발생하는 컴포넌트\n" +
+        "const ErrorComponent = dynamic(() => import('./ErrorComponent'), {\n" +
+        "  loading: () => <LoadingComponent name=\"에러 테스트\" />,\n" +
+        "  ssr: false\n" +
+        "});\n" +
+        "\n" +
+        "// SSR이 활성화된 컴포넌트\n" +
+        "const ServerSideComponent = dynamic(() => import('./ServerSideComponent'), {\n" +
+        "  loading: () => <LoadingComponent name=\"SSR 컴포넌트\" />,\n" +
+        "  ssr: true // SSR 활성화\n" +
+        "  // ssr: true 로 설정하였으나 실제로는 client 렌더링됨.\n" +
+        "});"
+      }/>
+
+      <CodeBlock value={
+        "const DynamicDashboardPage = () => {\n" +
+        "  const [activeTab, setActiveTab] = useState(0);\n" +
+        "\n" +
+        "  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {\n" +
+        "    setActiveTab(newValue);\n" +
+        "  };\n" +
+        "\n" +
+        "  const renderTabContent = () => {\n" +
+        "    return (\n" +
+        "      <ErrorBoundary>\n" +
+        "        {activeTab === 0 && <ChartComponent />}\n" +
+        "        {activeTab === 1 && <DataTableComponent />}\n" +
+        "        {activeTab === 2 && <ProductExample />}\n" +
+        "        {activeTab === 3 && <ErrorComponent />}\n" +
+        "        {activeTab === 4 && (\n" +
+        "          // <ServerSideWrapper />\n" +
+        "          <ServerSideComponent\n" +
+        "            products={[]} // 실제 데이터는 서버 사이드에서 주입됨\n" +
+        "            loadTime={new Date().toISOString()}\n" +
+        "          />\n" +
+        "        )}\n" +
+        "\n" +
+        "      </ErrorBoundary>\n" +
+        "    );\n" +
+        "  };\n" +
+        "\n" +
+        "  return (\n" +
+        "    <Container>\n" +
+        "      <Tabs\n" +
+        "        value={activeTab}\n" +
+        "        onChange={handleTabChange}\n" +
+        "        sx={{ marginBottom: 2 }}\n" +
+        "      >\n" +
+        "        <Tab label=\"차트 보기\" />\n" +
+        "        <Tab label=\"테이블 보기\" />\n" +
+        "        <Tab label=\"제품 목록\" />\n" +
+        "        <Tab label=\"에러 테스트\" />\n" +
+        "        <Tab label=\"SSR 컴포넌트\" />\n" +
+        "\n" +
+        "      </Tabs>\n" +
+        "\n" +
+        "      {renderTabContent()}\n" +
+        "    </Container>\n" +
+        "  );\n" +
+        "};"
+      } />
     </Container>
   );
 };

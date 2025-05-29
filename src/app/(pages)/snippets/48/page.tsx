@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
+import Link from 'next/link';
 
 export default function Home() {
   const [Section1, setSection1] = useState<any>(null);
@@ -21,12 +22,12 @@ export default function Home() {
   });
 
   const { ref: section2Ref, inView: section2InView } = useInView({
-    threshold: 1,
+    threshold: 0.1,
     triggerOnce: true // 한 번만 트리거되도록 설정
   });
 
   const { ref: section3Ref, inView: section3InView } = useInView({
-    threshold: 1,
+    threshold: 0.1,
     triggerOnce: true // 한 번만 트리거되도록 설정
   });
 
@@ -90,7 +91,7 @@ export default function Home() {
   return (
     <Container>
       <p>
-        - scroll 위치에 따라 next/dynamic을 사용하여 동적 컴포넌트 로딩을 구현한 예시 코드
+        - scroll 위치에 따라 await import을 사용하여 동적 컴포넌트 로딩을 구현한 예시 코드
       </p>
       <p>
         - 하지만 동적으로 로딩한 컴포넌트여서, 페이지 이동후 "뒤로가기" 시 컨텐츠, 스크롤 유실
@@ -118,6 +119,12 @@ export default function Home() {
         </div>
       )}
     </div>
+      <Button>
+        <Link href={'/snippets/1'}>
+          다른 페이지로 이동!
+          <br />( 뒤로가기로 스크롤 유지 되는지 확인 )
+        </Link>
+      </Button>
     </Container>
   );
 }

@@ -58,7 +58,7 @@ export default function DynamicSectionsPage() {
     if (inView && lastLoaded && visibleCount < sectionList.length) {
       setVisibleCount((prev) => prev + 1);
     }
-  }, [inView, visibleCount, sectionList.length, componentQueries]);
+  }, [inView]);
 
   const LoadingSection = () => (
     <div className="min-h-[400px] p-8 bg-gray-50">
@@ -72,10 +72,10 @@ export default function DynamicSectionsPage() {
   return (
     <Container ref={scrollRef}>
       <p>
-        - Section 개수에 상관없이 동적으로 스크롤 하단에 도달 시 컴포넌트 로딩
+        - 동적 렌더링 컴포넌트의 개수가 정해지지 않고, DB 데이터에 따라 동적으로 변하는 경우 동적 렌더링
       </p>
       <p>
-        - 하지만 Section 자체도 동적인 데이터다 보니 scroll 유지가 어려움
+        - 렌더링할 컴포넌트 자체도 동적인 데이터다 보니 scroll 유지가 어려움
       </p>
       <div className="max-w-6xl mx-auto">
         {sectionList.slice(0, visibleCount).map((section, idx) => {

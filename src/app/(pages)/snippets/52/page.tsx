@@ -45,34 +45,35 @@ export default function PostPage({
 }`,
     testUrls: [
       '/snippets/52/10000001?query=1234&sort=asc',
-      '/snippets/52/10000002?query=1234&sort=asc',
-      '/snippets/52/10000003?query=1234&sort=asc'
+      '/snippets/52/10000002?query=5546456456&sort=desc',
+      '/snippets/52/10000003?query=4673737&sort=asc'
     ]
   },
   searchParams: {
     title: '검색 파라미터 예시',
     description: '페이지네이션, 필터링, 정렬 등에 사용되는 쿼리 파라미터를 처리합니다.',
-    code: `// app/products/page.tsx
+    code: `
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-export default function ProductsPage() {
+export default function NavigationInfo() {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  
+
   return (
     <div>
-      <h1>상품 목록</h1>
+      <h2>현재 경로 정보</h2>
+      <p>현재 경로: {pathname}</p>
       <p>카테고리: {searchParams.get('category')}</p>
-      <p>정렬: {searchParams.get('sort')}</p>
-      <p>페이지: {searchParams.get('page')}</p>
+      <p>정렬 기준: {searchParams.get('sort')}</p>
     </div>
   );
 }`,
     testUrls: [
       '/snippets/52/searchParams?category=electronics&sort=price&page=1',
       '/snippets/52/searchParams?category=books&sort=date&page=2',
-      '/snippets/52/searchParams?category=clothes&sort=name'
+      '/snippets/52/client/test?category=clothes&sort=name'
     ]
   },
   serverSearchParams: {

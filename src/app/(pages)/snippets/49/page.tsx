@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { Button, Container } from '@mui/material';
@@ -87,8 +86,7 @@ export default function TestPage49() {
   return (
     <Container>
       <p>
-        - scroll 위치에 따라 next/dynamic을 사용하여 동적 컴포넌트 로딩을 구현한
-        예시 코드
+        - scroll 위치에 따라 await import을 사용하여 동적 컴포넌트 로딩을 구현한 예시 코드
       </p>
       <p>
         - "뒤로가기" 시에 동적 로드한 컨텐츠, 스크롤을 유실하는 문제로 인해

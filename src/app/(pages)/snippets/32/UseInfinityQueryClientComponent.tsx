@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
+import { produce } from 'immer';
 
 interface ProductRequestParams {
   limit: number;
@@ -97,6 +97,7 @@ const UseQueryClientComponent: React.FC = () => {
       );
 
       // Optimistic update 적용 (즉시 UI 반영)
+      // immer를 사용하지 않은 예시
       queryClient.setQueryData(
         ['products', { limit: reqParam.limit, sort: reqParam.sort }],
         (old: InfiniteData<ProductResponse> | undefined) => {
@@ -118,6 +119,28 @@ const UseQueryClientComponent: React.FC = () => {
             ...old,
             pages: newPages
           };
+        }
+      );
+
+
+      // immer 사용 예시
+      queryClient.setQueryData(
+        ['products', { limit: reqParam.limit, sort: reqParam.sort }],
+        (old: InfiniteData<ProductResponse> | undefined) => {
+          if (!old?.pages) return old;
+
+          return produce(old, draft => {
+            const optimisticProduct = {
+              ...newProduct,
+              availabilityStatus: "In Stock"
+            };
+
+            draft.pages.forEach(page => {
+              page.products = page.products.map(product =>
+                product.id === newProduct.id ? optimisticProduct as Product : product
+              );
+            });
+          });
         }
       );
 

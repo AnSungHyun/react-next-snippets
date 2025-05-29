@@ -1,18 +1,38 @@
+
 // components/Section2.tsx
+import { Card, CardContent, Typography, Box } from '@mui/material';
+
 const Section2 = () => {
   return (
-    <div className="min-h-[1000px] p-8 bg-green-100">
-      <h2 className="text-2xl mb-4">섹션 2</h2>
-      <div className="grid grid-cols-2 gap-6">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="p-4 bg-white rounded shadow">
-            <h3>아이템 {i + 1}</h3>
-            <p>섹션 2의 그리드 아이템입니다...</p>
-            <div className="h-40 bg-green-50 mt-4"></div>
-          </div>
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h4" gutterBottom>2Column 상품 리스트</Typography>
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: 2,
+        '& > *': { gridColumn: 'span 1' }
+      }}>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <Card key={i}>
+            <CardContent>
+              <Typography variant="h6">상품 {i + 1}</Typography>
+              <Box sx={{
+                height: '150px',
+                bgcolor: '#f5f5f5',
+                my: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                상품 이미지 영역
+              </Box>
+              <Typography variant="body1">가격: ₩{(29900 + i * 1000).toLocaleString()}</Typography>
+              <Typography variant="body2" color="text.secondary">상품 설명이 들어갈 영역입니다.</Typography>
+            </CardContent>
+          </Card>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

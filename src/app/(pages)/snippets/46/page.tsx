@@ -1,6 +1,7 @@
 'use client';
 import React, { Suspense, lazy, useState } from 'react';
 import { Container, Tab, Tabs, CircularProgress } from '@mui/material';
+import CodeBlock from '@/app/_component/CodeBlock';
 
 // 동적 임포트를 사용한 컴포넌트 로딩
 const ChartComponent = lazy(() => import('./ChartComponent'));
@@ -114,6 +115,7 @@ const DashboardPage = () => {
       <p>
         - 초기 렌더링 속도를 줄일 수 있고, 선택적으로 필요한 컴포넌트만 로드할 수 있다.
       </p>
+
       <Tabs
         value={activeTab}
         onChange={handleTabChange}
@@ -127,6 +129,62 @@ const DashboardPage = () => {
       </Tabs>
 
       {renderTabContent()}
+
+      <CodeBlock value={
+        "'use client';\n" +
+        "import React, { Suspense, lazy, useState } from 'react';\n" +
+        "import { Container, Tab, Tabs, CircularProgress } from '@mui/material';\n" +
+        "import CodeBlock from '@/app/_component/CodeBlock';\n" +
+        "\n" +
+        "// 동적 임포트를 사용한 컴포넌트 로딩\n" +
+        "const ChartComponent = lazy(() => import('./ChartComponent'));\n" +
+        "const DataTableComponent = lazy(() => import('./DataTableComponent'));\n" +
+        "const ProductExample = lazy(() => import('./ProductExample'));\n" +
+        "const ErrorComponent = lazy(() => import('./ErrorComponent'));\n"
+      }
+      />
+
+      <CodeBlock value={
+        "const DashboardPage = () => {\n" +
+        "  const [activeTab, setActiveTab] = useState(0);\n" +
+        "\n" +
+        "  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {\n" +
+        "    setActiveTab(newValue);\n" +
+        "  };\n" +
+        "\n" +
+        "  const renderTabContent = () => {\n" +
+        "    return (\n" +
+        "      <ErrorBoundary>\n" +
+        "        <Suspense fallback={<LoadingComponent />}>\n" +
+        "          {activeTab === 0 && <ChartComponent />}\n" +
+        "          {activeTab === 1 && <DataTableComponent />}\n" +
+        "          {activeTab === 2 && <ProductExample />}\n" +
+        "          {activeTab === 3 && <ErrorComponent />}\n" +
+        "\n" +
+        "        </Suspense>\n" +
+        "      </ErrorBoundary>\n" +
+        "    );\n" +
+        "  };\n" +
+        "\n" +
+        "  return (\n" +
+        "    <Container>\n" +
+        "      <Tabs\n" +
+        "        value={activeTab}\n" +
+        "        onChange={handleTabChange}\n" +
+        "        sx={{ marginBottom: 2 }}\n" +
+        "      >\n" +
+        "        <Tab label=\"차트 보기\" />\n" +
+        "        <Tab label=\"테이블 보기\" />\n" +
+        "        <Tab label=\"제품 목록\" />\n" +
+        "        <Tab label=\"에러 테스트\" />\n" +
+        "\n" +
+        "      </Tabs>\n" +
+        "\n" +
+        "      {renderTabContent()}\n" +
+        "    </Container>\n" +
+        "  );\n" +
+        "};"
+      }/>
     </Container>
   );
 };

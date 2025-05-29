@@ -23,6 +23,7 @@ import {
   isBefore,
   isToday,
 } from '@/utils/dateUtils';
+import CodeBlock from '@/app/_component/CodeBlock';
 
 export default function DateUtilsExample() {
   const [currentTime, setCurrentTime] = useState<string>('로딩 중...');
@@ -76,6 +77,20 @@ export default function DateUtilsExample() {
             <DateDisplayCard title="오늘 요일" content={currentDayOfWeek} />
           </Grid>
         </Grid>
+        <CodeBlock value={
+          "import {\n" +
+          "  getCurrentDateTime,\n" +
+          "  getCurrentDate,\n" +
+          "  getDayOfWeek,\n" +
+          "} from '@/utils/dateUtils';" +
+          "\n\n" +
+          "// 현재 날짜/시간 가져오기\n" +
+          "getCurrentDateTime() // '2025-03-26 14:30:00'\n\n" +
+          "// 현재 날짜 가져오기\n" +
+          "getCurrentDate() // '2025-03-26'\n\n" +
+          "// 현재 요일 가져오기\n" +
+          "getDayOfWeek(new Date()) // '수요일'\n\n"
+        }/>
       </Paper>
 
       <Paper sx={{ p: 3, mb: 4 }}>
@@ -117,6 +132,20 @@ export default function DateUtilsExample() {
             />
           </Grid>
         </Grid>
+        <CodeBlock value={
+          "import {\n" +
+          "  addDays,\n" +
+          "  subtractDays,\n" +
+          "  isToday,\n" +
+          "} from '@/utils/dateUtils';" +
+          "\n\n" +
+          "// 날짜에 일수 더하기\n" +
+          "addDays('2025-03-26', 5) // '2025-03-31'\n\n" +
+          "// 날짜에서 일수 빼기\n" +
+          "subtractDays('2025-03-26', 5) // '2025-03-21'\n\n" +
+          "// 오늘인지 확인\n" +
+          "isToday('2025-03-26') // false (현재 날짜가 다를 경우)\n\n"
+        }/>
       </Paper>
 
       <Paper sx={{ p: 3 }}>
@@ -152,6 +181,17 @@ export default function DateUtilsExample() {
             />
           </Grid>
         </Grid>
+        <CodeBlock value={
+          "import {\n" +
+          "  differenceInDays,\n" +
+          "  isBefore,\n" +
+          "} from '@/utils/dateUtils';" +
+          "\n\n" +
+          "// 두 날짜의 차이 (일)\n" +
+          "differenceInDays('2025-03-25', '2025-03-26') // -1\n\n" +
+          "// 첫 번째 날짜가 두 번째 날짜보다 이전인지 확인\n" +
+          "isBefore('2025-03-25', '2025-03-26') // true\n\n"
+        }/>
       </Paper>
     </Container>
   );
