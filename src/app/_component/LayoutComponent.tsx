@@ -72,6 +72,7 @@ const menuItems = [
   { path: '/snippets/60', label: 'Shadow Dom 을 사용한 CSS 격리' },
   { path: '/snippets/61', label: 'Shadow Dom 을 사용한 외부 Service 렌더링(미구현)' },
   { path: '/snippets/62', label: 'library 패키징 및 배포 후 import 예시 구현(미구현)' },
+  { path: '/snippets/63', label: 'use-debounce 를 활용한 검색 (미구현)' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

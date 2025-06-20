@@ -13,6 +13,7 @@ export const config = {
     pro: "https://dummyjson.com",
     test: "https://dummyjson.com",
   },
+  base_proxy: "/proxy", // Client 요청 프록시 경로 설정
   result_code: "0000",
   request_timeout: 60000,
   default_headers: "application/json",
@@ -54,7 +55,7 @@ export default {
 
 const baseURL = isServer
   ? config.base_url[process.env.NEXT_PUBLIC_MODE as keyof typeof config.base_url]
-  : ""; // 클라이언트에서는 baseURL을 빈 문자열로 설정
+  : config.base_proxy; // 클라이언트에서는 baseURL을 proxy 페이지로 설정
 
 // Axios Instance Create
 const service: AxiosInstance = axios.create({
@@ -65,6 +66,7 @@ const service: AxiosInstance = axios.create({
 // Request Interceptor
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    console.info("baseURL", baseURL);
     console.info("commonAxios url : " + config.url);
 
     // legacy API 요청 시 필요 할 수 있음.

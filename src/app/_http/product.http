@@ -52,3 +52,50 @@ Content-Type: application/json
 ### 상품 1개 조회
 GET https://dummyjson.com/products/1
 Content-Type: application/json
+
+### GET route handler test
+GET http://localhost:3010/proxy/product/100001?limit=3&delay=1000
+Content-Type: application/json
+
+{
+  "id": 100001,
+  "sort": "asc",
+  "page": 22,
+  "message": "Route handler test successful"
+}
+
+### POST route handler test
+POST http://localhost:3010/proxy/product/100001?sort=asc&page=1122하하
+Content-Type: application/json
+
+{
+  "id": 100001,
+  "sort": "asc",
+  "page": 22,
+  "message": "Route handler test successful"
+}
+
+### POST route handler test
+POST http://localhost:3010/proxy/api/product/100001?sort=asc&page=1122하하
+Content-Type: application/json
+
+{
+  "id": 100001,
+  "sort": "asc",
+  "page": 22,
+  "message": "Route handler test successful"
+}
+
+### GET route handler test
+GET http://localhost:3010/proxy/products?limit=3&delay=1000
+Content-Type: application/json
+
+{
+  "id": 100001,
+  "sort": "asc",
+  "page": 22,
+  "message": "Route handler test successful"
+}
+
+### asdf
+GET http://localhost:3010/proxy/products?limit=3&delay=1000
