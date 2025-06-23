@@ -54,8 +54,9 @@ GET https://dummyjson.com/products/1
 Content-Type: application/json
 
 ### GET route handler test
-GET http://localhost:3010/proxy/product/100001?limit=3&delay=1000
+GET http://localhost:3010/proxy/products?limit=3&delay=1000
 Content-Type: application/json
+cookie: test=12345; token=abcdefg;
 
 {
   "id": 100001,
@@ -65,37 +66,47 @@ Content-Type: application/json
 }
 
 ### POST route handler test
-POST http://localhost:3010/proxy/product/100001?sort=asc&page=1122하하
+POST http://localhost:3010/proxy/product/add
 Content-Type: application/json
 
 {
-  "id": 100001,
-  "sort": "asc",
-  "page": 22,
-  "message": "Route handler test successful"
+  "title": "새로운 상품",
+  "description": "상품 설명입니다",
+  "price": 59.99,
+  "discountPercentage": 10.28,
+  "rating": 3.78,
+  "category": "electronics",
+  "brand": "테스트 브랜드",
+  "stock": 100,
+  "availabilityStatus": "In Stock",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
+    "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png"
+  ]
 }
 
-### POST route handler test
-POST http://localhost:3010/proxy/api/product/100001?sort=asc&page=1122하하
+### PUT route handler test
+PUT http://localhost:3010/proxy/product/1
 Content-Type: application/json
 
 {
-  "id": 100001,
-  "sort": "asc",
-  "page": 22,
-  "message": "Route handler test successful"
+  "title": "새로운 상품",
+  "description": "상품 설명입니다",
+  "price": 59.99,
+  "discountPercentage": 10.28,
+  "rating": 3.78,
+  "category": "electronics",
+  "brand": "테스트 브랜드",
+  "stock": 100,
+  "availabilityStatus": "In Stock",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png",
+    "https://cdn.dummyjson.com/products/images/sports-accessories/American%20Football/1.png"
+  ]
 }
 
-### GET route handler test
-GET http://localhost:3010/proxy/products?limit=3&delay=1000
+### DELETE route handler test
+DELETE http://localhost:3010/proxy/product/1
 Content-Type: application/json
-
-{
-  "id": 100001,
-  "sort": "asc",
-  "page": 22,
-  "message": "Route handler test successful"
-}
-
-### asdf
-GET http://localhost:3010/proxy/products?limit=3&delay=1000

@@ -1,134 +1,240 @@
-// pages/api/proxy/route.ts
-// import { NextRequest, NextResponse } from 'next';
-import axios from 'axios';
+import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server';
-import qs from 'qs';
-import { ProductResponse } from '@/app/_api/GetProduct';
-import commonAxios from '@/app/_config/axios/commonAxios';
+import commonAxios, { config } from '@/app/_config/axios/commonAxios';
+import { formatDate } from '@/utils/dateUtils';
 
-const API_BASE_URL = 'https://dummyjson.com'; // Backend API URL 설정
+/**
+ * @fileoverview Next.js API 라우트 핸들러
+ * @description
+ * Next.js의 API 라우트로, 클라이언트의 HTTP 요청을 백엔드 API로 프록시하는 역할을 합니다.
+ * GET, POST, PUT, DELETE 메서드를 지원하며, 각 요청에 대한 공통 처리 로직을 포함합니다.
+ *
+ * @author 안성현
+ * @date 2025-06-23
+ * @lastModified 2025-06-23
+ */
 
-export async function GET(req: NextRequest) {
-  const apiPath = req.nextUrl.pathname.replace('/proxy', ''); // '/api/proxy' 부분 제거
-  const query = req.nextUrl.searchParams; // 쿼리 파라미터 가져오기
+
+// 공통 요청 데이터 추출 함수
+const getCommonRequestData = (req: NextRequest) => {
+  const apiPath = req.nextUrl.pathname.replace(config.base_proxy, '');
+  const query = req.nextUrl.searchParams;
   const queryObj = Object.fromEntries(query);
-  // const queryString = qs.stringify(Object.fromEntries(query), { encode: true });
-  // const apiUrl = `${API_BASE_URL}${apiPath}${queryString ? `?${queryString}` : ''}`; // 최종 API
-  const body = await req.json().catch(() => ({})); // POST, PUT 요청의 경우 본문 데이터 가져오기
-  const headers = req.headers;
-  const customHeaderUserAgent = headers.get('user-agent') || 'ncp-android';
-  const cookies = req.cookies;
-  const accessToken = cookies['ncp-access-token']; // 특정 쿠키 값 가져오기
+  // Headers 객체를 일반 객체로 변환, accept, content-type, authorization, user-agent
+  const headersObj= Object.fromEntries(req.headers.entries());
+  // RequestCookies 객체를 일반 객체로 변환
+  const cookiesObj = Object.fromEntries(
+    req.cookies.getAll().map(cookie => [cookie.name, cookie.value])
+  );
 
-  //
-  // // 클라이언트가 요청한 URL 경로를 가져옵니다.
-  // // 예: /api/proxy/product/100001
-  // const apiPath = req.url?.replace('/api/proxy', ''); // '/api/proxy' 부분 제거
-  // const apiUrl = `${API_BASE_URL}${apiPath}`; // 최종 API URL 생성
+  return { apiPath, queryObj, headersObj, cookiesObj };
+};
 
-  console.log('-------------------------------------------------------------------------------');
-  console.log('apiPath', apiPath);
-  // console.log('apiUrl', apiUrl);
-  console.log('queryOrg', queryObj);
-  // console.log('query', queryString);
-  console.log('body', body);
+// 필요한 헤더 키들을 상수로 정의
+const REQUIRED_HEADERS = ['accept', 'cookie', 'referer', 'user-agent', 'content-type'] as const;
 
-  // console.log('method', method);
-  // console.log('query', query);
-  // console.log('body', body);
-  console.log('-------------------------------------------------------------------------------');
+// 필요한 헤더만 필터링하는 함수
+const filterHeaders = (headers: Record<string, string>) => {
+  return Object.fromEntries(
+    Object.entries(headers)
+      .filter(([key]) =>
+        REQUIRED_HEADERS.includes(key.toLowerCase() as typeof REQUIRED_HEADERS[number])
+      )
+  );
+};
+
+// 에러 처리 공통 함수
+const handleError = (error: any) => {
+  console.error('API ROUTE: 에러 발생:', error);
+  return NextResponse.json(
+    { error: 'Internal Server Error' },
+    { status: 500 }
+  );
+};
+
+
+// 임시 토큰 생성 함수 추가 ( 실제 로그인 API 가 개발되기 전까지 임시로 사용 )
+const generateToken = () => {
+  const now = new Date();
+  const dateTime = formatDate(now, 'YYYYMMDD_HHmmss');
+  const randomChars = Array(10)
+    .fill(0)
+    .map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+    .join('');
+
+  return `${dateTime}_KST_${randomChars}`;
+};
+
+// 공통 요청 처리 함수
+const handleRequest = async (
+  req: NextRequest,
+  method: 'get' | 'post' | 'put' | 'delete',
+  shouldGetBody = false
+) => {
   try {
-    const response = await commonAxios.get({ url: apiPath, params: queryObj });
-    // console.log('전체 응답:', response);
+    const cookieStore = await cookies();
+    const { apiPath, queryObj, headersObj, cookiesObj } = getCommonRequestData(req);
+    let refreshToken = cookieStore.get('refresh-token')?.value;
+
+    // 특정 상황에만 요청시에만 토큰 생성
+    if (!refreshToken) {
+      refreshToken = generateToken();
+      cookieStore.set('refresh-token', refreshToken, {
+        httpOnly: true,
+      });
+    }
+
+    // POST, PUT 요청 시 body를 가져옴
+    const body = shouldGetBody ? await req.json().catch(() => ({})) : undefined;
+    // 필요한 headers만 필터링
+    const headers = filterHeaders(headersObj);
+
+    // 요청 로깅
+    console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, {
+      apiPath,
+      queryObj,
+      ...(body && { body }),
+      headers
+    });
+
+    const requestConfig = {
+      url: apiPath,
+      params: queryObj,
+      headers: {
+        ...headers,
+        'Authorization': `Bearer ${refreshToken}`,
+      },
+      ...(body && { data: body }),
+    };
+
+    // console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, requestConfig);
+
+    const response = await commonAxios[method](requestConfig);
     return NextResponse.json(response);
-
   } catch (error) {
-    console.error('에러 발생:', error);
-    return NextResponse.json({'error': 'Internal Server Error'}, { status: 500 });
+    return handleError(error);
   }
+};
+
+// HTTP 메서드 핸들러
+export const GET = (req: NextRequest) => handleRequest(req, 'get');
+export const POST = (req: NextRequest) => handleRequest(req, 'post', true);
+export const PUT = (req: NextRequest) => handleRequest(req, 'put', true);
+export const DELETE = (req: NextRequest) => handleRequest(req, 'delete');
 
 
-  // return Response.json({ message: 'Hello, this is a proxy route!' });
-  // try {
-  //   // Axios를 통한 API 요청
-  //   const response = await axios({
-  //     method: method, // GET, POST, PUT, DELETE 등
-  //     url: apiUrl, // 변환된 API URL
-  //     data: body, // POST, PUT 요청의 경우 본문 데이터
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       ...req.headers, // 클라이언트의 헤더를 그대로 전달
-  //     },
-  //   });
-  //
-  //   // API 응답을 클라이언트에 전달
-  //   res.status(response.status).json(response.data);
-  // } catch (error) {
-  //   // 오류 처리
-  //   if (axios.isAxiosError(error)) {
-  //     res.status(error.response?.status || 500).json(error.response?.data || { message: 'Internal Server Error' });
-  //   } else {
-  //     res.status(500).json({ message: 'Internal Server Error' });
-  //   }
-  // }
-}
-
-
-export async function POST(req: NextRequest, res: NextResponse) {
-  const method = req.method;
-  const apiPath = req.nextUrl.pathname.replace('/proxy', ''); // '/api/proxy' 부분 제거
-  const query = req.nextUrl.searchParams; // 쿼리 파라미터 가져오기
-  const queryString = qs.stringify(Object.fromEntries(query), { encode: true });
-  const apiUrl = `${API_BASE_URL}${apiPath}${queryString ? `?${queryString}` : ''}`; // 최종 API
-  const body = await req.json().catch(() => ({})); // POST, PUT 요청의 경우 본문 데이터 가져오기
-  const headers = req.headers;
-  const customHeaderUserAgent = headers.get('user-agent') || 'ncp-android';
-  const cookies = req.cookies;
-  const accessToken = cookies['ncp-access-token']; // 특정 쿠키 값 가져오기
-
-  // const { method, query, body } = req;
-  // const { path } = query; // path는 URL의 경로 매개변수로 사용됩니다.
-  //
-  // // 클라이언트가 요청한 URL 경로를 가져옵니다.
-  // // 예: /api/proxy/product/100001
-  // const apiPath = req.url?.replace('/api/proxy', ''); // '/api/proxy' 부분 제거
-  // const apiUrl = `${API_BASE_URL}${apiPath}`; // 최종 API URL 생성
-
-  console.log('-------------------------------------------------------------------------------');
-  console.log('method', method);
-  console.log('apiPath', apiPath);
-  console.log('apiUrl', apiUrl);
-  console.log('query', queryString);
-  console.log('body', body);
-  console.log('headers', headers);
-  console.log('cookies', cookies);
-
-  // console.log('method', method);
-  // console.log('query', query);
-  // console.log('body', body);
-  console.log('-------------------------------------------------------------------------------');
-
-  return Response.json({ message: 'Hello, this is a proxy route!' });
-  // try {
-  //   // Axios를 통한 API 요청
-  //   const response = await axios({
-  //     method: method, // GET, POST, PUT, DELETE 등
-  //     url: apiUrl, // 변환된 API URL
-  //     data: body, // POST, PUT 요청의 경우 본문 데이터
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       ...req.headers, // 클라이언트의 헤더를 그대로 전달
-  //     },
-  //   });
-  //
-  //   // API 응답을 클라이언트에 전달
-  //   res.status(response.status).json(response.data);
-  // } catch (error) {
-  //   // 오류 처리
-  //   if (axios.isAxiosError(error)) {
-  //     res.status(error.response?.status || 500).json(error.response?.data || { message: 'Internal Server Error' });
-  //   } else {
-  //     res.status(500).json({ message: 'Internal Server Error' });
-  //   }
-  // }
-}
+// export async function GET(req: NextRequest) {
+//   try {
+//     const cookieStore = await cookies();
+//     const { apiPath, queryObj, headersObj, cookiesObj } = getCommonRequestData(req);
+//     let refreshToken = cookieStore.get('refresh-token')?.value;
+//
+//
+//     // 리프레시 토큰이 없는 경우 새로 생성
+//     if (!refreshToken) {
+//       refreshToken = generateToken();
+//       cookieStore.set('refresh-token', refreshToken, {
+//         httpOnly: true,
+//         // secure: process.env.NODE_ENV === 'production',
+//         // sameSite: 'strict',
+//         // path: '/',
+//         // maxAge: 60 * 60 * 24 // 1일
+//       });
+//     }
+//
+//     console.log('현재 로그 레벨:', process.env.LOG_LEVEL);
+//     console.log('토큰 값:', refreshToken);
+//     console.log('쿠키 설정:', cookieStore);
+//     console.log('API ROUTE: GET 요청:', { apiPath, queryObj, headersObj, cookiesObj });
+//
+//     const response = await commonAxios.get({
+//       url: apiPath,
+//       params: queryObj,
+//       headersObj,
+//       cookies: {
+//         ...cookiesObj,
+//         'refresh-token': refreshToken,
+//       },
+//     });
+//
+//     return NextResponse.json(response);
+//   } catch (error) {
+//     return handleError(error);
+//   }
+// }
+//
+// export async function POST(req: NextRequest) {
+//   try {
+//     const cookieStore = await cookies();
+//     const { apiPath, queryObj, headersObj, cookiesObj } = getCommonRequestData(req);
+//     const body = await req.json().catch(() => ({}));
+//     let refreshToken = cookieStore.get('refresh-token')?.value;
+//
+//     console.log('API ROUTE: POST 요청:', { apiPath, queryObj, body, headersObj, cookiesObj });
+//
+//     const response = await commonAxios.post({
+//       url: apiPath,
+//       params: queryObj,
+//       data: body,
+//       headersObj,
+//       cookies: {
+//         ...cookiesObj,
+//         'refresh-token': refreshToken,
+//       },
+//     });
+//
+//     return NextResponse.json(response);
+//   } catch (error) {
+//     return handleError(error);
+//   }
+// }
+//
+// export async function PUT(req: NextRequest) {
+//   try {
+//     const cookieStore = await cookies();
+//     const { apiPath, queryObj, headersObj, cookiesObj } = getCommonRequestData(req);
+//     const body = await req.json().catch(() => ({}));
+//     let refreshToken = cookieStore.get('refresh-token')?.value;
+//
+//     console.log('API ROUTE: PUT 요청:', { apiPath, queryObj, body });
+//
+//     const response = await commonAxios.put({
+//       url: apiPath,
+//       params: queryObj,
+//       data: body,
+//       headersObj,
+//       cookies: {
+//         ...cookiesObj,
+//         'refresh-token': refreshToken,
+//       },
+//     });
+//
+//     return NextResponse.json(response);
+//   } catch (error) {
+//     return handleError(error);
+//   }
+// }
+//
+// export async function DELETE(req: NextRequest) {
+//   try {
+//     const cookieStore = await cookies();
+//     const { apiPath, queryObj, headersObj, cookiesObj } = getCommonRequestData(req);
+//     let refreshToken = cookieStore.get('refresh-token')?.value;
+//
+//     console.log('API ROUTE: DELETE 요청:', { apiPath, queryObj });
+//
+//     const response = await commonAxios.delete({
+//       url: apiPath,
+//       params: queryObj,
+//       headersObj,
+//       cookies: {
+//         ...cookiesObj,
+//         'refresh-token': refreshToken,
+//       },
+//     });
+//
+//     return NextResponse.json(response);
+//   } catch (error) {
+//     return handleError(error);
+//   }
+// }

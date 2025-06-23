@@ -6,6 +6,18 @@ import axios, {
 } from "axios";
 import qs from "qs";
 
+/**
+ * @fileoverview Axios 인스턴스 및 공통 HTTP 클라이언트 설정
+ * @description
+ * 프로젝트의 HTTP 통신을 위한 Axios 인스턴스를 구성하고 관리합니다.
+ * Request/Response Interceptor를 통한 공통 처리 로직과 환경별 설정을 포함합니다.
+ * 서버/클라이언트 사이드 렌더링 환경을 모두 지원합니다.
+ *
+ * @author 안성현
+ * @date 2025-06-23
+ * @lastModified 2025-06-23
+ */
+
 export const config = {
   base_url: {
     local: "https://dummyjson.com",
@@ -20,9 +32,10 @@ export const config = {
 } as const;
 
 const isServer = typeof window === 'undefined'; // 서버인지 클라이언트인지 확인
+const executionContext = isServer ? "SERVER" : "CLIENT"; // 실행 컨텍스트 설정
 
 const request = (option: any) => {
-  const {url, method, params, data, headersType, responseType, adapter, fetchOptions} = option;
+  const {url, method, params, data, headers, headersType, responseType, adapter, fetchOptions} = option;
   return service({
     url,
     method,
@@ -33,6 +46,7 @@ const request = (option: any) => {
     fetchOptions,
     headers: {
       "Content-Type": headersType || config.default_headers,
+      ...headers
     },
   });
 };
@@ -66,8 +80,15 @@ const service: AxiosInstance = axios.create({
 // Request Interceptor
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    console.info("baseURL", baseURL);
-    console.info("commonAxios url : " + config.url);
+    console.info(
+      `${executionContext}: Axios Req: ${config.method?.toUpperCase()}`,
+      {
+        apiPath: baseURL + config.url,
+        headers: config.headers,
+        params: config.params,
+        data: config.data,
+      },
+    );
 
     // legacy API 요청 시 필요 할 수 있음.
     // if (
@@ -107,7 +128,7 @@ service.interceptors.request.use(
     return config;
   },
   (error: AxiosError) => {
-    console.log(error);
+    console.error(`${executionContext}: axios error: ` + error);
     return Promise.reject(error);
   },
 );
@@ -156,7 +177,7 @@ service.interceptors.response.use(
     //   }
     // }
 
-    console.error("commonAxios : " + error);
+    console.error(`${executionContext}: axios error: ` + error);
     return Promise.reject(error);
   },
 );

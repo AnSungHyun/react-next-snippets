@@ -10,11 +10,11 @@ dayjs.extend(timezone);
 dayjs.locale('ko');
 
 // 타임존 설정
-const myTimezone = 'Asia/Seoul';
+const siteTimezone = 'Asia/Seoul';
 
 /**
  * 현재 시간을 지정된 타임존 기준으로 반환하는 함수
- * UTC 시간을 기준으로 설정된 타임존(myTimezone)으로 변환하여 반환
+ * UTC 시간을 기준으로 설정된 타임존(siteTimezone)으로 변환하여 반환
  *
  * @returns 'YYYY-MM-DD HH:mm:ss' 형식의 날짜/시간 문자열
  *
@@ -31,8 +31,8 @@ const myTimezone = 'Asia/Seoul';
  * - 서버와 클라이언트 간 시간 동기화에 유용
  * - 24시간 형식 사용 (00~23시)
  */
-export const getCurrentDateTime = () => {
-  return dayjs.utc().tz(myTimezone).format('YYYY-MM-DD HH:mm:ss');
+export const getCurrentDateTime = (): string => {
+  return dayjs.utc().tz(siteTimezone).format('YYYY-MM-DD HH:mm:ss');
 };
 
 /**
@@ -43,8 +43,8 @@ export const getCurrentDateTime = () => {
  * const currentDate = getCurrentDate();
  * console.log(`현재 날짜: ${currentDate}`); // 예: "현재 날짜: 2025-03-26"
  */
-export const getCurrentDate = () => {
-  return dayjs.utc().tz(myTimezone).format('YYYY-MM-DD');
+export const getCurrentDate = (): string => {
+  return dayjs.utc().tz(siteTimezone).format('YYYY-MM-DD');
 };
 
 /**
@@ -57,8 +57,8 @@ export const getCurrentDate = () => {
  * const dayOfWeek = getDayOfWeek(date);
  * console.log(`요일: ${dayOfWeek}`); // 예: "요일: 수요일"
  */
-export const getDayOfWeek = (date: string | Date) => {
-  return dayjs(date).utc().tz(myTimezone).format('dddd');
+export const getDayOfWeek = (date: string | Date): string => {
+  return dayjs(date).utc().tz(siteTimezone).format('dddd');
 };
 
 /**
@@ -73,8 +73,8 @@ export const getDayOfWeek = (date: string | Date) => {
  * const formattedDate = formatDate(dateToFormat, formatStr);
  * console.log(`포맷된 날짜: ${formattedDate}`); // 예: "포맷된 날짜: 2025/03/26"
  */
-export const formatDate = (date: string | Date, formatStr: string) => {
-  return dayjs(date).utc().tz(myTimezone).format(formatStr);
+export const formatDate = (date: string | Date, formatStr: string): string => {
+  return dayjs(date).utc().tz(siteTimezone).format(formatStr);
 };
 
 /**
@@ -89,8 +89,8 @@ export const formatDate = (date: string | Date, formatStr: string) => {
  * const newDate = addDays(initialDate, daysToAdd);
  * console.log(`새로운 날짜 (5일 추가): ${newDate}`); // 예: "새로운 날짜 (5일 추가): 2025-03-31"
  */
-export const addDays = (date: string | Date, days: number) => {
-  return dayjs(date).utc().tz(myTimezone).add(days, 'day').format('YYYY-MM-DD');
+export const addDays = (date: string | Date, days: number): string => {
+  return dayjs(date).utc().tz(siteTimezone).add(days, 'day').format('YYYY-MM-DD');
 };
 
 /**
@@ -105,8 +105,12 @@ export const addDays = (date: string | Date, days: number) => {
  * const updatedDate = subtractDays(dateToSubtractFrom, daysToSubtract);
  * console.log(`새로운 날짜 (10일 빼기): ${updatedDate}`); // 예: "새로운 날짜 (10일 빼기): 2025-03-16"
  */
-export const subtractDays = (date: string | Date, days: number) => {
-  return dayjs(date).utc().tz(myTimezone).subtract(days, 'day').format('YYYY-MM-DD');
+export const subtractDays = (date: string | Date, days: number): string => {
+  return dayjs(date)
+    .utc()
+    .tz(siteTimezone)
+    .subtract(days, 'day')
+    .format('YYYY-MM-DD');
 };
 
 /**
@@ -121,8 +125,14 @@ export const subtractDays = (date: string | Date, days: number) => {
  * const daysDifference = differenceInDays(startDate, endDate);
  * console.log(`날짜 차이: ${daysDifference}일`); // 예: "날짜 차이: 25일"
  */
-export const differenceInDays = (startDate: string | Date, endDate: string | Date) => {
-  return dayjs(endDate).utc().tz(myTimezone).diff(dayjs(startDate).tz(myTimezone), 'day');
+export const differenceInDays = (
+  startDate: string | Date,
+  endDate: string | Date,
+): number => {
+  return dayjs(endDate)
+    .utc()
+    .tz(siteTimezone)
+    .diff(dayjs(startDate).tz(siteTimezone), 'day');
 };
 
 /**
@@ -137,8 +147,11 @@ export const differenceInDays = (startDate: string | Date, endDate: string | Dat
  * const result = isBefore(date1, date2);
  * console.log(`첫 번째 날짜가 두 번째 날짜보다 이전가요? ${result}`); // 예: "첫 번째 날짜가 두 번째 날짜보다 이전가요? true"
  */
-export const isBefore = (date1: string | Date, date2: string | Date) => {
-  return dayjs(date1).utc().tz(myTimezone).isBefore(dayjs(date2).tz(myTimezone));
+export const isBefore = (date1: string | Date, date2: string | Date): boolean => {
+  return dayjs(date1)
+    .utc()
+    .tz(siteTimezone)
+    .isBefore(dayjs(date2).tz(siteTimezone));
 };
 
 /**
@@ -151,6 +164,6 @@ export const isBefore = (date1: string | Date, date2: string | Date) => {
  * const todayCheck = isToday(dateToCheck);
  * console.log(`오늘인가요? ${todayCheck}`); // 예: "오늘인가요? true"
  */
-export const isToday = (date: string | Date) => {
-  return dayjs(date).utc().tz(myTimezone).isSame(dayjs().tz(myTimezone), 'day');
+export const isToday = (date: string | Date): boolean => {
+  return dayjs(date).utc().tz(siteTimezone).isSame(dayjs().tz(siteTimezone), 'day');
 };
