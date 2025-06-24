@@ -2,6 +2,7 @@ import axios from 'axios';
 import { dynamic } from './config';
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import type { domainType } from './config';
+import { TokenManager } from '@/utils/tokenManager';
 
 const isServer = typeof window === 'undefined';
 const runtimeEnvironment = isServer ? "SERVER" : "CLIENT";
@@ -32,6 +33,16 @@ export const createAxiosInstance = (type: domainType): AxiosInstance => {
         config.headers.set('x-domain-type', type);
       }
 
+      // 토큰 존재 여부 확인
+      const token = TokenManager.getAccessToken();
+      // if (!token) {
+      //   throw new Error('접근 토큰이 없습니다. 먼저 로그인해주세요.');
+      // }
+      if(token) {
+        config.headers.set('Authorization', `Bearer ${token}`);
+      }
+
+
       console.info(
         `${runtimeEnvironment}: Axios Req: ${config.method?.toUpperCase()}`,
         {
@@ -53,6 +64,12 @@ export const createAxiosInstance = (type: domainType): AxiosInstance => {
   // Response Interceptor
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
+      // /login 엔드포인트에 대한 응답 처리
+      if (!isServer && response.config.url === '/auth/login' && response.status === 200) {
+        TokenManager.setAccessToken(response.data.accessToken);
+        console.log('TokenManager.setAccessToken', response.data.accessToken);
+      }
+
       return response.data;
     },
     (error) => {

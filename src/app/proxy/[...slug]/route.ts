@@ -123,7 +123,6 @@ const handleRequest = async (
       params: queryObj,
       headers: {
         ...headers,
-        'Authorization': `Bearer ${refreshToken}`,
       },
       ...(body && { data: body }),
     };

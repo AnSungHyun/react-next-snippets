@@ -1,0 +1,23 @@
+### 로그인 요청
+POST https://dummyjson.com/auth/login
+Content-Type: application/json
+
+{
+  "username": "emilys",
+  "password": "emilyspass",
+  "expiresInMins": 30
+}
+
+### 현재 인증 사용자 가져오기
+GET https://dummyjson.com/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NTA3NjE1NDIsImV4cCI6MTc1MDc2MzM0Mn0.RgtcE3RWp6izUbLYsJRpxrXGazGcAN2BJr3sWQINtxE
+
+### 인증 세션 갱신
+POST https://dummyjson.com/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NTA3NjE2MTgsImV4cCI6MTc1MzM1MzYxOH0.zpBLGchKaWP-VC6u-vt86moMN_w46IEAXX6uNKLL2co",
+  "expiresInMins": 30
+}

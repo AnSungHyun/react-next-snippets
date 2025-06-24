@@ -18,10 +18,10 @@ export const dynamic = {
   },
   auth: {
     url: {
-      local: "https://auth-api.com",
-      dev: "https://auth-api.com",
-      pro: "https://auth-api.com",
-      test: "https://auth-api.com",
+      local: "https://dummyjson.com",
+      dev: "https://dummyjson.com",
+      pro: "https://dummyjson.com",
+      test: "https://dummyjson.com",
     },
     proxy: {
       use: true, // 외부 API 요청으로 proxy 처리가 필요 없는 경우 false
