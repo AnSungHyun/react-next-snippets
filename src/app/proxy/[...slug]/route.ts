@@ -46,8 +46,7 @@ const getCommonRequestData = (req: NextRequest) => {
   // 헤더에서 도메인 타입 추출
   // const domainType = getDomainTypeFromHeader(headersObj);
   const domainType = headersObj[DOMAIN_TYPE_HEADER];
-  console.log(`API ROUTE: 요청 도메인 타입: ${domainType}`);
-  const apiPath = req.nextUrl.pathname.replace(dynamic[domainType].proxy, '');
+  const apiPath = req.nextUrl.pathname.replace(dynamic[domainType].proxy.path, '');
 
   return { apiPath, queryObj, headersObj, cookiesObj, domainType };
 };

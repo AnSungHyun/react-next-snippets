@@ -1,4 +1,4 @@
-import commonAxios from "@/app/_config/axios/commonAxios";
+//import commonAxios from "@/app/_config/axios/commonAxios";
 import { dummyApi } from "@/app/_config/domainAxios/apiInstances";
 
 export interface Product {
