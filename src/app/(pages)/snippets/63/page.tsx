@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DynamicComponent } from './components/DynamicComponent';
 import { useInView } from 'react-intersection-observer';
+import { useRouter } from 'next/navigation';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 type FeedItem = {
   id: number;
@@ -81,60 +83,62 @@ const allItems: FeedItem[] = [
   },
 ];
 
+const PAGE_SIZE = 2;
+
+// 더미 데이터 페이징 처리
+const fetchFeedItems = async ({ pageParam = 0 }) => {
+  const start = pageParam * 1;
+  const end = start + 1;
+  await new Promise((r) => setTimeout(r, 300)); // 네트워크 지연
+  return allItems.slice(start, end);
+};
+
 export default function Page() {
-  const [items, setItems] = useState<FeedItem[]>([]);
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const { ref, inView } = useInView();
-  const PAGE_SIZE = 2;
+  const router = useRouter();
 
+  function moveA() {
+    router.push('/snippets/48');
+  }
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['feed-items'],
+      queryFn: fetchFeedItems,
+      initialPageParam: 0,
+      getNextPageParam: (lastPage, allPages) => {
+        const loaded = allPages.flat().length;
+        if (loaded < allItems.length) {
+          return allPages.length; // 다음 pageParam
+        }
+        return undefined;
+      },
+      staleTime: 1000 * 60 * 5,
+    });
+
+  // inView > 다음 페이지 요청
   useEffect(() => {
-    // 최초 데이터 로드
-    fetchMore();
-  }, []);
-
-  useEffect(() => {
-    if (inView && isLoading && items.length > 0) {
-      fetchMore();
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
-  }, [inView, isLoading]);
-
-  const fetchMore = async () => {
-    const lastItem = items[items.length - 1];
-    const lastId = lastItem?.id ?? 0;
-    const nextItems = allItems
-      .filter((item) => item.id > lastId)
-      .slice(0, PAGE_SIZE);
-
-    // 더 이상 불러올 게 없다면 리턴
-    if (nextItems.length === 0) {
-      setIsLoading(false);
-      return;
-    }
-
-    setItems((prev) => [...prev, ...nextItems]);
-    setPage((prev) => prev + 1);
-  };
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <div style={{ display: 'grid', gap: '2rem', padding: '2rem' }}>
-      {items.map((item, idx) => (
-        <DynamicComponent
-          key={item.id}
-          component={item.component}
-          props={item.props}
-        />
-      ))}
+      {data?.pages
+        .flat()
+        .map((item, idx) => (
+          <DynamicComponent
+            key={item.id}
+            component={item.component}
+            props={item.props}
+          />
+        ))}
 
       {/* 더보기 기준 */}
       <div ref={ref} style={{ height: '1px', marginTop: '20px' }} />
 
-      {isLoading && <div>로딩 중...</div>}
-      {!isLoading && (
-        <div style={{ textAlign: 'center', color: 'gray' }}>
-          모든 항목을 다 불러왔습니다.
-        </div>
-      )}
+      <button onClick={moveA}>버튼버튼버튼</button>
     </div>
   );
 }
