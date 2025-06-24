@@ -32,7 +32,7 @@ export const config = {
 } as const;
 
 const isServer = typeof window === 'undefined'; // 서버인지 클라이언트인지 확인
-const executionContext = isServer ? "SERVER" : "CLIENT"; // 실행 컨텍스트 설정
+const runtimeEnvironment = isServer ? "SERVER" : "CLIENT"; // 실행 컨텍스트 설정
 
 const request = (option: any) => {
   const {url, method, params, data, headers, headersType, responseType, adapter, fetchOptions} = option;
@@ -81,7 +81,7 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     console.info(
-      `${executionContext}: Axios Req: ${config.method?.toUpperCase()}`,
+      `${runtimeEnvironment}: Axios Req: ${config.method?.toUpperCase()}`,
       {
         apiPath: baseURL + config.url,
         headers: config.headers,
@@ -128,7 +128,7 @@ service.interceptors.request.use(
     return config;
   },
   (error: AxiosError) => {
-    console.error(`${executionContext}: axios error: ` + error);
+    console.error(`${runtimeEnvironment}: axios error: ` + error);
     return Promise.reject(error);
   },
 );
@@ -177,7 +177,7 @@ service.interceptors.response.use(
     //   }
     // }
 
-    console.error(`${executionContext}: axios error: ` + error);
+    console.error(`${runtimeEnvironment}: axios error: ` + error);
     return Promise.reject(error);
   },
 );
