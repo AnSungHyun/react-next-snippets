@@ -1,7 +1,14 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server';
-import commonAxios, { config } from '@/app/_config/axios/commonAxios';
 import { formatDate } from '@/utils/dateUtils';
+import {
+  baseApi,
+  authApi,
+  paymentApi,
+  dummyApi,
+  mockApi,
+} from '@/app/_config/domainAxios/apiInstances';
+import { dynamic } from '@/app/_config/domainAxios/config';
 
 /**
  * @fileoverview Next.js API 라우트 핸들러
@@ -14,10 +21,20 @@ import { formatDate } from '@/utils/dateUtils';
  * @lastModified 2025-06-23
  */
 
+// axios 인스턴스 맵 생성
+const axiosInstances = {
+  base: baseApi,
+  auth: authApi,
+  payment: paymentApi,
+  dummy: dummyApi,
+  mock: mockApi
+};
+
+// 커스텀 헤더 이름 정의
+const DOMAIN_TYPE_HEADER = 'x-domain-type';
 
 // 공통 요청 데이터 추출 함수
 const getCommonRequestData = (req: NextRequest) => {
-  const apiPath = req.nextUrl.pathname.replace(config.base_proxy, '');
   const query = req.nextUrl.searchParams;
   const queryObj = Object.fromEntries(query);
   // Headers 객체를 일반 객체로 변환, accept, content-type, authorization, user-agent
@@ -26,12 +43,17 @@ const getCommonRequestData = (req: NextRequest) => {
   const cookiesObj = Object.fromEntries(
     req.cookies.getAll().map(cookie => [cookie.name, cookie.value])
   );
+  // 헤더에서 도메인 타입 추출
+  // const domainType = getDomainTypeFromHeader(headersObj);
+  const domainType = headersObj[DOMAIN_TYPE_HEADER];
+  console.log(`API ROUTE: 요청 도메인 타입: ${domainType}`);
+  const apiPath = req.nextUrl.pathname.replace(dynamic[domainType].proxy, '');
 
-  return { apiPath, queryObj, headersObj, cookiesObj };
+  return { apiPath, queryObj, headersObj, cookiesObj, domainType };
 };
 
 // 필요한 헤더 키들을 상수로 정의
-const REQUIRED_HEADERS = ['accept', 'cookie', 'referer', 'user-agent', 'content-type'] as const;
+const REQUIRED_HEADERS = ['accept', 'cookie', 'referer', 'user-agent', 'content-type', 'x-domain-type'] as const;
 
 // 필요한 헤더만 필터링하는 함수
 const filterHeaders = (headers: Record<string, string>) => {
@@ -73,7 +95,7 @@ const handleRequest = async (
 ) => {
   try {
     const cookieStore = await cookies();
-    const { apiPath, queryObj, headersObj, cookiesObj } = getCommonRequestData(req);
+    const { apiPath, queryObj, headersObj, domainType } = getCommonRequestData(req);
     let refreshToken = cookieStore.get('refresh-token')?.value;
 
     // 특정 상황에만 요청시에만 토큰 생성
@@ -109,7 +131,10 @@ const handleRequest = async (
 
     // console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, requestConfig);
 
-    const response = await commonAxios[method](requestConfig);
+    // 해당 도메인의 axios 인스턴스 선택
+    const axiosInstance = axiosInstances[domainType];
+
+    const response = await axiosInstance[method](requestConfig);
     return NextResponse.json(response);
   } catch (error) {
     return handleError(error);

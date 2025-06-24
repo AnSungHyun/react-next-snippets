@@ -1,4 +1,5 @@
 import commonAxios from "@/app/_config/axios/commonAxios";
+import { dummyApi } from "@/app/_config/domainAxios/apiInstances";
 
 export interface Product {
   id: number;
@@ -99,19 +100,19 @@ export interface ProductAddResponse {
 
 // 상품 조회
 export const getProductsApi = (): Promise<ProductResponse> => {
-  return commonAxios.get({ url: '/products?limit=3&delay=1000' });
+  return dummyApi.get({ url: '/products?limit=3&delay=1000' });
 };
 
 // 상품 조회 ( error case )
 export const getErrorProductsApi = (): Promise<ProductResponse> => {
-  return commonAxios.get({ url: '/error/products?limit=3&delay=1000' });
+  return dummyApi.get({ url: '/error/products?limit=3&delay=1000' });
 };
 
 // 상품 조회 with param
 export const getProductsApiWithParam = (
   params?: ProductParams,
 ): Promise<ProductResponse> => {
-  return commonAxios.get({ url: '/products', params: params });
+  return dummyApi.get({ url: '/products', params: params });
 };
 
 // 상품 1건 조회
@@ -119,12 +120,12 @@ export const getProductsApiOne = (
   productId: number,
   params?: ProductParams,
 ): Promise<ProductResponse> => {
-  return commonAxios.get({ url: `/products/${productId}`, params: params });
+  return dummyApi.get({ url: `/products/${productId}`, params: params });
 };
 
 // 상품 추가
 export const postProductsApi = (data: ProductAddRequest): Promise<Product> => {
-  return commonAxios.post({ url: '/products/add', data: data });
+  return dummyApi.post({ url: '/products/add', data: data });
 };
 
 // 상품 수정
@@ -132,7 +133,7 @@ export const putProductsApi = (
   productId: number,
   data: ProductAddRequest,
 ): Promise<Product> => {
-  return commonAxios.put({ url: `/products/${productId}`, data: data });
+  return dummyApi.put({ url: `/products/${productId}`, data: data });
 };
 
 // 상품 삭제
@@ -140,7 +141,7 @@ export const deleteProductsApi = (
   productId: number,
   data: ProductAddRequest,
 ): Promise<Product> => {
-  return commonAxios.delete({ url: `/products/${productId}`, data: data });
+  return dummyApi.delete({ url: `/products/${productId}`, data: data });
 };
 
 // 상품 조회 ( fetch cache )
@@ -148,7 +149,7 @@ export const getProductsApiWithCache = (
   params?: ProductParams,
   axiosConfig?: any,
 ): Promise<ProductResponse> => {
-  return commonAxios.get({
+  return dummyApi.get({
     url: '/products',
     params: params,
     ...axiosConfig,
