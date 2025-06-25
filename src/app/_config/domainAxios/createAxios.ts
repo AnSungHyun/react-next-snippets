@@ -5,6 +5,17 @@ import type { domainType } from './config';
 import { TokenManager } from '@/utils/tokenManager';
 import { setServerSideRefreshToken } from '@/app/_config/domainAxios/serverCookie';
 
+/**
+ * @fileoverview Axios 인스턴스 및 공통 HTTP 클라이언트 설정
+ * @description
+ * 프로젝트의 HTTP 통신을 위한 Axios 인스턴스를 구성하고 관리합니다.
+ * 상세한 설명은 apiInstances.ts 참고
+ *
+ * @author 안성현
+ * @date 2025-06-25
+ * @lastModified 2025-06-25
+ */
+
 const isServer = typeof window === 'undefined';
 const runtimeEnvironment = isServer ? "SERVER" : "CLIENT";
 
