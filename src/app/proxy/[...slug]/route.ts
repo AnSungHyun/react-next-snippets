@@ -93,18 +93,7 @@ const handleRequest = async (
   shouldGetBody = false
 ) => {
   try {
-    const cookieStore = await cookies();
     const { apiPath, queryObj, headersObj, domainType } = getCommonRequestData(req);
-    let refreshToken = cookieStore.get('refresh-token')?.value;
-
-    // 특정 상황에만 요청시에만 토큰 생성
-    if (!refreshToken) {
-      refreshToken = generateToken();
-      cookieStore.set('refresh-token', refreshToken, {
-        httpOnly: true,
-      });
-    }
-
     // POST, PUT 요청 시 body를 가져옴
     const body = shouldGetBody ? await req.json().catch(() => ({})) : undefined;
     // 필요한 headers만 필터링
@@ -131,8 +120,23 @@ const handleRequest = async (
 
     // 해당 도메인의 axios 인스턴스 선택
     const axiosInstance = axiosInstances[domainType];
-
     const response = await axiosInstance[method](requestConfig);
+
+    /**
+     * server axios interceptor에서 리프레시 토큰 설정 으로 하단 영역은 불필요할 것으로 예상
+     * 하지만 client 까지 httpOnly 쿠키 전달을 위해 await cookies() 사용
+     */
+    void await cookies();
+    // const cookieStore = await cookies();
+    // if (apiPath === "/auth/login" && response.refreshToken) {
+    //   const refreshToken = response.refreshToken;
+    //   console.log("API ROUTE: 응답: refreshToken", refreshToken);
+    //   if (refreshToken) {
+    //     cookieStore.set('refresh-token', refreshToken, {
+    //       httpOnly: true,
+    //     });
+    //   }
+    // }
     return NextResponse.json(response);
   } catch (error) {
     return handleError(error);

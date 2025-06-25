@@ -3,6 +3,7 @@ import { dynamic } from './config';
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import type { domainType } from './config';
 import { TokenManager } from '@/utils/tokenManager';
+import { setServerSideRefreshToken } from '@/app/_config/domainAxios/serverCookie';
 
 const isServer = typeof window === 'undefined';
 const runtimeEnvironment = isServer ? "SERVER" : "CLIENT";
@@ -69,6 +70,12 @@ export const createAxiosInstance = (type: domainType): AxiosInstance => {
         TokenManager.setAccessToken(response.data.accessToken);
         console.log('TokenManager.setAccessToken', response.data.accessToken);
       }
+      // 서버사이드에서 refreshToken이 있는 경우 쿠키 설정
+      if (isServer && response.data.refreshToken) {
+        console.log('setServerSideRefreshToken', response.data.refreshToken);
+        setServerSideRefreshToken(response.data.refreshToken).then(()=>{});
+      }
+
 
       return response.data;
     },

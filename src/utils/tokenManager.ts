@@ -17,5 +17,7 @@ export const TokenManager = {
 
   removeAccessToken: () => {
     Cookies.remove('accessToken', { path: '/' });
+    // httpOnly cookie 는 삭제되지 않음.
+    Cookies.remove('refreshToken', { path: '/' });
   }
 };
