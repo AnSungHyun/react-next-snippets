@@ -1,13 +1,7 @@
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { formatDate } from '@/utils/dateUtils';
-import {
-  baseApi,
-  authApi,
-  paymentApi,
-  dummyApi,
-  mockApi,
-} from '@/app/_config/domainAxios/apiInstances';
+import { authApi, baseApi, dummyApi, fakeApi, mockApi, paymentApi } from '@/app/_config/domainAxios/apiInstances';
 import { dynamic } from '@/app/_config/domainAxios/config';
 
 /**
@@ -27,7 +21,8 @@ const axiosInstances = {
   auth: authApi,
   payment: paymentApi,
   dummy: dummyApi,
-  mock: mockApi
+  mock: mockApi,
+  fake: fakeApi
 };
 
 // 커스텀 헤더 이름 정의
@@ -94,18 +89,34 @@ const handleRequest = async (
 ) => {
   try {
     const { apiPath, queryObj, headersObj, domainType } = getCommonRequestData(req);
+
+
+    const contentType = headersObj['content-type'];
+    let body;
+
+    // POST, PUT 요청에서 body 처리
+    if (shouldGetBody) {
+      if (contentType?.includes('multipart/form-data')) {
+        // FormData 처리
+        body = await req.formData();
+      } else {
+        // JSON 처리
+        body = await req.json().catch(() => ({}));
+      }
+    }
+
     // POST, PUT 요청 시 body를 가져옴
-    const body = shouldGetBody ? await req.json().catch(() => ({})) : undefined;
+    // const body = shouldGetBody ? await req.json().catch(() => ({})) : undefined;
     // 필요한 headers만 필터링
     const headers = filterHeaders(headersObj);
 
     // 요청 로깅
-    console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, {
-      apiPath,
-      queryObj,
-      ...(body && { body }),
-      headers
-    });
+    // console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, {
+    //   apiPath,
+    //   queryObj,
+    //   ...(body && { body }),
+    //   headers
+    // });
 
     const requestConfig = {
       url: apiPath,
@@ -116,7 +127,7 @@ const handleRequest = async (
       ...(body && { data: body }),
     };
 
-    // console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, requestConfig);
+    console.log(`API ROUTE: ${method.toUpperCase()} 요청:`, requestConfig);
 
     // 해당 도메인의 axios 인스턴스 선택
     const axiosInstance = axiosInstances[domainType];

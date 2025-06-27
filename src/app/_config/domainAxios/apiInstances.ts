@@ -23,6 +23,7 @@ const authAxios = createAxiosInstance('auth');
 const paymentAxios = createAxiosInstance('payment');
 const dummyAxios = createAxiosInstance('dummy');
 const mockAxios = createAxiosInstance('mock');
+const fakeAxios = createAxiosInstance('fake');
 
 // API 클라이언트 생성
 export const baseApi = createApiClient(baseAxios, 'base');
@@ -30,3 +31,4 @@ export const authApi = createApiClient(authAxios, 'auth');
 export const paymentApi = createApiClient(paymentAxios, 'payment');
 export const dummyApi = createApiClient(dummyAxios, 'dummy');
 export const mockApi = createApiClient(mockAxios, 'mock');
+export const fakeApi = createApiClient(fakeAxios, 'fake');

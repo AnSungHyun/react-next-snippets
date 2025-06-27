@@ -13,7 +13,7 @@
  */
 
 // 도메인 타입 정의
-export type domainType = 'base' | 'auth' | 'payment' | 'dummy' | 'mock';
+export type domainType = 'base' | 'auth' | 'payment' | 'dummy' | 'mock' | 'fake';
 
 export const dynamic = {
   base: {
@@ -86,6 +86,21 @@ export const dynamic = {
     proxy: {
       use: false, // 외부 API 요청으로 proxy 처리가 필요 없는 경우 false
       path: "", // 외부 API 요청으로 proxy 처리가 필요 없는 경우 "" 빈값 처리
+    },
+    result_code: "0000",
+    request_timeout: 60000,
+    default_headers: "application/json",
+  },
+  fake: {
+    url: {
+      local: "https://api.escuelajs.co",
+      dev: "https://api.escuelajs.co",
+      pro: "https://api.escuelajs.co",
+      test: "https://api.escuelajs.co",
+    },
+    proxy: {
+      use: true, // 외부 API 요청으로 proxy 처리가 필요 없는 경우 false
+      path: "/proxy", // 외부 API 요청으로 proxy 처리가 필요 없는 경우 "" 빈값 처리
     },
     result_code: "0000",
     request_timeout: 60000,
