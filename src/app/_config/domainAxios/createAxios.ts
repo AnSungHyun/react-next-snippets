@@ -3,7 +3,7 @@ import { dynamic } from './config';
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import type { domainType } from './config';
 import { TokenManager } from '@/utils/tokenManager';
-import { setServerSideRefreshToken } from '@/app/_config/domainAxios/serverCookie';
+import { getServerSideAccessToken, setServerSideRefreshToken } from '@/utils/tokenManager';
 
 /**
  * @fileoverview Axios 인스턴스 및 공통 HTTP 클라이언트 설정
@@ -39,21 +39,22 @@ export const createAxiosInstance = (type: domainType): AxiosInstance => {
 
   // Request Interceptor
   instance.interceptors.request.use(
-    (config: InternalAxiosRequestConfig) => {
+    async (config: InternalAxiosRequestConfig) => {
 
       if(isProxy) {
         config.headers.set('x-domain-type', type);
       }
 
       // 토큰 존재 여부 확인
-      const token = TokenManager.getAccessToken();
-      // if (!token) {
-      //   throw new Error('접근 토큰이 없습니다. 먼저 로그인해주세요.');
-      // }
-      if(token) {
+      let token = '';
+      if (!isServer) {
+        token = TokenManager.getAccessToken() as string;
+      } else {
+        token = (await getServerSideAccessToken()) as string;
+      }
+      if (token) {
         config.headers.set('Authorization', `Bearer ${token}`);
       }
-
 
       console.info(
         `${runtimeEnvironment}: Axios Req: ${config.method?.toUpperCase()}`,
@@ -86,7 +87,6 @@ export const createAxiosInstance = (type: domainType): AxiosInstance => {
         console.log('setServerSideRefreshToken', response.data.refreshToken);
         setServerSideRefreshToken(response.data.refreshToken).then(()=>{});
       }
-
 
       return response.data;
     },
