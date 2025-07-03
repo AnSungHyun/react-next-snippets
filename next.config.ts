@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
-import path from "path";
+// import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -9,17 +9,17 @@ const nextConfig: NextConfig = {
   experimental: {
     authInterrupts: true, // forbidden, unauthorized 사용을 위한 옵션
   },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
-          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
-        ],
-      },
-    ]
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/:path*',
+  //       headers: [
+  //         { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
+  //         { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
+  //       ],
+  //     },
+  //   ]
+  // },
   async rewrites() {
     return [
       // {

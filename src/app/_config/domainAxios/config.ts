@@ -13,7 +13,7 @@
  */
 
 // 도메인 타입 정의
-export type domainType = 'base' | 'auth' | 'payment' | 'dummy' | 'mock' | 'fake';
+export type DomainType = 'base' | 'auth' | 'payment' | 'dummy' | 'mock' | 'fake';
 
 export const dynamic = {
   base: {

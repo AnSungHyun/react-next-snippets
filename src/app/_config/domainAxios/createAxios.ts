@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { dynamic } from './config';
 import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import type { domainType } from './config';
+import type { DomainType } from './config';
 import { TokenManager } from '@/utils/tokenManager';
 import { getServerSideAccessToken, setServerSideRefreshToken } from '@/utils/tokenManager';
 
@@ -19,7 +19,7 @@ import { getServerSideAccessToken, setServerSideRefreshToken } from '@/utils/tok
 const isServer = typeof window === 'undefined';
 const runtimeEnvironment = isServer ? "SERVER" : "CLIENT";
 
-export const createAxiosInstance = (type: domainType): AxiosInstance => {
+export const createAxiosInstance = (type: DomainType): AxiosInstance => {
 
   // 클라이언트 이며, dynamic[type].proxy.use가 true인 경우
   const isProxy = !isServer && dynamic[type].proxy.use;
@@ -99,7 +99,7 @@ export const createAxiosInstance = (type: domainType): AxiosInstance => {
   return instance;
 };
 
-const request = (axiosInstance: AxiosInstance, domainType: domainType) => (option: any) => {
+const request = (axiosInstance: AxiosInstance, domainType: DomainType) => (option: any) => {
   const { url, method, params, data, headers, headersType, responseType, adapter, fetchOptions } = option;
   return axiosInstance({
     url,
@@ -116,7 +116,7 @@ const request = (axiosInstance: AxiosInstance, domainType: domainType) => (optio
   });
 };
 
-export const createApiClient = (instance: AxiosInstance, domainType: domainType) => {
+export const createApiClient = (instance: AxiosInstance, domainType: DomainType) => {
   const requestFn = request(instance, domainType);
 
   return {
