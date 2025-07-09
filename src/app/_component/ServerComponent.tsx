@@ -1,7 +1,15 @@
 import React from "react";
+import { cookies } from "next/headers";
 
-const ServerComponent: React.FC = () => {
+interface TestProps {
+  onClose?: () => void;
+}
+
+const ServerComponent: React.FC =  async ({onClose}:TestProps) => {
   const API_URL = process.env.BACKEND_API_URL;
+  const cookieStore = await cookies();
+
+  const sessionId = cookieStore.get("sessionId")?.value || "No sessionId";
 
   return (
     <div style={{ border: "1px solid blue" }}>
