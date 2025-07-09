@@ -11,7 +11,7 @@ import {
   DialogTitle, Divider,
 } from '@mui/material';
 import ResultBlock from "@/app/_component/CodeResultBlock";
-import { useNavigationGuard } from 'next-navigation-guard';
+// import { useNavigationGuard } from 'next-navigation-guard';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import CodeBlock from '@/app/_component/CodeBlock';
@@ -27,17 +27,17 @@ const TestPage26: React.FC = () => {
   const [pendingNavigation, setPendingNavigation] = useState<(() => void) | null>(null);
 
   // 페이지 이동 가드 설정
-  useNavigationGuard({
-    enabled: true,
-    confirm: () =>
-      // window.confirm('저장하지 않은 정보가 있습니다. 그래도 진행 하시겠습니까?'),
-    {
-      return new Promise((resolve) => {
-        setDialogOpen(true);
-        setPendingNavigation(() => () => resolve(true));
-      });
-    }
-  });
+  // useNavigationGuard({
+  //   enabled: true,
+  //   confirm: () =>
+  //     // window.confirm('저장하지 않은 정보가 있습니다. 그래도 진행 하시겠습니까?'),
+  //   {
+  //     return new Promise((resolve) => {
+  //       setDialogOpen(true);
+  //       setPendingNavigation(() => () => resolve(true));
+  //     });
+  //   }
+  // });
 
   const handleCancel = () => {
     setDialogOpen(false);

@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # 4. 의존성을 설치합니다.
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # 5. 애플리케이션 소스 코드를 복사합니다.
 COPY . .

@@ -40,7 +40,6 @@
     "zustand": "^5.0.3",
     "react-syntax-highlighter": "^15.6.1",
     "react-copy-to-clipboard-ts": "^1.1.0",
-    "next-navigation-guard": "^0.1.2",
     "next-intl": "^4.1.0"
   },
   "devDependencies": {

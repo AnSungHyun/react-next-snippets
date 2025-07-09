@@ -41,9 +41,6 @@ importers:
       next-intl:
         specifier: ^4.1.0
         version: 4.1.0(next@15.3.1(@babel/core@7.27.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
-      next-navigation-guard:
-        specifier: ^0.1.2
-        version: 0.1.2(next@15.3.1(@babel/core@7.27.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       nodemailer:
         specifier: ^6.10.0
         version: 6.10.0
@@ -2755,12 +2752,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  next-navigation-guard@0.1.2:
-    resolution: {integrity: sha512-gh+hUMqnI9a/iQ3sxCd7aagQB0NTioe7kj7UJagVfWh+GWfyr4mErlBy2yNZk0VyXebtW86I3cP6lcwraIFhYA==}
-    peerDependencies:
-      next: ^14 || ^15
-      react: ^18.3.1
 
   next@15.3.1:
     resolution: {integrity: sha512-8+dDV0xNLOgHlyBxP1GwHGVaNXsmp+2NhZEYrXr24GWLHtt27YrBPbPuHvzlhi7kZNYjeJNR93IF5zfFu5UL0g==}
@@ -6741,11 +6732,6 @@ snapshots:
       use-intl: 4.1.0(react@19.1.0)
     optionalDependencies:
       typescript: 5.8.3
-
-  next-navigation-guard@0.1.2(next@15.3.1(@babel/core@7.27.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
-    dependencies:
-      next: 15.3.1(@babel/core@7.27.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react: 19.1.0
 
   next@15.3.1(@babel/core@7.27.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:

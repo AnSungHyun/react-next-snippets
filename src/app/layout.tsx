@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { NavigationGuardProvider } from 'next-navigation-guard';
+// import { NavigationGuardProvider } from 'next-navigation-guard';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -26,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NavigationGuardProvider>{children}</NavigationGuardProvider>
+        {/*<NavigationGuardProvider>{children}</NavigationGuardProvider>*/}
+        {children}
       </body>
     </html>
   );
