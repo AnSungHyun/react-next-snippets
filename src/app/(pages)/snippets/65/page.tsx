@@ -22,7 +22,7 @@ interface KakaoUserData {
 }
 
 const KAKAO_CLIENT_ID = '636ed71092f07f282925dc588846411a';
-const BASE_URL = 'http://localhost:3010';
+const BASE_URL = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3010';
 
 export default function KakaoLoginPage() {
   const [loginData, setLoginData] = useState<{
