@@ -8,16 +8,16 @@ WORKDIR /app
 COPY package*.json ./
 
 # 4. 의존성을 설치합니다.
-RUN pnpm install
+RUN npm install
 
 # 5. 애플리케이션 소스 코드를 복사합니다.
 COPY . .
 
 # 6. Next.js 애플리케이션을 빌드합니다.
-RUN pnpm build
+RUN npm run build
 
 # 7. 컨테이너가 사용할 포트를 설정합니다.
 EXPOSE 3000
 
 # 8. 애플리케이션을 실행합니다.
-CMD ["pnpm", "start"]
+CMD ["npm", "start"]
