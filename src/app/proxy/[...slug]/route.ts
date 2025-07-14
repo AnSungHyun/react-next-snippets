@@ -101,7 +101,7 @@ const handleRequest = async (
         body = await req.formData();
       } else {
         // JSON 처리
-        body = await req.json().catch(() => ({}));
+        body = await req.json().catch(() => (() => undefined ));
       }
     }
 
@@ -155,10 +155,10 @@ const handleRequest = async (
 };
 
 // HTTP 메서드 핸들러
-export const GET = (req: NextRequest) => handleRequest(req, 'get');
+export const GET = (req: NextRequest) => handleRequest(req, 'get', true);
 export const POST = (req: NextRequest) => handleRequest(req, 'post', true);
 export const PUT = (req: NextRequest) => handleRequest(req, 'put', true);
-export const DELETE = (req: NextRequest) => handleRequest(req, 'delete');
+export const DELETE = (req: NextRequest) => handleRequest(req, 'delete', true);
 
 
 // export async function GET(req: NextRequest) {
