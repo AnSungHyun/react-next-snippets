@@ -6,7 +6,11 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   reactStrictMode: true,
   // output: "standalone",
   // outputFileTracingRoot: path.join(__dirname, "../../../"),

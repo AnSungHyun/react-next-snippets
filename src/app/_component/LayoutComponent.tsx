@@ -75,6 +75,8 @@ const menuItems = [
   { path: '/snippets/63', label: 'use-debounce 를 활용한 검색 (미구현)' },
   { path: '/snippets/64', label: '로그인 토큰 발급, 사용자 조회, 리프레시 토큰 발급' },
   { path: '/snippets/65', label: '외부 로그인 연동 구현' },
+  { path: '/snippets/66', label: 'useCart, useCartStore 로 장바구니 상품 관리' },
+  { path: '/snippets/67', label: 'Request Memoization 테스트' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

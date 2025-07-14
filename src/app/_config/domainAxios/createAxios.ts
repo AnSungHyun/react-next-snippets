@@ -107,7 +107,7 @@ const request = (axiosInstance: AxiosInstance, domainType: DomainType) => (optio
     params,
     data,
     responseType,
-    adapter,
+    adapter: 'fetch',
     fetchOptions,
     headers: {
       "Content-Type": headersType || dynamic[domainType].default_headers,

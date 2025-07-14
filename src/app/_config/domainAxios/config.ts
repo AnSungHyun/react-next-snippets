@@ -78,10 +78,10 @@ export const dynamic = {
   },
   mock: {
     url: {
-      local: "https://dummyjson.com",
-      dev: "https://dummyjson.com",
-      pro: "https://dummyjson.com",
-      test: "https://dummyjson.com",
+      local: "http://localhost:4000",
+      dev: "http://localhost:4000",
+      pro: "http://localhost:4000",
+      test: "http://localhost:4000",
     },
     proxy: {
       use: false, // 외부 API 요청으로 proxy 처리가 필요 없는 경우 false
