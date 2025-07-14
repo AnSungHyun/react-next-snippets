@@ -70,28 +70,15 @@ const UseAxiosClientComponent: React.FC = () => {
     loading: loadingError,
     error: errorError,
     execute: executeError,
-    RefetchButton: RefetchButtonError,
-  } = useAxios<ProductResponse>(() => getErrorProductsApi(), {
-    button: {
-      // 기본 텍스트
-      text: '에러 요청 새로고침',
-    },
-  });
+  } = useAxios<ProductResponse>(() => getErrorProductsApi());
 
   const {
     data: productResponse,
     loading: loading,
     error: error,
     execute: execute,
-    RefetchButton: RefetchButton,
   } = useAxios<ProductResponse, ProductParams>(
-    (params) => getProductsApiWithParam(params),
-    {
-      button: {
-        text: '정상 요청 새로고침',
-      },
-    },
-  );
+    (params) => getProductsApiWithParam(params));
 
   // 초기 값
   const [reqParam, setReqParam] = useState<ProductRequestParams>({
@@ -167,8 +154,6 @@ const UseAxiosClientComponent: React.FC = () => {
 
   return (
     <div>
-      <RefetchButton />
-      <RefetchButtonError />
       <Divider />
       <Paper sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={2}>
