@@ -102,11 +102,14 @@ export const createAxiosInstance = (type: DomainType): AxiosInstance => {
 const request = (axiosInstance: AxiosInstance, domainType: DomainType) => (option: any) => {
   const { url, method, params, data, headers, headersType, responseType, adapter, fetchOptions } = option;
   const contentType = headers?.['content-type'];
-  let finalAdapter = undefined;
-  if (!contentType || !contentType.includes('multipart/form-data')) {
-    finalAdapter = adapter || 'fetch';
+  // let finalAdapter = undefined;
+  // if (!contentType || !contentType.includes('multipart/form-data')) {
+  //   finalAdapter = adapter || 'fetch';
+  // }
+  let finalAdapter = adapter || 'fetch';
+  if (contentType?.includes('multipart/form-data')) {
+    finalAdapter = undefined;
   }
-
   return axiosInstance({
     url,
     method,

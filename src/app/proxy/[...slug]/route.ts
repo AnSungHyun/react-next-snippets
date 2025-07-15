@@ -101,7 +101,7 @@ const handleRequest = async (
         body = await req.formData();
       } else {
         // JSON 처리
-        body = await req.json().catch(() => (() => undefined ));
+        body = await req.json().catch(() => (body = undefined));
       }
     }
 
