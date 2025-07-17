@@ -77,6 +77,7 @@ const menuItems = [
   { path: '/snippets/65', label: '외부 로그인 연동 구현' },
   { path: '/snippets/66', label: 'useCart, useCartStore 로 장바구니 상품 관리' },
   { path: '/snippets/67', label: 'Request Memoization 테스트' },
+  { path: '/snippets/68', label: 'UserAgent 로 PC, Mobile, APP 검증하기' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
