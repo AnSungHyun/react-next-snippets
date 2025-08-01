@@ -79,6 +79,7 @@ const menuItems = [
   { path: '/snippets/67', label: 'Request Memoization 테스트' },
   { path: '/snippets/68', label: 'UserAgent 로 PC, Mobile, APP 검증하기' },
   { path: '/snippets/69', label: 'Zustand 사용한 SSR 구현하기' },
+  { path: '/snippets/70', label: 'debounce api 요청 후 응답 로그 확인' },
 ];
 
 const LayoutComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {

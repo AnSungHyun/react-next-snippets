@@ -6,6 +6,14 @@ interface Product {
   title: string;
   description: string;
   price: number;
+  tags: string[];
+  reviews: Review[];
+}
+interface Review {
+  rating: number;
+  comment: string;
+  reviewerName: string;
+  reviewerEmail: string;
 }
 
 interface ProductStore {

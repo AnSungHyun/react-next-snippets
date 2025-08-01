@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
 export default function TestClient() {
-  const { products, updateProductTitle } = useProductStore();
+  const { initialized, products, updateProductTitle } = useProductStore();
   const [editingId, setEditingId] = useState<number | null>(null);
   const [newTitle, setNewTitle] = useState('');
 
@@ -28,7 +28,9 @@ export default function TestClient() {
 
   return (
     <div>
-      <h1>상품 목록</h1>
+      <h1>상품 목록</h1>{/*
+      {initialized && <h2>{products[0].tags[0]}</h2>}*/}
+      <h2>{products?.[0]?.reviews?.[0]?.rating}</h2>
       <div>
         {products.map((product) => (
           <div key={product.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ddd' }}>
